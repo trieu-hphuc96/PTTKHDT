@@ -35,6 +35,7 @@ namespace QLNHDN
         private void hoáĐơnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hienMotTab(tabMenu, tabTaoHD);
+            lblTitle.Text = "Tạo hoá đơn";
         }
 
         private void phiếuNhậpKhoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -178,6 +179,16 @@ namespace QLNHDN
         }
 
         private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnThanhToan_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnHuyHD_Click(object sender, EventArgs e)
         {
 
         }

@@ -192,5 +192,13 @@ namespace QLNHDN
         {
 
         }
+
+        private void btnStart_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                menuStripTuyChonBan.Show(btnBan1, 0, 0);
+            }
+        }
     }
 }

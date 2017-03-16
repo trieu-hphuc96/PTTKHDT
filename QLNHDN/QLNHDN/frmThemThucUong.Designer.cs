@@ -33,6 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.imageThemThucUong = new System.Windows.Forms.ImageList(this.components);
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -40,7 +41,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.imageThemThucUong = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,6 +79,13 @@
             this.button2.Text = "Thêm ";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button2.UseVisualStyleBackColor = true;
+            // 
+            // imageThemThucUong
+            // 
+            this.imageThemThucUong.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageThemThucUong.ImageStream")));
+            this.imageThemThucUong.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageThemThucUong.Images.SetKeyName(0, "plus-icon-19.png");
+            this.imageThemThucUong.Images.SetKeyName(1, "search-icon-md.png");
             // 
             // textBox2
             // 
@@ -141,13 +148,6 @@
             this.Column2.Name = "Column2";
             this.Column2.Width = 200;
             // 
-            // imageThemThucUong
-            // 
-            this.imageThemThucUong.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageThemThucUong.ImageStream")));
-            this.imageThemThucUong.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageThemThucUong.Images.SetKeyName(0, "plus-icon-19.png");
-            this.imageThemThucUong.Images.SetKeyName(1, "search-icon-md.png");
-            // 
             // frmThemThucUong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,6 +162,7 @@
             this.Controls.Add(this.lblTimMonAn);
             this.Controls.Add(this.dataGridView1);
             this.Name = "frmThemThucUong";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmThemThucUong";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

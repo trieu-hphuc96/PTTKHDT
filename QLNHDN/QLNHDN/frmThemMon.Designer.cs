@@ -36,11 +36,11 @@
             this.lblTimMonAn = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.imageThemVaoHD = new System.Windows.Forms.ImageList(this.components);
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.imageThemVaoHD = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,6 +97,13 @@
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // imageThemVaoHD
+            // 
+            this.imageThemVaoHD.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageThemVaoHD.ImageStream")));
+            this.imageThemVaoHD.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageThemVaoHD.Images.SetKeyName(0, "plus-icon-19.png");
+            this.imageThemVaoHD.Images.SetKeyName(1, "search-icon-md.png");
+            // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(276, 251);
@@ -141,13 +148,6 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Thêm món ăn";
             // 
-            // imageThemVaoHD
-            // 
-            this.imageThemVaoHD.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageThemVaoHD.ImageStream")));
-            this.imageThemVaoHD.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageThemVaoHD.Images.SetKeyName(0, "plus-icon-19.png");
-            this.imageThemVaoHD.Images.SetKeyName(1, "search-icon-md.png");
-            // 
             // frmThemMon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,6 +162,7 @@
             this.Controls.Add(this.lblTimMonAn);
             this.Controls.Add(this.dataGridView1);
             this.Name = "frmThemMon";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thêm món ăn";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

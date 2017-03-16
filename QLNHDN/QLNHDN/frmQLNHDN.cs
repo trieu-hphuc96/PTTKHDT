@@ -200,5 +200,17 @@ namespace QLNHDN
                 menuStripTuyChonBan.Show(btnBan1, 0, 0);
             }
         }
+
+        private void btn_Ban1_ThemMon_Click(object sender, EventArgs e)
+        {
+            frmThemMon them_mon = new frmThemMon();
+            them_mon.ShowDialog();
+        }
+
+        private void btn_Ban1_ThemThucUong_Click(object sender, EventArgs e)
+        {
+            frmThemThucUong them_thuc_uong = new frmThemThucUong();
+            them_thuc_uong.ShowDialog();
+        }
     }
 }

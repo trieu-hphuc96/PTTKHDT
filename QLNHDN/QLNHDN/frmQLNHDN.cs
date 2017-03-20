@@ -148,36 +148,7 @@ namespace QLNHDN
             hienMotTab(tabTableMenu, tabBan12);
         }
 
-        private void btnBan13_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tabTableMenu, tabBan13);
-        }
-
-        private void btnBan14_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tabTableMenu, tabBan14);
-        }
-
-        private void btnBan15_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tabTableMenu, tabBan15);
-        }
-
-        private void btnBan16_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tabTableMenu, tabBan16);
-        }
-
-        private void btnBan17_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tabTableMenu, tabBan17);
-        }
-
-        private void btnBan18_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tabTableMenu, tabBan18);
-        }
-
+     
         private void groupBox5_Enter(object sender, EventArgs e)
         {
 
@@ -211,6 +182,16 @@ namespace QLNHDN
         {
             frmThemThucUong them_thuc_uong = new frmThemThucUong();
             them_thuc_uong.ShowDialog();
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_Ban1_SoLuong_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

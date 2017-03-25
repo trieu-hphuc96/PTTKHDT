@@ -21,126 +21,127 @@ namespace QLNHDN
         {
             
         }
-        private void hienMotTab(TabControl tab_menu ,TabPage tab, string title)
+        private void hienMotTab(TabControl tab_menu ,TabPage tab)
         {
             //Nguyên tắc DRY (Don't repeat yourself)
             tab_menu.TabPages.Clear();
             tab_menu.TabPages.Add(tab);
-            lblTitle.Text = title;
+            lblTitle.Text = tab.Text;
         }
         private void frmQLNHDN_Load(object sender, EventArgs e)
         {
             tabMenu.TabPages.Clear();
-            hienMotTab(tabTableMenu, tabBan1, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan1);
+            lblTitle.Text = "Trang chủ";
         }
         private void hoáĐơnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTaoHD,"Tính tiền");
+            hienMotTab(tabMenu, tabTinhTien);
         }
 
         private void phiếuNhậpKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTaoPhieuNhap, "Tạo phiếu nhập hàng");
+            hienMotTab(tabMenu, tabTaoPhieuNhap);
         }
 
         private void phiếuKiểmKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTaoPhieuKiemKe, "Tạo phiếu kiểm hàng tồn");
+            hienMotTab(tabMenu, tabTaoPhieuKiemKe);
         }
 
         private void doanhThuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTKDoanhThu, "Thống kê doanh thu");
+            hienMotTab(tabMenu, tabTKDoanhThu);
         }
 
         private void tìnhHìnhNhậpKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTKNhap, "Thống kê nhập hàng");
+            hienMotTab(tabMenu, tabTKNhap);
         }
 
         private void tìnhHìnhXuấtKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTKTon, "Thống kê tồn hàng");
+            hienMotTab(tabMenu, tabTKTon);
         }
 
         private void kháchHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTTKhachHang, "Thông tin khách hàng");
+            hienMotTab(tabMenu, tabTTKhachHang);
         }
 
         private void nhânViênToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTTNhanVien, "Thông tin nhân viên");
+            hienMotTab(tabMenu, tabTTNhanVien);
         }
 
         private void sảnPhẩmToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTTSanPham, "Thông tin sản phẩm");
+            hienMotTab(tabMenu, tabTTSanPham);
         }
 
         private void nguyênLiệuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTTNguyenLieu, "Thông tin nguyên liệu");
+            hienMotTab(tabMenu, tabTTNguyenLieu);
         }
 
         private void btnBan2_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan2, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan2);
         }
 
         private void btnBan1_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan1, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan1 );
         }
 
         private void btnBan3_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan3, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan3 );
         }
 
         private void btnBan4_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan4, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan4 );
         }
 
         private void btnBan5_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan5, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan5 );
         }
 
         private void btnBan6_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan6, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan6 );
         }
 
         private void btnBan7_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan7, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan7 );
         }
 
         private void btnBan8_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan8, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan8 );
         }
 
         private void btnBan9_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan9, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan9 );
         }
 
         private void btnBan10_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan10, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan10 );
         }
 
         private void btnBan11_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan11, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan11 );
         }
 
         private void btnBan12_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan12, "Tính tiền");
+            hienMotTab(tabTableMenu, tabBan12 );
         }
 
      
@@ -187,6 +188,11 @@ namespace QLNHDN
         private void txt_Ban1_SoLuong_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void tồnHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hienMotTab(tabMenu, tabTKTon);
         }
     }
 }

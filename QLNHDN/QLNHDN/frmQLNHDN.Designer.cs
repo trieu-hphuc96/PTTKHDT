@@ -134,6 +134,8 @@
             this.tabMenuTKBH = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.lblXemTKTheo = new System.Windows.Forms.Label();
             this.btnXemDoanhThu = new System.Windows.Forms.Button();
             this.rd_DoanhThu_nam = new System.Windows.Forms.RadioButton();
             this.rd_DoanhThu_quy = new System.Windows.Forms.RadioButton();
@@ -239,8 +241,6 @@
             this.menuStripTuyChonBan = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblXemTKTheo = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.MenuBar.SuspendLayout();
             this.tabMenu.SuspendLayout();
             this.tabTinhTien.SuspendLayout();
@@ -292,7 +292,7 @@
             this.quảnLýThôngTinToolStripMenuItem});
             this.MenuBar.Location = new System.Drawing.Point(0, 0);
             this.MenuBar.Name = "MenuBar";
-            this.MenuBar.Size = new System.Drawing.Size(1354, 24);
+            this.MenuBar.Size = new System.Drawing.Size(1268, 24);
             this.MenuBar.TabIndex = 1;
             this.MenuBar.Text = "menuStrip1";
             this.MenuBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -416,7 +416,7 @@
             this.tabMenu.Location = new System.Drawing.Point(9, 99);
             this.tabMenu.Name = "tabMenu";
             this.tabMenu.SelectedIndex = 0;
-            this.tabMenu.Size = new System.Drawing.Size(1344, 630);
+            this.tabMenu.Size = new System.Drawing.Size(1258, 630);
             this.tabMenu.TabIndex = 2;
             // 
             // tabTinhTien
@@ -430,7 +430,7 @@
             this.tabTinhTien.Location = new System.Drawing.Point(4, 22);
             this.tabTinhTien.Name = "tabTinhTien";
             this.tabTinhTien.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTinhTien.Size = new System.Drawing.Size(1336, 604);
+            this.tabTinhTien.Size = new System.Drawing.Size(1250, 604);
             this.tabTinhTien.TabIndex = 0;
             this.tabTinhTien.Text = "Tính tiền";
             this.tabTinhTien.UseVisualStyleBackColor = true;
@@ -512,7 +512,7 @@
             this.tabTableMenu.Location = new System.Drawing.Point(258, 6);
             this.tabTableMenu.Name = "tabTableMenu";
             this.tabTableMenu.SelectedIndex = 0;
-            this.tabTableMenu.Size = new System.Drawing.Size(1071, 592);
+            this.tabTableMenu.Size = new System.Drawing.Size(985, 592);
             this.tabTableMenu.TabIndex = 30;
             // 
             // tabBan1
@@ -524,7 +524,7 @@
             this.tabBan1.Location = new System.Drawing.Point(4, 22);
             this.tabBan1.Name = "tabBan1";
             this.tabBan1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan1.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan1.Size = new System.Drawing.Size(977, 566);
             this.tabBan1.TabIndex = 0;
             this.tabBan1.Text = "Hoá đơn 1";
             this.tabBan1.UseVisualStyleBackColor = true;
@@ -943,7 +943,7 @@
             this.tabBan2.Location = new System.Drawing.Point(4, 22);
             this.tabBan2.Name = "tabBan2";
             this.tabBan2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan2.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan2.Size = new System.Drawing.Size(977, 566);
             this.tabBan2.TabIndex = 1;
             this.tabBan2.Text = "Hoá đơn 2";
             this.tabBan2.UseVisualStyleBackColor = true;
@@ -953,7 +953,7 @@
             this.tabBan3.Location = new System.Drawing.Point(4, 22);
             this.tabBan3.Name = "tabBan3";
             this.tabBan3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan3.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan3.Size = new System.Drawing.Size(977, 566);
             this.tabBan3.TabIndex = 2;
             this.tabBan3.Text = "Hoá đơn3";
             this.tabBan3.UseVisualStyleBackColor = true;
@@ -963,7 +963,7 @@
             this.tabBan4.Location = new System.Drawing.Point(4, 22);
             this.tabBan4.Name = "tabBan4";
             this.tabBan4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan4.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan4.Size = new System.Drawing.Size(977, 566);
             this.tabBan4.TabIndex = 3;
             this.tabBan4.Text = "Hoá đơn 4";
             this.tabBan4.UseVisualStyleBackColor = true;
@@ -973,7 +973,7 @@
             this.tabBan5.Location = new System.Drawing.Point(4, 22);
             this.tabBan5.Name = "tabBan5";
             this.tabBan5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan5.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan5.Size = new System.Drawing.Size(977, 566);
             this.tabBan5.TabIndex = 4;
             this.tabBan5.Text = "Hoá đơn 5";
             this.tabBan5.UseVisualStyleBackColor = true;
@@ -983,7 +983,7 @@
             this.tabBan6.Location = new System.Drawing.Point(4, 22);
             this.tabBan6.Name = "tabBan6";
             this.tabBan6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan6.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan6.Size = new System.Drawing.Size(977, 566);
             this.tabBan6.TabIndex = 5;
             this.tabBan6.Text = "Hoá đơn 6";
             this.tabBan6.UseVisualStyleBackColor = true;
@@ -993,7 +993,7 @@
             this.tabBan7.Location = new System.Drawing.Point(4, 22);
             this.tabBan7.Name = "tabBan7";
             this.tabBan7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan7.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan7.Size = new System.Drawing.Size(977, 566);
             this.tabBan7.TabIndex = 6;
             this.tabBan7.Text = "Hoá đơn 7";
             this.tabBan7.UseVisualStyleBackColor = true;
@@ -1003,7 +1003,7 @@
             this.tabBan8.Location = new System.Drawing.Point(4, 22);
             this.tabBan8.Name = "tabBan8";
             this.tabBan8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan8.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan8.Size = new System.Drawing.Size(977, 566);
             this.tabBan8.TabIndex = 7;
             this.tabBan8.Text = "Hoá đơn 8";
             this.tabBan8.UseVisualStyleBackColor = true;
@@ -1013,7 +1013,7 @@
             this.tabBan9.Location = new System.Drawing.Point(4, 22);
             this.tabBan9.Name = "tabBan9";
             this.tabBan9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan9.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan9.Size = new System.Drawing.Size(977, 566);
             this.tabBan9.TabIndex = 8;
             this.tabBan9.Text = "Hoá đơn 9";
             this.tabBan9.UseVisualStyleBackColor = true;
@@ -1023,7 +1023,7 @@
             this.tabBan10.Location = new System.Drawing.Point(4, 22);
             this.tabBan10.Name = "tabBan10";
             this.tabBan10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan10.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan10.Size = new System.Drawing.Size(977, 566);
             this.tabBan10.TabIndex = 9;
             this.tabBan10.Text = "Hoá đơn 10";
             this.tabBan10.UseVisualStyleBackColor = true;
@@ -1033,7 +1033,7 @@
             this.tabBan11.Location = new System.Drawing.Point(4, 22);
             this.tabBan11.Name = "tabBan11";
             this.tabBan11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan11.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan11.Size = new System.Drawing.Size(977, 566);
             this.tabBan11.TabIndex = 10;
             this.tabBan11.Text = "Hoá đơn 11";
             this.tabBan11.UseVisualStyleBackColor = true;
@@ -1043,7 +1043,7 @@
             this.tabBan12.Location = new System.Drawing.Point(4, 22);
             this.tabBan12.Name = "tabBan12";
             this.tabBan12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBan12.Size = new System.Drawing.Size(1063, 566);
+            this.tabBan12.Size = new System.Drawing.Size(977, 566);
             this.tabBan12.TabIndex = 11;
             this.tabBan12.Text = "Hoá đơn 12";
             this.tabBan12.UseVisualStyleBackColor = true;
@@ -1314,7 +1314,7 @@
             this.tabTaoPhieuNhap.Location = new System.Drawing.Point(4, 22);
             this.tabTaoPhieuNhap.Name = "tabTaoPhieuNhap";
             this.tabTaoPhieuNhap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTaoPhieuNhap.Size = new System.Drawing.Size(1336, 604);
+            this.tabTaoPhieuNhap.Size = new System.Drawing.Size(1250, 604);
             this.tabTaoPhieuNhap.TabIndex = 1;
             this.tabTaoPhieuNhap.Text = "Tạo phiếu nhập hàng";
             this.tabTaoPhieuNhap.UseVisualStyleBackColor = true;
@@ -1324,7 +1324,7 @@
             this.tabTaoPhieuKiemKe.Location = new System.Drawing.Point(4, 22);
             this.tabTaoPhieuKiemKe.Name = "tabTaoPhieuKiemKe";
             this.tabTaoPhieuKiemKe.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTaoPhieuKiemKe.Size = new System.Drawing.Size(1336, 604);
+            this.tabTaoPhieuKiemKe.Size = new System.Drawing.Size(1250, 604);
             this.tabTaoPhieuKiemKe.TabIndex = 3;
             this.tabTaoPhieuKiemKe.Text = "Tạo phiếu kiểm tra hàng tồn";
             this.tabTaoPhieuKiemKe.UseVisualStyleBackColor = true;
@@ -1335,7 +1335,7 @@
             this.tabTKDoanhThu.Location = new System.Drawing.Point(4, 22);
             this.tabTKDoanhThu.Name = "tabTKDoanhThu";
             this.tabTKDoanhThu.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTKDoanhThu.Size = new System.Drawing.Size(1336, 604);
+            this.tabTKDoanhThu.Size = new System.Drawing.Size(1250, 604);
             this.tabTKDoanhThu.TabIndex = 4;
             this.tabTKDoanhThu.Text = "Thống kê doanh thu";
             this.tabTKDoanhThu.UseVisualStyleBackColor = true;
@@ -1385,6 +1385,26 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Chọn thời gian";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "hoá đơn",
+            "sản phẩm bán được"});
+            this.comboBox4.Location = new System.Drawing.Point(137, 168);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(193, 24);
+            this.comboBox4.TabIndex = 11;
+            // 
+            // lblXemTKTheo
+            // 
+            this.lblXemTKTheo.AutoSize = true;
+            this.lblXemTKTheo.Location = new System.Drawing.Point(50, 171);
+            this.lblXemTKTheo.Name = "lblXemTKTheo";
+            this.lblXemTKTheo.Size = new System.Drawing.Size(72, 17);
+            this.lblXemTKTheo.TabIndex = 10;
+            this.lblXemTKTheo.Text = "Xem theo:";
             // 
             // btnXemDoanhThu
             // 
@@ -1635,7 +1655,7 @@
             this.tabTKNhap.Location = new System.Drawing.Point(4, 22);
             this.tabTKNhap.Name = "tabTKNhap";
             this.tabTKNhap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTKNhap.Size = new System.Drawing.Size(1336, 604);
+            this.tabTKNhap.Size = new System.Drawing.Size(1250, 604);
             this.tabTKNhap.TabIndex = 5;
             this.tabTKNhap.Text = "Kiểm tra tình hình nhập hàng";
             this.tabTKNhap.UseVisualStyleBackColor = true;
@@ -1645,7 +1665,7 @@
             this.tabTKTon.Location = new System.Drawing.Point(4, 22);
             this.tabTKTon.Name = "tabTKTon";
             this.tabTKTon.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTKTon.Size = new System.Drawing.Size(1336, 604);
+            this.tabTKTon.Size = new System.Drawing.Size(1250, 604);
             this.tabTKTon.TabIndex = 6;
             this.tabTKTon.Text = "Kiểm tra tình hình tồn hàng";
             this.tabTKTon.UseVisualStyleBackColor = true;
@@ -1658,7 +1678,7 @@
             this.tabTTKhachHang.Location = new System.Drawing.Point(4, 22);
             this.tabTTKhachHang.Name = "tabTTKhachHang";
             this.tabTTKhachHang.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTTKhachHang.Size = new System.Drawing.Size(1336, 604);
+            this.tabTTKhachHang.Size = new System.Drawing.Size(1250, 604);
             this.tabTTKhachHang.TabIndex = 7;
             this.tabTTKhachHang.Text = "Thông tin khách hàng";
             this.tabTTKhachHang.UseVisualStyleBackColor = true;
@@ -2019,7 +2039,7 @@
             this.tabTTNhanVien.Location = new System.Drawing.Point(4, 22);
             this.tabTTNhanVien.Name = "tabTTNhanVien";
             this.tabTTNhanVien.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTTNhanVien.Size = new System.Drawing.Size(1336, 604);
+            this.tabTTNhanVien.Size = new System.Drawing.Size(1250, 604);
             this.tabTTNhanVien.TabIndex = 8;
             this.tabTTNhanVien.Text = "Thông tin nhân viên";
             this.tabTTNhanVien.UseVisualStyleBackColor = true;
@@ -2387,7 +2407,7 @@
             this.tabTTSanPham.Location = new System.Drawing.Point(4, 22);
             this.tabTTSanPham.Name = "tabTTSanPham";
             this.tabTTSanPham.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTTSanPham.Size = new System.Drawing.Size(1336, 604);
+            this.tabTTSanPham.Size = new System.Drawing.Size(1250, 604);
             this.tabTTSanPham.TabIndex = 9;
             this.tabTTSanPham.Text = "Thông tin sản phẩm";
             this.tabTTSanPham.UseVisualStyleBackColor = true;
@@ -2397,7 +2417,7 @@
             this.tabTTNguyenLieu.Location = new System.Drawing.Point(4, 22);
             this.tabTTNguyenLieu.Name = "tabTTNguyenLieu";
             this.tabTTNguyenLieu.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTTNguyenLieu.Size = new System.Drawing.Size(1336, 604);
+            this.tabTTNguyenLieu.Size = new System.Drawing.Size(1250, 604);
             this.tabTTNguyenLieu.TabIndex = 10;
             this.tabTTNguyenLieu.Text = "Thông tin nguyên liệu";
             this.tabTTNguyenLieu.UseVisualStyleBackColor = true;
@@ -2432,7 +2452,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(1117, 27);
+            this.groupBox1.Location = new System.Drawing.Point(1031, 27);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(232, 66);
             this.groupBox1.TabIndex = 0;
@@ -2511,31 +2531,11 @@
             this.toolStripMenuItem2.Size = new System.Drawing.Size(141, 22);
             this.toolStripMenuItem2.Text = "Huỷ bàn";
             // 
-            // lblXemTKTheo
-            // 
-            this.lblXemTKTheo.AutoSize = true;
-            this.lblXemTKTheo.Location = new System.Drawing.Point(50, 171);
-            this.lblXemTKTheo.Name = "lblXemTKTheo";
-            this.lblXemTKTheo.Size = new System.Drawing.Size(72, 17);
-            this.lblXemTKTheo.TabIndex = 10;
-            this.lblXemTKTheo.Text = "Xem theo:";
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "hoá đơn",
-            "sản phẩm bán được"});
-            this.comboBox4.Location = new System.Drawing.Point(137, 168);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(193, 24);
-            this.comboBox4.TabIndex = 11;
-            // 
             // frmQLNHDN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1354, 733);
+            this.ClientSize = new System.Drawing.Size(1268, 733);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabMenu);

@@ -1858,7 +1858,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": -576,
+											"left": -528,
 											"top": 0,
 											"width": 0,
 											"height": 15,
@@ -1883,13 +1883,13 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 388,
+											"left": 404,
 											"top": 294,
-											"width": 214,
+											"width": 175,
 											"height": 15,
 											"autoResize": false,
 											"underline": false,
-											"text": "Tạo phiếu kiểm kiểm hàng tồn",
+											"text": "Tạo phiếu kiểm hàng tồn",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1909,7 +1909,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": -576,
+											"left": -528,
 											"top": 0,
 											"width": 167.5341796875,
 											"height": 15,
@@ -1935,7 +1935,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": -576,
+											"left": -528,
 											"top": 0,
 											"width": 0,
 											"height": 15,
@@ -1955,9 +1955,9 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 383,
+									"left": 399,
 									"top": 287,
-									"width": 225.03173828125,
+									"width": 186.6748046875,
 									"height": 27,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -1991,7 +1991,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": -288,
+									"left": -264,
 									"top": 0,
 									"width": 10,
 									"height": 10,
@@ -2015,7 +2015,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": -288,
+									"left": -264,
 									"top": 0,
 									"width": 10,
 									"height": 10,
@@ -2039,7 +2039,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": -288,
+									"left": -264,
 									"top": 0,
 									"width": 10,
 									"height": 10,
@@ -2063,7 +2063,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": -288,
+									"left": -264,
 									"top": 0,
 									"width": 10,
 									"height": 10,
@@ -2087,7 +2087,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": -288,
+									"left": -264,
 									"top": 0,
 									"width": 10,
 									"height": 10,
@@ -2103,9 +2103,9 @@
 							"showShadow": true,
 							"containerChangeable": true,
 							"containerExtending": false,
-							"left": 336,
+							"left": 360,
 							"top": 280,
-							"width": 318,
+							"width": 263,
 							"height": 42,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
@@ -2791,7 +2791,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 308,
+									"left": 332,
 									"top": 282,
 									"width": 0,
 									"height": 13,
@@ -2825,7 +2825,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 306,
+									"left": 330,
 									"top": 269,
 									"width": 0,
 									"height": 13,
@@ -2859,7 +2859,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 313,
+									"left": 337,
 									"top": 309,
 									"width": 0,
 									"height": 13,
@@ -2940,7 +2940,7 @@
 								"$ref": "AAAAAAFaR08DNaVg7TM="
 							},
 							"lineStyle": 1,
-							"points": "242:285;288:304;335:303",
+							"points": "242:285;288:304;359:303",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -9766,7 +9766,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFaR06RwKU/nPg="
 					},
-					"name": "Tạo phiếu kiểm kiểm hàng tồn",
+					"name": "Tạo phiếu kiểm hàng tồn",
 					"visibility": "public",
 					"isAbstract": false,
 					"isFinalSpecialization": false,
@@ -25014,6 +25014,41 @@
 				},
 				{
 					"_type": "UMLActivityPartition",
+					"_id": "AAAAAAFbBcytLJ+szB8=",
+					"_parent": {
+						"$ref": "AAAAAAFbAN85LIzG6U0="
+					},
+					"name": "CSDL",
+					"visibility": "public",
+					"nodes": [
+						{
+							"_type": "UMLAction",
+							"_id": "AAAAAAFbBJChvNZBxvI=",
+							"_parent": {
+								"$ref": "AAAAAAFbBcytLJ+szB8="
+							},
+							"name": "Lưu hoá đơn",
+							"visibility": "public",
+							"kind": "opaque",
+							"isLocallyReentrant": false,
+							"isSynchronous": true
+						},
+						{
+							"_type": "UMLAction",
+							"_id": "AAAAAAFbBJECUNZcu9s=",
+							"_parent": {
+								"$ref": "AAAAAAFbBcytLJ+szB8="
+							},
+							"name": "Lưu hoá đơn và đánh dấu \"Huỷ\"",
+							"visibility": "public",
+							"kind": "opaque",
+							"isLocallyReentrant": false,
+							"isSynchronous": true
+						}
+					]
+				},
+				{
+					"_type": "UMLActivityPartition",
 					"_id": "AAAAAAFbBclWS5+amxg=",
 					"_parent": {
 						"$ref": "AAAAAAFbAN85LIzG6U0="
@@ -25047,41 +25082,6 @@
 							},
 							"name": "DecisionNode5",
 							"visibility": "public"
-						}
-					]
-				},
-				{
-					"_type": "UMLActivityPartition",
-					"_id": "AAAAAAFbBcytLJ+szB8=",
-					"_parent": {
-						"$ref": "AAAAAAFbAN85LIzG6U0="
-					},
-					"name": "CSDL",
-					"visibility": "public",
-					"nodes": [
-						{
-							"_type": "UMLAction",
-							"_id": "AAAAAAFbBJChvNZBxvI=",
-							"_parent": {
-								"$ref": "AAAAAAFbBcytLJ+szB8="
-							},
-							"name": "Lưu hoá đơn",
-							"visibility": "public",
-							"kind": "opaque",
-							"isLocallyReentrant": false,
-							"isSynchronous": true
-						},
-						{
-							"_type": "UMLAction",
-							"_id": "AAAAAAFbBJECUNZcu9s=",
-							"_parent": {
-								"$ref": "AAAAAAFbBcytLJ+szB8="
-							},
-							"name": "Lưu hoá đơn và đánh dấu \"Huỷ\"",
-							"visibility": "public",
-							"kind": "opaque",
-							"isLocallyReentrant": false,
-							"isSynchronous": true
 						}
 					]
 				},
@@ -28635,7 +28635,7 @@
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": ":Hoá đơn",
+													"text": ":Xử lý",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -29171,8 +29171,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 183,
-											"top": 176,
+											"left": 101,
+											"top": 168,
 											"width": 185.59912109375,
 											"height": 13,
 											"autoResize": false,
@@ -29206,8 +29206,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 161,
+											"left": 193,
+											"top": 153,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -29240,8 +29240,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 196,
+											"left": 193,
+											"top": 188,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -29274,10 +29274,10 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 453,
-											"top": 192,
+											"left": 289,
+											"top": 184,
 											"width": 14,
-											"height": 29,
+											"height": 265,
 											"autoResize": false
 										}
 									],
@@ -29291,13 +29291,13 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"head": {
-										"$ref": "AAAAAAFbEFezovXtcjY="
+										"$ref": "AAAAAAFbEFeINPXNqro="
 									},
 									"tail": {
 										"$ref": "AAAAAAFbEFdHxvWs11Y="
 									},
 									"lineStyle": 0,
-									"points": "98:192;453:192",
+									"points": "98:184;289:184",
 									"nameLabel": {
 										"$ref": "AAAAAAFbEF1aefa+d94="
 									},
@@ -29341,8 +29341,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 226,
-											"top": 232,
+											"left": 328,
+											"top": 184,
 											"width": 98.26806640625,
 											"height": 13,
 											"autoResize": false,
@@ -29376,8 +29376,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 217,
+											"left": 377,
+											"top": 169,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -29410,8 +29410,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 252,
+											"left": 377,
+											"top": 204,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -29445,7 +29445,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 453,
-											"top": 248,
+											"top": 200,
 											"width": 14,
 											"height": 29,
 											"autoResize": false
@@ -29464,10 +29464,10 @@
 										"$ref": "AAAAAAFbEFezovXtcjY="
 									},
 									"tail": {
-										"$ref": "AAAAAAFbEFdHxvWs11Y="
+										"$ref": "AAAAAAFbEFeINPXNqro="
 									},
 									"lineStyle": 0,
-									"points": "98:248;453:248",
+									"points": "302:200;453:200",
 									"nameLabel": {
 										"$ref": "AAAAAAFbEGdfr/jkBcA="
 									},
@@ -29511,8 +29511,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 219,
-											"top": 272,
+											"left": 321,
+											"top": 224,
 											"width": 113.4833984375,
 											"height": 13,
 											"autoResize": false,
@@ -29546,8 +29546,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 257,
+											"left": 377,
+											"top": 209,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -29580,8 +29580,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 292,
+											"left": 377,
+											"top": 244,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -29615,7 +29615,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 453,
-											"top": 288,
+											"top": 240,
 											"width": 14,
 											"height": 29,
 											"autoResize": false
@@ -29634,10 +29634,10 @@
 										"$ref": "AAAAAAFbEFezovXtcjY="
 									},
 									"tail": {
-										"$ref": "AAAAAAFbEFdHxvWs11Y="
+										"$ref": "AAAAAAFbEFeINPXNqro="
 									},
 									"lineStyle": 0,
-									"points": "98:288;453:288",
+									"points": "302:240;453:240",
 									"nameLabel": {
 										"$ref": "AAAAAAFbEGd85/j6KHA="
 									},
@@ -29681,8 +29681,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 205,
-											"top": 312,
+											"left": 307,
+											"top": 272,
 											"width": 141.64794921875,
 											"height": 13,
 											"autoResize": false,
@@ -29716,8 +29716,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 297,
+											"left": 377,
+											"top": 257,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -29750,8 +29750,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 332,
+											"left": 377,
+											"top": 292,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -29785,7 +29785,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 453,
-											"top": 328,
+											"top": 288,
 											"width": 14,
 											"height": 29,
 											"autoResize": false
@@ -29804,10 +29804,10 @@
 										"$ref": "AAAAAAFbEFezovXtcjY="
 									},
 									"tail": {
-										"$ref": "AAAAAAFbEFdHxvWs11Y="
+										"$ref": "AAAAAAFbEFeINPXNqro="
 									},
 									"lineStyle": 0,
-									"points": "98:328;453:328",
+									"points": "302:288;453:288",
 									"nameLabel": {
 										"$ref": "AAAAAAFbEGezn/kR/jg="
 									},
@@ -29851,8 +29851,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 204,
-											"top": 351,
+											"left": 306,
+											"top": 320,
 											"width": 142,
 											"height": 13,
 											"autoResize": false,
@@ -29886,8 +29886,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 336,
+											"left": 377,
+											"top": 305,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -29920,8 +29920,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 371,
+											"left": 377,
+											"top": 340,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -29955,7 +29955,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 453,
-											"top": 367,
+											"top": 336,
 											"width": 14,
 											"height": 29,
 											"autoResize": false
@@ -29974,10 +29974,10 @@
 										"$ref": "AAAAAAFbEFezovXtcjY="
 									},
 									"tail": {
-										"$ref": "AAAAAAFbEFdHxvWs11Y="
+										"$ref": "AAAAAAFbEFeINPXNqro="
 									},
 									"lineStyle": 0,
-									"points": "98:367;453:367",
+									"points": "302:336;453:336",
 									"nameLabel": {
 										"$ref": "AAAAAAFbEGf1/vknR3g="
 									},
@@ -30021,8 +30021,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 211,
-											"top": 387,
+											"left": 313,
+											"top": 368,
 											"width": 129.974609375,
 											"height": 13,
 											"autoResize": false,
@@ -30056,8 +30056,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 372,
+											"left": 377,
+											"top": 353,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -30090,8 +30090,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 407,
+											"left": 377,
+											"top": 388,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -30125,7 +30125,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 453,
-											"top": 403,
+											"top": 384,
 											"width": 14,
 											"height": 29,
 											"autoResize": false
@@ -30144,10 +30144,10 @@
 										"$ref": "AAAAAAFbEFezovXtcjY="
 									},
 									"tail": {
-										"$ref": "AAAAAAFbEFdHxvWs11Y="
+										"$ref": "AAAAAAFbEFeINPXNqro="
 									},
 									"lineStyle": 0,
-									"points": "98:403;453:403",
+									"points": "302:384;453:384",
 									"nameLabel": {
 										"$ref": "AAAAAAFbEGgsSvk96N0="
 									},
@@ -30191,13 +30191,13 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 235,
-											"top": 424,
+											"left": 327,
+											"top": 407,
 											"width": 80.8056640625,
 											"height": 13,
 											"autoResize": false,
-											"alpha": 1.5707963267948966,
-											"distance": 10,
+											"alpha": -3.9269913169874915,
+											"distance": 14.142135623730951,
 											"hostEdge": {
 												"$ref": "AAAAAAFbEGhiv/lS9i8="
 											},
@@ -30226,8 +30226,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 409,
+											"left": 377,
+											"top": 393,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -30260,8 +30260,8 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 275,
-											"top": 444,
+											"left": 377,
+											"top": 428,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -30295,7 +30295,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 453,
-											"top": 440,
+											"top": 424,
 											"width": 14,
 											"height": 29,
 											"autoResize": false
@@ -30314,10 +30314,10 @@
 										"$ref": "AAAAAAFbEFezovXtcjY="
 									},
 									"tail": {
-										"$ref": "AAAAAAFbEFdHxvWs11Y="
+										"$ref": "AAAAAAFbEFeINPXNqro="
 									},
 									"lineStyle": 0,
-									"points": "98:440;453:440",
+									"points": "302:424;453:424",
 									"nameLabel": {
 										"$ref": "AAAAAAFbEGhiv/lTXWY="
 									},
@@ -30361,9 +30361,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 229,
+											"left": 226,
 											"top": 471,
-											"width": 85.2744140625,
+											"width": 91.06982421875,
 											"height": 13,
 											"autoResize": false,
 											"alpha": -4.331883465341588,
@@ -31900,7 +31900,7 @@
 								"$ref": "AAAAAAFbEFdHxfWlvpE="
 							},
 							"target": {
-								"$ref": "AAAAAAFbEFezovXm2Jc="
+								"$ref": "AAAAAAFbEFeIM/XG6MQ="
 							},
 							"visibility": "public",
 							"messageSort": "synchCall",
@@ -31914,7 +31914,7 @@
 							},
 							"name": "Thêm món ăn",
 							"source": {
-								"$ref": "AAAAAAFbEFdHxfWlvpE="
+								"$ref": "AAAAAAFbEFeIM/XG6MQ="
 							},
 							"target": {
 								"$ref": "AAAAAAFbEFezovXm2Jc="
@@ -31931,7 +31931,7 @@
 							},
 							"name": "Thêm thức uống",
 							"source": {
-								"$ref": "AAAAAAFbEFdHxfWlvpE="
+								"$ref": "AAAAAAFbEFeIM/XG6MQ="
 							},
 							"target": {
 								"$ref": "AAAAAAFbEFezovXm2Jc="
@@ -31948,7 +31948,7 @@
 							},
 							"name": "Nhập mã khách hàng",
 							"source": {
-								"$ref": "AAAAAAFbEFdHxfWlvpE="
+								"$ref": "AAAAAAFbEFeIM/XG6MQ="
 							},
 							"target": {
 								"$ref": "AAAAAAFbEFezovXm2Jc="
@@ -31965,7 +31965,7 @@
 							},
 							"name": "Chọn tên NV phục vụ",
 							"source": {
-								"$ref": "AAAAAAFbEFdHxfWlvpE="
+								"$ref": "AAAAAAFbEFeIM/XG6MQ="
 							},
 							"target": {
 								"$ref": "AAAAAAFbEFezovXm2Jc="
@@ -31982,7 +31982,7 @@
 							},
 							"name": "Chỉnh sửa hoá đơn",
 							"source": {
-								"$ref": "AAAAAAFbEFdHxfWlvpE="
+								"$ref": "AAAAAAFbEFeIM/XG6MQ="
 							},
 							"target": {
 								"$ref": "AAAAAAFbEFezovXm2Jc="
@@ -31999,7 +31999,7 @@
 							},
 							"name": "In hoá đơn",
 							"source": {
-								"$ref": "AAAAAAFbEFdHxfWlvpE="
+								"$ref": "AAAAAAFbEFeIM/XG6MQ="
 							},
 							"target": {
 								"$ref": "AAAAAAFbEFezovXm2Jc="
@@ -32195,7 +32195,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFbC832GTiy0Zk="
 							},
-							"name": ":Hoá đơn",
+							"name": ":Xử lý",
 							"visibility": "public",
 							"represent": {
 								"$ref": "AAAAAAFbEFezofXl0aA="
@@ -33495,9 +33495,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 230,
+											"left": 229,
 											"top": 183,
-											"width": 95.98291015625,
+											"width": 96,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -33835,9 +33835,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 331,
+											"left": 330,
 											"top": 255,
-											"width": 97.58251953125,
+											"width": 98,
 											"height": 13,
 											"autoResize": false,
 											"alpha": -4.514994382073455,
@@ -34347,7 +34347,7 @@
 											"containerExtending": false,
 											"left": 306,
 											"top": 350,
-											"width": 148.16064453125,
+											"width": 149,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -34517,7 +34517,7 @@
 											"containerExtending": false,
 											"left": 486,
 											"top": 384,
-											"width": 134.43701171875,
+											"width": 135,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.190289018648037,
@@ -34687,7 +34687,7 @@
 											"containerExtending": false,
 											"left": 263,
 											"top": 399,
-											"width": 192.26416015625,
+											"width": 193,
 											"height": 13,
 											"autoResize": false,
 											"alpha": -0.36717396268424185,
@@ -35025,9 +35025,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 326,
+											"left": 325,
 											"top": 478,
-											"width": 104.8125,
+											"width": 106,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -35195,9 +35195,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 468,
+											"left": 467,
 											"top": 497,
-											"width": 169.85693359375,
+											"width": 170,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -35365,9 +35365,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 502,
+											"left": 501,
 											"top": 545,
-											"width": 105.52978515625,
+											"width": 106,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -35535,9 +35535,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 303,
+											"left": 302,
 											"top": 564,
-											"width": 155.390625,
+											"width": 157,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -35705,9 +35705,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 452,
+											"left": 451,
 											"top": 595,
-											"width": 122.13525390625,
+											"width": 124,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -35875,9 +35875,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 307,
+											"left": 305,
 											"top": 633,
-											"width": 155.390625,
+											"width": 158,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -36464,6 +36464,7 @@
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
+					"type": "",
 					"isReadOnly": false,
 					"isOrdered": false,
 					"isUnique": false,
@@ -36481,6 +36482,7 @@
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
+					"type": "",
 					"isReadOnly": false,
 					"isOrdered": false,
 					"isUnique": false,
@@ -36498,6 +36500,7 @@
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
+					"type": "",
 					"isReadOnly": false,
 					"isOrdered": false,
 					"isUnique": false,
@@ -36515,6 +36518,7 @@
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
+					"type": "",
 					"isReadOnly": false,
 					"isOrdered": false,
 					"isUnique": false,

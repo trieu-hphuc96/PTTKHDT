@@ -16,5 +16,10 @@ namespace QLNHDN
         {
             InitializeComponent();
         }
+
+        private void frmThemMon_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

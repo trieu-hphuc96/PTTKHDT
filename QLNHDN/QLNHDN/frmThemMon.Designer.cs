@@ -164,6 +164,7 @@
             this.Name = "frmThemMon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thêm món ăn";
+            this.Load += new System.EventHandler(this.frmThemMon_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

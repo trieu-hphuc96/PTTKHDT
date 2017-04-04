@@ -31,7 +31,7 @@ namespace QLNHDN
         private void frmQLNHDN_Load(object sender, EventArgs e)
         {
             tabMenu.TabPages.Clear();
-            hienMotTab(tabTableMenu, tabHD1);
+            hienMotTab(tablistBill, tabHD1);
             lblTitle.Text = "Trang chủ";
         }
         private void hoáĐơnToolStripMenuItem_Click(object sender, EventArgs e)
@@ -86,62 +86,62 @@ namespace QLNHDN
 
         private void btnBan2_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD2);
+            hienMotTab(tablistBill, tabHD2);
         }
 
         private void btnBan1_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD1 );
+            hienMotTab(tablistBill, tabHD1 );
         }
 
         private void btnBan3_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD3 );
+            hienMotTab(tablistBill, tabHD3 );
         }
 
         private void btnBan4_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD4 );
+            hienMotTab(tablistBill, tabHD4 );
         }
 
         private void btnBan5_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD5 );
+            hienMotTab(tablistBill, tabHD5 );
         }
 
         private void btnBan6_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD6 );
+            hienMotTab(tablistBill, tabHD6 );
         }
 
         private void btnBan7_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD7 );
+            hienMotTab(tablistBill, tabHD7 );
         }
 
         private void btnBan8_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD8 );
+            hienMotTab(tablistBill, tabHD8 );
         }
 
         private void btnBan9_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD9 );
+            hienMotTab(tablistBill, tabHD9 );
         }
 
         private void btnBan10_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD10 );
+            hienMotTab(tablistBill, tabHD10 );
         }
 
         private void btnBan11_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD11 );
+            hienMotTab(tablistBill, tabHD11 );
         }
 
         private void btnBan12_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD12 );
+            hienMotTab(tablistBill, tabHD12 );
         }
 
      
@@ -162,10 +162,10 @@ namespace QLNHDN
 
         private void btnStart_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right)
-            {
-                menuStripTuyChonBan.Show(btnHD1, 0, 0);
-            }
+            //if(e.Button == MouseButtons.Right)
+            //{
+            //    menuStripTuyChonBan.Show(btnHD1, 0, 0);
+            //}
         }
 
         private void btn_Ban1_ThemMon_Click(object sender, EventArgs e)
@@ -197,60 +197,139 @@ namespace QLNHDN
 
         private void btnHD2_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD2);
+            hienMotTab(tablistBill, tabHD2);
         }
 
         private void btnHD3_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD3);
+            hienMotTab(tablistBill, tabHD3);
         }
 
         private void btnHD4_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD4);
+            hienMotTab(tablistBill, tabHD4);
         }
 
         private void btnHD5_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD5);
+            hienMotTab(tablistBill, tabHD5);
         }
 
         private void btnHD6_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD6);
+            hienMotTab(tablistBill, tabHD6);
         }
 
         private void btnHD7_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD7);
+            hienMotTab(tablistBill, tabHD7);
         }
 
         private void btnHD8_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD8);
+            hienMotTab(tablistBill, tabHD8);
         }
 
         private void btnHD9_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD9);
+            hienMotTab(tablistBill, tabHD9);
         }
 
         private void btnHD10_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD10);
+            hienMotTab(tablistBill, tabHD10);
         }
 
         private void btnHD11_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD11);
+            hienMotTab(tablistBill, tabHD11);
         }
 
         private void btnHD12_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabHD12);
+            hienMotTab(tablistBill, tabHD12);
         }
 
         private void label50_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void contextBillStatus_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if(e.ClickedItem == itemStartBilling)
+            {
+                grpBill1.Visible = true;
+                ContextMenuStrip menu = (ContextMenuStrip)sender;
+                Console.WriteLine(menu.TopLevelControl.ToString());
+            }
+        }
+
+        void showBill(GroupBox grpBill)
+        {
+            grpBill.Visible = true;
+        }
+        private void btnStart_Bill1_Click(object sender, EventArgs e)
+        {
+            showBill(grpBill1);
+        }
+
+        private void btnStart_Bill2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Bill3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Bill4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Bill5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Bill6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Bill7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Bill8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Bill9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Bill10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Bill11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Bill12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFoodSearching_Click(object sender, EventArgs e)
         {
 
         }

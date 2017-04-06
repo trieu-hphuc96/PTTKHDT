@@ -214,7 +214,10 @@ namespace QLNHDN
         {
             hienMotTab(tabMenu, tabTKTon);
         }
-
+        private void btnBill1_Click(object sender, EventArgs e)
+        {
+            hienMotTab(tablistBill, tabHD1);
+        }
         private void btnHD2_Click(object sender, EventArgs e)
         {
             hienMotTab(tablistBill, tabHD2);

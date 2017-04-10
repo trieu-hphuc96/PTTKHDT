@@ -215,11 +215,6 @@ namespace QLNHDN
         {
 
         }
-
-        private void tồnHàngToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tabMenu, tabTKTon);
-        }
         private void btnBill1_Click(object sender, EventArgs e)
         {
             hienMotTab(tablistBill, tabBill1);
@@ -390,7 +385,6 @@ namespace QLNHDN
             switch(current_tab_name)
             {
                 case "tabBill1": return gridBillDetail_Bill1;
-                case "tabBill2": return gridBillDetail_Bill2;
             }
             return null;
         }

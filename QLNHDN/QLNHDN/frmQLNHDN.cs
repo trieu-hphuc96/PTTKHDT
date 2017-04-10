@@ -57,9 +57,9 @@ namespace QLNHDN
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            
+
         }
-        private void hienMotTab(TabControl tab_menu ,TabPage tab)
+        private void hienMotTab(TabControl tab_menu, TabPage tab)
         {
             //Nguyên tắc DRY (Don't repeat yourself)
             tab_menu.TabPages.Clear();
@@ -130,60 +130,60 @@ namespace QLNHDN
 
         private void btnBan1_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan1 );
+            hienMotTab(tabTableMenu, tabBan1);
         }
 
         private void btnBan3_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan3 );
+            hienMotTab(tabTableMenu, tabBan3);
         }
 
         private void btnBan4_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan4 );
+            hienMotTab(tabTableMenu, tabBan4);
         }
 
         private void btnBan5_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan5 );
+            hienMotTab(tabTableMenu, tabBan5);
         }
 
         private void btnBan6_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan6 );
+            hienMotTab(tabTableMenu, tabBan6);
         }
 
         private void btnBan7_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan7 );
+            hienMotTab(tabTableMenu, tabBan7);
         }
 
         private void btnBan8_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan8 );
+            hienMotTab(tabTableMenu, tabBan8);
         }
 
         private void btnBan9_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan9 );
+            hienMotTab(tabTableMenu, tabBan9);
         }
 
         private void btnBan10_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan10 );
+            hienMotTab(tabTableMenu, tabBan10);
         }
 
         private void btnBan11_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan11 );
+            hienMotTab(tabTableMenu, tabBan11);
         }
 
         private void btnBan12_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabTableMenu, tabBan12 );
+            hienMotTab(tabTableMenu, tabBan12);
         }
 
-     
+
         private void groupBox5_Enter(object sender, EventArgs e)
         {
 
@@ -201,7 +201,7 @@ namespace QLNHDN
 
         private void btnStart_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 menuStripTuyChonBan.Show(btnBan1, 0, 0);
             }
@@ -317,7 +317,7 @@ namespace QLNHDN
 
         private void btnTaoPhieu_TPKH_Click(object sender, EventArgs e)
         {
-            if(dgvThongTinPhieu_TPKH.Rows.Count == 0)
+            if (dgvThongTinPhieu_TPKH.Rows.Count == 0)
             {
                 MessageBox.Show("Vui lòng nhập nguyên liệu trước khi tạo phiếu!", "Cảnh báo!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -347,12 +347,12 @@ namespace QLNHDN
                 {
                     btnLamLai_TPKH.PerformClick();
                 }
-            }            
+            }
         }
 
         private void txtSLTon_TPKH_Enter(object sender, EventArgs e)
         {
-            if(txtSLTon_TPKH.Text == "0")
+            if (txtSLTon_TPKH.Text == "0")
             {
                 txtSLTon_TPKH.Text = "";
             }
@@ -380,12 +380,12 @@ namespace QLNHDN
             //    Graphics g = e.Graphics;
             //    int variance = 3;
             //    g.DrawRectangle(p, new Rectangle(location1.X - variance, location1.Y - variance, txtSLTon_TPKH.Width + variance, txtSLTon_TPKH.Height + variance));
-                
+
         }
 
         private void txtSLTon_TPKH_Leave(object sender, EventArgs e)
         {
-            if(txtSLTon_TPKH.Text == "")
+            if (txtSLTon_TPKH.Text == "")
             {
                 txtSLTon_TPKH.Text = "0";
             }
@@ -497,6 +497,6 @@ namespace QLNHDN
                 txtSLHaoHut_KTTHHT.Text = dgvThongTinChiTiet_KTTHHT.SelectedRows[0].Cells[8].Value.ToString();
                 txtSoTienHaoHut_KTTHHT.Text = String.Format("{0:0,0}", Convert.ToDouble(dgvThongTinChiTiet_KTTHHT.SelectedRows[0].Cells[3].Value.ToString()) * Convert.ToDouble(txtSLHaoHut_KTTHHT.Text));
             }
-        }
+        } 
     }
 }

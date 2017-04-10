@@ -35,6 +35,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -66,7 +67,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextBillStatus = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itemStartBilling = new System.Windows.Forms.ToolStripMenuItem();
             this.itemEndBilling = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,6 +128,12 @@
             this.lblCustomerID_Bill1 = new System.Windows.Forms.Label();
             this.btnSettlePay_Bill1 = new System.Windows.Forms.Button();
             this.gridBillDetail_Bill1 = new System.Windows.Forms.DataGridView();
+            this.colProductID_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProductName_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProductPrice_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProductQuantity_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSumPrice_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProductType_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label20 = new System.Windows.Forms.Label();
             this.tabBill2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -154,7 +160,6 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextBillItemSelection = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itemDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.itemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.label53 = new System.Windows.Forms.Label();
             this.tabBill3 = new System.Windows.Forms.TabPage();
             this.tabBill4 = new System.Windows.Forms.TabPage();
@@ -433,12 +438,6 @@
             this.clSoLuong_TPKH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.colProductID_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProductName_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProductPrice_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProductQuantity_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSumPrice_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProductType_Bill1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextBillStatus.SuspendLayout();
             this.MenuBar.SuspendLayout();
             this.tabMenu.SuspendLayout();
@@ -532,7 +531,6 @@
             this.itemStartBilling.Name = "itemStartBilling";
             this.itemStartBilling.Size = new System.Drawing.Size(116, 22);
             this.itemStartBilling.Text = "Tạo hoá đơn";
-            this.itemStartBilling.Click += new System.EventHandler(this.itemStartBilling_Click);
             // 
             // itemEndBilling
             // 
@@ -1237,7 +1235,50 @@
             this.gridBillDetail_Bill1.Size = new System.Drawing.Size(863, 406);
             this.gridBillDetail_Bill1.TabIndex = 42;
             this.gridBillDetail_Bill1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridBillDetail_Bill1_CellEndEdit);
+            this.gridBillDetail_Bill1.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.gridBillDetail_Bill1_CellValidating);
             this.gridBillDetail_Bill1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gridBillDetail_Bill1_MouseClick);
+            // 
+            // colProductID_Bill1
+            // 
+            this.colProductID_Bill1.HeaderText = "Mã";
+            this.colProductID_Bill1.Name = "colProductID_Bill1";
+            this.colProductID_Bill1.ReadOnly = true;
+            // 
+            // colProductName_Bill1
+            // 
+            this.colProductName_Bill1.HeaderText = "Tên món ăn/thức uống";
+            this.colProductName_Bill1.Name = "colProductName_Bill1";
+            this.colProductName_Bill1.ReadOnly = true;
+            this.colProductName_Bill1.Width = 300;
+            // 
+            // colProductPrice_Bill1
+            // 
+            this.colProductPrice_Bill1.HeaderText = "Giá bán";
+            this.colProductPrice_Bill1.Name = "colProductPrice_Bill1";
+            this.colProductPrice_Bill1.ReadOnly = true;
+            this.colProductPrice_Bill1.Width = 120;
+            // 
+            // colProductQuantity_Bill1
+            // 
+            dataGridViewCellStyle5.Format = "N0";
+            dataGridViewCellStyle5.NullValue = "1";
+            this.colProductQuantity_Bill1.DefaultCellStyle = dataGridViewCellStyle5;
+            this.colProductQuantity_Bill1.HeaderText = "Số lượng";
+            this.colProductQuantity_Bill1.Name = "colProductQuantity_Bill1";
+            this.colProductQuantity_Bill1.Width = 50;
+            // 
+            // colSumPrice_Bill1
+            // 
+            this.colSumPrice_Bill1.HeaderText = "Thành tiền";
+            this.colSumPrice_Bill1.Name = "colSumPrice_Bill1";
+            this.colSumPrice_Bill1.ReadOnly = true;
+            this.colSumPrice_Bill1.Width = 120;
+            // 
+            // colProductType_Bill1
+            // 
+            this.colProductType_Bill1.HeaderText = "Loại";
+            this.colProductType_Bill1.Name = "colProductType_Bill1";
+            this.colProductType_Bill1.ReadOnly = true;
             // 
             // label20
             // 
@@ -1530,23 +1571,16 @@
             // contextBillItemSelection
             // 
             this.contextBillItemSelection.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itemEdit,
             this.itemDelete});
             this.contextBillItemSelection.Name = "contextBillItemSelection";
-            this.contextBillItemSelection.Size = new System.Drawing.Size(128, 48);
+            this.contextBillItemSelection.Size = new System.Drawing.Size(153, 48);
             // 
             // itemDelete
             // 
             this.itemDelete.Name = "itemDelete";
-            this.itemDelete.Size = new System.Drawing.Size(127, 22);
+            this.itemDelete.Size = new System.Drawing.Size(152, 22);
             this.itemDelete.Text = "Xoá";
-            // 
-            // itemEdit
-            // 
-            this.itemEdit.Name = "itemEdit";
-            this.itemEdit.Size = new System.Drawing.Size(127, 22);
-            this.itemEdit.Text = "Chỉnh sửa";
-            this.itemEdit.Click += new System.EventHandler(this.itemEdit_Click);
+            this.itemDelete.Click += new System.EventHandler(this.itemDelete_Click);
             // 
             // label53
             // 
@@ -4647,48 +4681,6 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // colProductID_Bill1
-            // 
-            this.colProductID_Bill1.HeaderText = "Mã";
-            this.colProductID_Bill1.Name = "colProductID_Bill1";
-            this.colProductID_Bill1.ReadOnly = true;
-            // 
-            // colProductName_Bill1
-            // 
-            this.colProductName_Bill1.HeaderText = "Tên món ăn/thức uống";
-            this.colProductName_Bill1.Name = "colProductName_Bill1";
-            this.colProductName_Bill1.ReadOnly = true;
-            this.colProductName_Bill1.Width = 300;
-            // 
-            // colProductPrice_Bill1
-            // 
-            this.colProductPrice_Bill1.HeaderText = "Giá bán";
-            this.colProductPrice_Bill1.Name = "colProductPrice_Bill1";
-            this.colProductPrice_Bill1.ReadOnly = true;
-            this.colProductPrice_Bill1.Width = 120;
-            // 
-            // colProductQuantity_Bill1
-            // 
-            dataGridViewCellStyle5.Format = "N0";
-            dataGridViewCellStyle5.NullValue = "1";
-            this.colProductQuantity_Bill1.DefaultCellStyle = dataGridViewCellStyle5;
-            this.colProductQuantity_Bill1.HeaderText = "Số lượng";
-            this.colProductQuantity_Bill1.Name = "colProductQuantity_Bill1";
-            this.colProductQuantity_Bill1.Width = 50;
-            // 
-            // colSumPrice_Bill1
-            // 
-            this.colSumPrice_Bill1.HeaderText = "Thành tiền";
-            this.colSumPrice_Bill1.Name = "colSumPrice_Bill1";
-            this.colSumPrice_Bill1.ReadOnly = true;
-            this.colSumPrice_Bill1.Width = 120;
-            // 
-            // colProductType_Bill1
-            // 
-            this.colProductType_Bill1.HeaderText = "Loại";
-            this.colProductType_Bill1.Name = "colProductType_Bill1";
-            this.colProductType_Bill1.ReadOnly = true;
-            // 
             // frmQLNHDN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5137,7 +5129,6 @@
         private System.Windows.Forms.ToolStripMenuItem itemEndBilling;
         private System.Windows.Forms.ContextMenuStrip contextBillItemSelection;
         private System.Windows.Forms.ToolStripMenuItem itemDelete;
-        private System.Windows.Forms.ToolStripMenuItem itemEdit;
         private System.Windows.Forms.Button btnFoodSearching;
         private System.Windows.Forms.ImageList Icon10;
         private System.Windows.Forms.TextBox txtFoodSearching;

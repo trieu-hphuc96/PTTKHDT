@@ -11,7 +11,7 @@ namespace DAO
     {
         public static SqlConnection connectDB()
         {
-            string str = @"Server=GAMENET-PC\PHUC1;database=NhaHangDoNuong;uid=sa;pwd=123456789";
+            string str = @"Server=DESKTOP-3DQDBDH\SQLEXPRESS;database=NhaHangDoNuong;uid=sa;pwd=123456789;";
             SqlConnection cn = new SqlConnection(str);
             cn.Open();
             return cn;

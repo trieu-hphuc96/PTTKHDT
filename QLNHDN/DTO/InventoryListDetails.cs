@@ -10,7 +10,11 @@ namespace DTO
     {
         private int maphieu;
         private int manl;
-        private int soluong;
+        private int gia;
+        private string donvi;
+        private decimal sltonlt;
+        private decimal sltontt;
+        private decimal slhu;
 
         public int Maphieu
         {
@@ -38,16 +42,68 @@ namespace DTO
             }
         }
 
-        public int Soluong
+        public int Gia
         {
             get
             {
-                return soluong;
+                return gia;
             }
 
             set
             {
-                soluong = value;
+                gia = value;
+            }
+        }
+
+        public string Donvi
+        {
+            get
+            {
+                return donvi;
+            }
+
+            set
+            {
+                donvi = value;
+            }
+        }
+
+        public decimal Sltonlt
+        {
+            get
+            {
+                return sltonlt;
+            }
+
+            set
+            {
+                sltonlt = value;
+            }
+        }
+
+        public decimal Sltontt
+        {
+            get
+            {
+                return sltontt;
+            }
+
+            set
+            {
+                sltontt = value;
+            }
+        }
+
+        public decimal Slhu
+        {
+            get
+            {
+                return slhu;
+            }
+
+            set
+            {
+                slhu = value;
             }
         }
     }

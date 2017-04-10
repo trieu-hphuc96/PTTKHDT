@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,6 +13,9 @@ namespace QLNHDN
 {
     public partial class frmQLNHDN : Form
     {
+        #region Variable
+        DataTable dtThongTinChiTiet_KTTHHT = new DataTable();
+        #endregion
         public frmQLNHDN()
         {
             InitializeComponent();
@@ -32,6 +36,21 @@ namespace QLNHDN
             foreach (DataRow dr in dt.Rows)
             {
                 dgvNguyenLieu_TPKH.Rows.Add(dr.ItemArray);
+            }
+        }
+
+        void refreshCheckInventoryState()
+        {
+            dgvThongTinPhieuKiem_KTTHHT.Rows.Clear();
+            BUS.InventoryList bus = new BUS.InventoryList();
+            DataTable dt = new DataTable();
+            dt = bus.loadInventoryList();
+
+            dt.Columns["MaNV"].SetOrdinal(1);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                dgvThongTinPhieuKiem_KTTHHT.Rows.Add(dr.ItemArray);
             }
         }
         #endregion
@@ -65,7 +84,7 @@ namespace QLNHDN
 
         private void phiếuKiểmKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTaoPhieuKiemKe);
+            hienMotTab(tabMenu, tabTaoPhieuKiemHangTon);
             refreshInventoryList();
         }
 
@@ -76,12 +95,12 @@ namespace QLNHDN
 
         private void tìnhHìnhNhậpKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTKNhap);
+            hienMotTab(tabMenu, tabKTTHNhap);
         }
 
         private void tìnhHìnhXuấtKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTKTon);
+            hienMotTab(tabMenu, tabKTTHHangTon);
         }
 
         private void kháchHàngToolStripMenuItem_Click(object sender, EventArgs e)
@@ -212,7 +231,8 @@ namespace QLNHDN
 
         private void tồnHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTKTon);
+            hienMotTab(tabMenu, tabKTTHHangTon);
+            refreshCheckInventoryState();
         }
 
         private void btnLamLai_TPKH_Click(object sender, EventArgs e)
@@ -257,7 +277,7 @@ namespace QLNHDN
             }
             if (check == 0)
             {
-                dgvThongTinPhieu_TPKH.Rows.Add(dgvNguyenLieu_TPKH.SelectedRows[0].Cells[0].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[1].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[2].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[4].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[2].Value.ToString(), txtSLTon_TPKH.Text, txtSLHu_TPKH.Text);
+                dgvThongTinPhieu_TPKH.Rows.Add(dgvNguyenLieu_TPKH.SelectedRows[0].Cells[0].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[1].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[2].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[4].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[3].Value.ToString(), txtSLTon_TPKH.Text, txtSLHu_TPKH.Text);
             }
         }
 
@@ -293,6 +313,190 @@ namespace QLNHDN
         {
             lbGioHienTai.Text = DateTime.Now.ToLongTimeString();
             lbNgayHienTai.Text = DateTime.Now.ToShortDateString();
+        }
+
+        private void btnTaoPhieu_TPKH_Click(object sender, EventArgs e)
+        {
+            if(dgvThongTinPhieu_TPKH.Rows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng nhập nguyên liệu trước khi tạo phiếu!", "Cảnh báo!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                DTO.InventoryListDetails[] dto_CT = new DTO.InventoryListDetails[30];
+                if (dgvThongTinPhieu_TPKH.Rows.Count > 0)
+                    for (int i = 0; i < dgvThongTinPhieu_TPKH.Rows.Count; i++)
+                    {
+                        dto_CT[i] = new DTO.InventoryListDetails();
+                        dto_CT[i].Manl = Convert.ToInt32(dgvThongTinPhieu_TPKH.Rows[i].Cells[0].Value.ToString());
+                        dto_CT[i].Gia = Convert.ToInt32(dgvThongTinPhieu_TPKH.Rows[i].Cells[2].Value.ToString());
+                        dto_CT[i].Donvi = dgvThongTinPhieu_TPKH.Rows[i].Cells[3].Value.ToString();
+                        dto_CT[i].Sltonlt = Convert.ToDecimal(dgvThongTinPhieu_TPKH.Rows[i].Cells[4].Value.ToString());
+                        dto_CT[i].Sltontt = Convert.ToDecimal(dgvThongTinPhieu_TPKH.Rows[i].Cells[5].Value.ToString());
+                        dto_CT[i].Slhu = Convert.ToDecimal(dgvThongTinPhieu_TPKH.Rows[i].Cells[6].Value.ToString());
+                    }
+                else dto_CT[0] = new DTO.InventoryListDetails();
+
+                DTO.InventoryList dto_PKH = new DTO.InventoryList();
+                dto_PKH.Manv = 1;
+                dto_PKH.Ngaygio = DateTime.Now;
+
+                BUS.InventoryList bus = new BUS.InventoryList();
+                int check = bus.createInventoryList(dto_PKH, dto_CT, dgvThongTinPhieu_TPKH.Rows.Count);
+                if (check == 1)
+                {
+                    btnLamLai_TPKH.PerformClick();
+                }
+            }            
+        }
+
+        private void txtSLTon_TPKH_Enter(object sender, EventArgs e)
+        {
+            if(txtSLTon_TPKH.Text == "0")
+            {
+                txtSLTon_TPKH.Text = "";
+            }
+        }
+
+        private void txtSLTon_TPKH_TextChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < txtSLTon_TPKH.Text.ToString().Length; i++)
+            {
+                if (!Regex.IsMatch(txtSLTon_TPKH.Text.ToString()[i].ToString(), "[0-9]", RegexOptions.IgnoreCase))
+                {
+                    //this.Refresh();
+                    txtSLTon_TPKH.Text = "";
+                }
+            }
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            ////Point locationOnForm = tabControl1.FindForm().PointToClient(tabControl1.Parent.PointToScreen(tabControl1.Location));
+            ////Point location = txtSLTon_TPKH.PointToScreen(Point.Empty);
+            //Point location1 = tabTaoPhieuKiemHangTon.PointToClient(txtSLTon_TPKH.Location);
+            //txtSLTon_TPKH.BorderStyle = BorderStyle.None;
+            //    Pen p = new Pen(Color.Red);
+            //    Graphics g = e.Graphics;
+            //    int variance = 3;
+            //    g.DrawRectangle(p, new Rectangle(location1.X - variance, location1.Y - variance, txtSLTon_TPKH.Width + variance, txtSLTon_TPKH.Height + variance));
+                
+        }
+
+        private void txtSLTon_TPKH_Leave(object sender, EventArgs e)
+        {
+            if(txtSLTon_TPKH.Text == "")
+            {
+                txtSLTon_TPKH.Text = "0";
+            }
+        }
+
+        private void txtSLHu_TPKH_TextChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < txtSLHu_TPKH.Text.ToString().Length; i++)
+            {
+                if (!Regex.IsMatch(txtSLHu_TPKH.Text.ToString()[i].ToString(), "[0-9]", RegexOptions.IgnoreCase))
+                {
+                    txtSLHu_TPKH.Text = "";
+                }
+            }
+        }
+
+        private void txtSLHu_TPKH_Enter(object sender, EventArgs e)
+        {
+            if (txtSLHu_TPKH.Text == "0")
+            {
+                txtSLHu_TPKH.Text = "";
+            }
+        }
+
+        private void txtSLHu_TPKH_Leave(object sender, EventArgs e)
+        {
+            if (txtSLHu_TPKH.Text == "")
+            {
+                txtSLHu_TPKH.Text = "0";
+            }
+        }
+
+        private void btnTimKiem_KTTHHT_Click(object sender, EventArgs e)
+        {
+            if (dtpTuNgay_KTTHHT.Value.Date > dtpDenNgay_KTTHHT.Value.Date)
+            {
+                MessageBox.Show("Từ ngày không được lớn hơn đến ngày. Vui lòng nhập lại!", "Nhắc nhở!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                dgvThongTinChiTiet_KTTHHT.Rows.Clear();
+                dgvThongTinPhieuKiem_KTTHHT.Rows.Clear();
+
+                BUS.InventoryList bus = new BUS.InventoryList();
+                DataTable dt = new DataTable();
+                dt = bus.searchInventoryList_byDate(dtpTuNgay_KTTHHT.Value.Date, dtpDenNgay_KTTHHT.Value.Date);
+                dt.Columns["MaNV"].SetOrdinal(1);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    dgvThongTinPhieuKiem_KTTHHT.Rows.Add(dr.ItemArray);
+                }
+            }
+        }
+
+        private void txtTimKiem_KTTHHT_TextChanged(object sender, EventArgs e)
+        {
+            dgvThongTinChiTiet_KTTHHT.Rows.Clear();
+            dgvThongTinPhieuKiem_KTTHHT.Rows.Clear();
+
+            BUS.InventoryList bus = new BUS.InventoryList();
+            DataTable dt = new DataTable();
+            dt = bus.searchInventoryList_byNumber(txtTimKiem_KTTHHT.Text);
+            dt.Columns["MaNV"].SetOrdinal(1);
+            foreach (DataRow dr in dt.Rows)
+            {
+                dgvThongTinPhieuKiem_KTTHHT.Rows.Add(dr.ItemArray);
+            }
+        }
+
+        private void dgvThongTinPhieuKiem_KTTHHT_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvThongTinPhieuKiem_KTTHHT.SelectedRows.Count > 0 & dgvThongTinPhieuKiem_KTTHHT.Rows.Count > 0)
+            {
+                dgvThongTinChiTiet_KTTHHT.Rows.Clear();
+
+                txtTenNL_KTTHHT.Text = "";
+                txtDonVi_KTTHHT.Text = "";
+                txtGia_KTTHHT.Text = "0";
+                txtSLHaoHut_KTTHHT.Text = "0";
+                txtSoTienHaoHut_KTTHHT.Text = "0";
+                txtTongTienHaoHut_KTTHHT.Text = "0";
+
+
+                BUS.InventoryListDetails bus = new BUS.InventoryListDetails();
+                dtThongTinChiTiet_KTTHHT = bus.loadInventoryListDetails(Convert.ToInt32(dgvThongTinPhieuKiem_KTTHHT.SelectedRows[0].Cells[0].Value.ToString()));
+
+                dtThongTinChiTiet_KTTHHT.Columns["TenNL"].SetOrdinal(2);
+                dtThongTinChiTiet_KTTHHT.Columns["DonVi"].SetOrdinal(4);
+
+                foreach (DataRow dr in dtThongTinChiTiet_KTTHHT.Rows)
+                {
+                    dgvThongTinChiTiet_KTTHHT.Rows.Add(dr.ItemArray);
+                }
+
+                if (dgvThongTinChiTiet_KTTHHT.SelectedRows.Count > 0 & dgvThongTinChiTiet_KTTHHT.Rows.Count > 0)
+                {
+                    txtTongTienHaoHut_KTTHHT.Text = String.Format("{0:0,0}", Convert.ToDouble(dtThongTinChiTiet_KTTHHT.Rows[0].ItemArray[9].ToString()));
+                }
+            }
+        }
+
+        private void dgvThongTinChiTiet_KTTHHT_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvThongTinChiTiet_KTTHHT.SelectedRows.Count > 0 & dgvThongTinChiTiet_KTTHHT.Rows.Count > 0)
+            {
+                txtTenNL_KTTHHT.Text = dgvThongTinChiTiet_KTTHHT.SelectedRows[0].Cells[2].Value.ToString();
+                txtDonVi_KTTHHT.Text = dgvThongTinChiTiet_KTTHHT.SelectedRows[0].Cells[4].Value.ToString();
+                txtGia_KTTHHT.Text = String.Format("{0:0,0}", Convert.ToInt32(dgvThongTinChiTiet_KTTHHT.SelectedRows[0].Cells[3].Value.ToString()));
+                txtSLHaoHut_KTTHHT.Text = dgvThongTinChiTiet_KTTHHT.SelectedRows[0].Cells[8].Value.ToString();
+                txtSoTienHaoHut_KTTHHT.Text = String.Format("{0:0,0}", Convert.ToDouble(dgvThongTinChiTiet_KTTHHT.SelectedRows[0].Cells[3].Value.ToString()) * Convert.ToDouble(txtSLHaoHut_KTTHHT.Text));
+            }
         }
     }
 }

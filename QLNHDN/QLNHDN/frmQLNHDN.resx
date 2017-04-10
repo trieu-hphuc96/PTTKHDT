@@ -123,35 +123,6 @@
   <metadata name="MenuBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>158, 17</value>
   </metadata>
-  <metadata name="clMaPhieu_CT_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clMaNL_CT_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clTenNL_CT_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clGia_CT_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clDonVi_CT_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clSLTonLT_CT_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clSLTon_CT_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clSLHu_CT_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clSLHaoHut_CT_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Icon50.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>287, 17</value>
   <metadata name="Icon10.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>428, 18</value>
   </metadata>
@@ -940,17 +911,6 @@
         AiEBIgExAzcBWwM3AVsDNwFbAzcBWwM3AVsDNwFbAzcBWwM3AVsDNwFbAzcBWwM3AVsDNwFbAzcBWwM3
         AVsDNwFbAzcBWwM3AVsDNwFbAzcBWwM3AVsDNwFbAzcBWwM3AVsDNwFbAzcBWwM3AVsDNwFbAw0BESkA
         AYABAAH/AQABgAEAAf8BAAGAAQAB/wEAAYABAAH/AQABgAEAAf8BAAGAAQAB/wEAAYABAAH/AQABgAEA
-        Af8BAAGAAQAB/wEAAYABAAH/AQABgAEAAf8BAAGAAQAB/wEAAYABAAH/AkYBRQF+AeEBXAE0Af8B4QFc
-        ATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/
-        AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFc
-        ATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/
-        AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFc
-        ATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/
-        AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFcATQB/wHhAVwBNAH/AeEBXAE0Af8B4QFc
-        ATQB/wHhAVwBNAH/AeEBXAE0Af8QAANLAY4DIwH/AyMB/wMjAf8DOQFfgAADNgFZAyMB/wMjAf8DIwH/
-        A0sBjjgAAjEBlwH2AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/
-        AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/
-        AgAC/wIAAv8CRQFGAX4lAAGAAQAB/wEAAYABAAH/AQABgAEAAf8BAAGAAQAB/wEAAYABAAH/AQABgAEA
         Af8BAAGAAQAB/wEAAYABAAH/AQABgAEAAf8BAAGAAQAB/wEAAYABAAH/AQABgAEAAf8BAAGAAQAB/wEA
         AYABAAH/AQABgAEAAf8BAAGAAQAB/wEAAYABAAH/AQABgAEAAf8BAAGAAQAB/wEAAYABAAH/AQABgAEA
         Af8BAAGAAQAB/wEAAYABAAH/AQABgAEAAf8BAAGAAQAB/wEAAYABAAH/AQABgAEAAf8BAAGAAQAB/wEA
@@ -1862,11 +1822,6 @@
         AzsBYwM7AWMDOwFjXAADOAFdAzUBVgMvAUkDJQE3BAADBgEIAgAC/wIAAv8CAAL/AgAC/wIAAv8DGAEh
         BAABtQIAAf4B/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
         Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
-        Av8CAAL/AgAC/wIAAv8CAAL/AgAB/1wAAxgBIQERAX8BEQH+AQABiAEAAf8BAAGIAQAB/wEAAYgBAAH/
-        AQABiAEAAf8BAAGIAQAB/wEAAYgBAAH/AQABiAEAAf8BAAGIAQAB/wEAAYgBAAH/AyABLnAAAwsBDwJY
-        AVsBxgIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/
-        AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AlgBWwHGAwsBDzwAAk8BUwGlAgAC/wIAAv8CAAL/AgAC/wIA
-        Av+IAAMGAQgCAAL/AgAC/wIAAv8CAAL/AgAC/wMYASEEAAHPAgAB/gH/AgAC/wIAAv8CAAL/AgAC/wIA
         Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
         Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAf9cAAMYASEBEQF/AREB/gEAAYgBAAH/AQABiAEAAf8BAAGI
         AQAB/wEAAYgBAAH/AQABiAEAAf8BAAGIAQAB/wEAAYgBAAH/AQABiAEAAf8BAAGIAQAB/wMgAS5wAAML
@@ -1906,12 +1861,6 @@
         Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
         Av8CAAL/AgAC/wO1Af4B/wLgAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/
         AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/
-        AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIADf9sAAMn
-        ATsBAAGIAQAB/wEAAYgBAAH/AQABiAEAAf8BAAGIAQAB/wEAAYgBAAH/AQABiAEAAf8BAAGIAQAB/wEA
-        AYgBAAH/AQABiAEAAf8BAAGIAQAB/wMsAURIAAMLAQ8CWAFbAcYCAAL/AgAC/wIAAv8CAAL/AgAC/wIA
-        Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CWAFbAcYCWAFbAcYCAAL/AgAC/wIA
-        Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CWAFbAcYDCwEP
-        HAACPwFAAW4CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/
         AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/
         AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAF/2gAAVIBUwFSAagBAAGIAQAB/wEAAYgBAAH/AQABiAEA
         Af8BAAGIAQAB/wEAAYgBAAH/AQABiAEAAf8BAAGIAQAB/wEAAYgBAAH/AQABiAEAAf8BVwFfAVcB6AMC
@@ -1971,12 +1920,6 @@
         Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wNZAccDCgEOGAACXAFh
         AdwCAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
         Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
-        Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wMCAQMUAAPPAf7E/4QAAyYBOQEAAYgBAAH/
-        AQABiAEAAf8BAAGIAQAB/wEAAYgBAAH/AQABiAEAAf8BAAGIAQAB/wEAAYgBAAH/AQABiAEAAf8BAAGI
-        AQAB/wEAAYgBAAH/AV0BYQFdAeIUAAJWAVcBuAIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/
-        AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wJYAVsBxgMLAQ84AAMLAQ8CWAFbAcYCAAL/AgAC/wIA
-        Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CVgFXAbgcAAMC
-        AQMCAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
         Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
         Av8CRQFGAX8EAAO1Af4d/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/
         AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/
@@ -2246,6 +2189,48 @@
   <metadata name="clSoLuong_XPX.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="mahd.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="ngayhd.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clNgayTK_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clSoNL_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clGhiChu_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clMaTKK_CT_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clMaNL_CT_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clDVT_CT_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clSLKho_LT_CT_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clSLKho_TT_CT_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clSLDu_LT_CT_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clSLDu_TT_CT_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clSLHu_CT_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="clSLHaoHut_CT_XTKK.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="Column12.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -2300,16 +2285,7 @@
   <metadata name="errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 44</value>
   </metadata>
-  <metadata name="clMaPhieu_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clMaNV_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="clNgayGio_KTTHHT.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>67</value>
+    <value>66</value>
   </metadata>
 </root>

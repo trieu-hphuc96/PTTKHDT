@@ -9,7 +9,8 @@ namespace DTO
     public class InventoryList
     {
         private int maphieu;
-        private DateTime ngaygio;
+        private DateTime ngay;
+        private DateTime gio;
         private int manv;
 
         public int Maphieu
@@ -25,6 +26,32 @@ namespace DTO
             }
         }
 
+        public DateTime Ngay
+        {
+            get
+            {
+                return ngay;
+            }
+
+            set
+            {
+                ngay = value;
+            }
+        }
+
+        public DateTime Gio
+        {
+            get
+            {
+                return gio;
+            }
+
+            set
+            {
+                gio = value;
+            }
+        }
+
         public int Manv
         {
             get
@@ -35,19 +62,6 @@ namespace DTO
             set
             {
                 manv = value;
-            }
-        }
-
-        public DateTime Ngaygio
-        {
-            get
-            {
-                return ngaygio;
-            }
-
-            set
-            {
-                ngaygio = value;
             }
         }
     }

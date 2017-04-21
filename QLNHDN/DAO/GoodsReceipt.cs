@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace DAO
 {
-    public class InventoryList
+    public class GoodsReceipt
     {
-        public int createInventoryList(DTO.InventoryList dto_PKH)
+        public int createGoodsReceipt(DTO.GoodsReceipt dto_PNH)
         {
             SqlConnection cn = DBConnection.connectDB();
-            SqlCommand cmd = new SqlCommand("sp_CreateInventoryList", cn);
+            SqlCommand cmd = new SqlCommand("sp_CreateGoodsReceipt", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@manv", SqlDbType.Int);
             cmd.Parameters.Add("@ngaygio", SqlDbType.DateTime);
             cmd.Parameters.Add("@maphieu", SqlDbType.Int).Direction = ParameterDirection.Output;
 
-            cmd.Parameters["@manv"].Value = dto_PKH.Manv;
-            cmd.Parameters["@ngaygio"].Value = dto_PKH.Ngaygio;
+            cmd.Parameters["@manv"].Value = dto_PNH.Manv;
+            cmd.Parameters["@ngaygio"].Value = dto_PNH.Ngaygio;
             cmd.Parameters["@maphieu"].Value = -1;
 
             cmd.ExecuteNonQuery();
@@ -29,10 +29,10 @@ namespace DAO
             return Convert.ToInt32(cmd.Parameters["@maphieu"].Value);
         }
 
-        public DataTable searchInventoryList_byDate(DateTime tungay, DateTime denngay)
+        public DataTable searchGoodsReceipt_byDate(DateTime tungay, DateTime denngay)
         {
             SqlConnection cn = DBConnection.connectDB();
-            SqlCommand cmd = new SqlCommand("sp_SearchInventoryList_byDate", cn);
+            SqlCommand cmd = new SqlCommand("sp_SearchGoodsReceipt_byDate", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@tungay", SqlDbType.Date);
             cmd.Parameters.Add("@denngay", SqlDbType.Date);
@@ -51,10 +51,10 @@ namespace DAO
             return dt;
         }
 
-        public DataTable searchInventoryList_byNumber(string ma)
+        public DataTable searchGoodsReceipt_byNumber(string ma)
         {
             SqlConnection cn = DBConnection.connectDB();
-            SqlCommand cmd = new SqlCommand("sp_SearchInventoryList_byNumber", cn);
+            SqlCommand cmd = new SqlCommand("sp_SearchGoodsReceipt_byNumber", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@ma", SqlDbType.NVarChar);
 
@@ -71,10 +71,10 @@ namespace DAO
             return dt;
         }
 
-        public DataTable loadInventoryList()
+        public DataTable loadGoodsReceipt()
         {
             SqlConnection cn = DBConnection.connectDB();
-            SqlCommand cmd = new SqlCommand("sp_LoadInventoryList", cn);
+            SqlCommand cmd = new SqlCommand("sp_LoadGoodsReceipt", cn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.ExecuteNonQuery();

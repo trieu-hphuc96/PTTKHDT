@@ -41,8 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Customer.cs" />
+    <Compile Include="GoodsReceipt.cs" />
+    <Compile Include="GoodsReceiptDetails.cs" />
+    <Compile Include="Ingredients.cs" />
     <Compile Include="InventoryList.cs" />
     <Compile Include="InventoryListDetails.cs" />
+    <Compile Include="Login.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

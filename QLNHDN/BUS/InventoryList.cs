@@ -10,18 +10,6 @@ namespace BUS
 {
     public class InventoryList
     {
-        public DataTable loadIngredient()
-        {
-            DAO.InventoryList dao = new DAO.InventoryList();
-            return dao.loadIngredient();
-        }
-
-        public DataTable searchIngredient(string keyword)
-        {
-            DAO.InventoryList dao = new DAO.InventoryList();
-            return dao.searchIngredient(keyword);
-        }
-
         public int createInventoryList(DTO.InventoryList dto_PKH, DTO.InventoryListDetails[] dto_CT, int so_nl)
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn tạo phiếu kiểm hàng?", "Xác nhận!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -29,7 +17,7 @@ namespace BUS
                 DAO.InventoryList dao_PKH = new DAO.InventoryList();
                 int maphieu = dao_PKH.createInventoryList(dto_PKH);
                 BUS.InventoryListDetails bus = new BUS.InventoryListDetails();
-                for (int i = 0; i < so_nl - 1; i++)
+                for (int i = 0; i < so_nl; i++)
                 {
                     bus.addInventoryListDetails(dto_CT[i], maphieu);
                 }

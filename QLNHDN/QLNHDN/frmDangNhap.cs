@@ -62,6 +62,7 @@ namespace QLNHDN
             {
                 lbBaoLoi_DN.Text = "* Tên đăng nhập không tồn tại!";
             }
+            else lbBaoLoi_DN.Text = "";
         }
 
         private void txtMatKhau_DN_KeyDown(object sender, KeyEventArgs e)

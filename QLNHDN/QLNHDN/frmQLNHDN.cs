@@ -43,7 +43,7 @@ namespace QLNHDN
             dt = bus.loadIngredients();
 
             dt.Columns.RemoveAt(6);
-            dt.Columns.RemoveAt(5);
+            dt.Columns.RemoveAt(3);
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -620,7 +620,7 @@ namespace QLNHDN
 
             refreshInventoryList();
 
-            btnXoaHet_TPKH.PerformClick();
+            dgvThongTinPhieu_TPKH.Rows.Clear();
         }
 
         private void btnXoaHet_TPKH_Click(object sender, EventArgs e)
@@ -664,7 +664,7 @@ namespace QLNHDN
             }
             if (check == 0)
             {
-                dgvThongTinPhieu_TPKH.Rows.Add(dgvNguyenLieu_TPKH.SelectedRows[0].Cells[0].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[1].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[2].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[4].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[3].Value.ToString(), txtSLTon_TPKH.Text, txtSLHu_TPKH.Text);
+                dgvThongTinPhieu_TPKH.Rows.Add(dgvNguyenLieu_TPKH.SelectedRows[0].Cells[0].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[1].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[2].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[3].Value.ToString(), dgvNguyenLieu_TPKH.SelectedRows[0].Cells[4].Value.ToString(), txtSLTon_TPKH.Text, txtSLHu_TPKH.Text);
             }
         }
 
@@ -716,7 +716,7 @@ namespace QLNHDN
                     {
                         dto_CT[i] = new DTO.InventoryListDetails();
                         dto_CT[i].Manl = Convert.ToInt32(dgvThongTinPhieu_TPKH.Rows[i].Cells[0].Value.ToString());
-                        dto_CT[i].Gia = Convert.ToInt32(dgvThongTinPhieu_TPKH.Rows[i].Cells[2].Value.ToString());
+                        dto_CT[i].Gia = Convert.ToInt32(dgvThongTinPhieu_TPKH.Rows[i].Cells[3].Value.ToString());
                         dto_CT[i].Donvi = dgvThongTinPhieu_TPKH.Rows[i].Cells[3].Value.ToString();
                         dto_CT[i].Sltonlt = Convert.ToDecimal(dgvThongTinPhieu_TPKH.Rows[i].Cells[4].Value.ToString());
                         dto_CT[i].Sltontt = Convert.ToDecimal(dgvThongTinPhieu_TPKH.Rows[i].Cells[5].Value.ToString());
@@ -745,15 +745,6 @@ namespace QLNHDN
             }
         }
 
-        private void txtSLTon_TPKH_TextChanged(object sender, EventArgs e)
-        {
-            if (!Regex.IsMatch(txtSLTon_TPKH.Text, "[0 - 9]$", RegexOptions.IgnoreCase))
-            {
-                //this.Refresh();
-                txtSLTon_TPKH.Text = "";
-            }
-        }
-
         private void txtSLTon_TPKH_Leave(object sender, EventArgs e)
         {
             if(txtSLTon_TPKH.Text == "")
@@ -766,17 +757,11 @@ namespace QLNHDN
                 txtSLTon_TPKH.Text = "1";
             }
             Decimal d;
-            if (decimal.TryParse(txtSLTon_TPKH.Text, out d))
+            if (!decimal.TryParse(txtSLTon_TPKH.Text, out d))
             {
                 MessageBox.Show("Vui lòng nhập số!", "Nhắc nhở", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void txtSLHu_TPKH_TextChanged(object sender, EventArgs e)
-        {
-            if (!Regex.IsMatch(txtSLHu_TPKH.ToString(), "[0 - 9]$", RegexOptions.IgnoreCase))
-            {
-                txtSLHu_TPKH.Text = "";
+                txtSLTon_TPKH.Text = "";
+                txtSLTon_TPKH.Focus();
             }
         }
 
@@ -800,9 +785,11 @@ namespace QLNHDN
                 txtSLHu_TPKH.Text = "1";
             }
             Decimal d;
-            if (decimal.TryParse(txtSLHu_TPKH.Text, out d))
+            if (!decimal.TryParse(txtSLHu_TPKH.Text, out d))
             {
                 MessageBox.Show("Vui lòng nhập số!", "Nhắc nhở", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSLHu_TPKH.Text = "";
+                txtSLHu_TPKH.Focus();
             }
         }
 
@@ -918,6 +905,8 @@ namespace QLNHDN
             if (!decimal.TryParse(txtSoLuong_PN.Text,out d))
             {
                 MessageBox.Show("Vui lòng nhập số!", "Nhắc nhở", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSoLuong_PN.Text = "";
+                txtSoLuong_PN.Focus();
             }
         }
 
@@ -973,21 +962,13 @@ namespace QLNHDN
             }
         }
 
-        private void txtSoLuong_PN_TextChanged(object sender, EventArgs e)
-        {
-            if (!Regex.IsMatch(txtSoLuong_PN.Text, "[0-9]$", RegexOptions.IgnoreCase))
-            {
-                txtSoLuong_PN.Text = "";
-            }
-        }
-
         private void btnLamMoi_PN_Click(object sender, EventArgs e)
         {
             txtTimKiemNL_PN.Text = "";
 
             refreshGoodsReceipt();
 
-            btnXoaHet_PN.PerformClick();
+            dgvPhieuNhap_PN.Rows.Clear();
         }
 
         private void btnTaoPhieu_PN_Click(object sender, EventArgs e)

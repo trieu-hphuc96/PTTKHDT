@@ -16,7 +16,7 @@ namespace QLNHDN
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmQLNHDN());
+            Application.Run(new frmDangNhap());
         }
     }
 }

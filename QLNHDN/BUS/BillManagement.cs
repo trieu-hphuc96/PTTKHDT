@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using DTO;
+using System.Windows.Forms;
 
 namespace BUS
 {
@@ -18,45 +19,49 @@ namespace BUS
         }
         //Hàm chuyển đổi từ Tiền tệ thành Số
         private int NumberFromVND(string currency)
-        {
-            return int.Parse(currency, System.Globalization.NumberStyles.Currency);
+        {     
+            return int.Parse(currency, System.Globalization.NumberStyles.Currency, new System.Globalization.CultureInfo("vi-VN"));
         }
 
-        public DataTable loadFoodList(string name)
+        public DataTable loadFoodList(string foodName)
         {
-            List<Product> food_list = dao_bill_management.loadFoodList(name);
+            List<Product> foodList = dao_bill_management.loadFoodList(foodName);
             DataTable dt = new DataTable();
-            dt.Columns.Add("Mã");
+            dt.Columns.Add("Mã món ăn");
             dt.Columns.Add("Tên món ăn");
             dt.Columns.Add("Giá bán");
-            dt.Columns.Add("Tên loại");
-            foreach (Product food in food_list)
+            dt.Columns.Add("Loại");
+            foreach (Product food in foodList)
             {
                 dt.Rows.Add(food.ID, food.Name, VNDfromNumber(food.Price), food.Type);
             }
-           
             return dt;
         }
 
-        public DataTable loadBeverageList(string name)
+        public DataTable loadBeverageList(string beverageName)
         {
-            List<Product> beverage_list = dao_bill_management.loadBeverageList(name);
+            List<Product> beverageList = dao_bill_management.loadBeverageList(beverageName);
             DataTable dt = new DataTable();
-            dt.Columns.Add("Mã");
+            dt.Columns.Add("Mã thức uống");
             dt.Columns.Add("Tên thức uống");
             dt.Columns.Add("Giá bán");
-            dt.Columns.Add("Tên loại");
-            foreach (Product beverage in beverage_list)
+            dt.Columns.Add("Loại");
+            foreach (Product beverage in beverageList)
             {
                 dt.Rows.Add(beverage.ID, beverage.Name, VNDfromNumber(beverage.Price), beverage.Type);
             }
-
             return dt;
         }
 
-        public Customer getCustomerDetail(string CustomerID)
+        public Customer getCustomerDetail(string customer_id)
         {
-            return dao_bill_management.getCustomerDetail(CustomerID);
+            return dao_bill_management.getCustomerDetail(customer_id);
+        }
+
+        public Bill createNewBill(Bill new_bill)
+        {
+            new_bill.CreatingTime = DateTime.Now;
+            return dao_bill_management.createNewBill(new_bill);
         }
     }
 }

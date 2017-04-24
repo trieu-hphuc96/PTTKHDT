@@ -11,32 +11,39 @@ namespace DAO
 {
     public class BillManagement
     {
+        //Hàm chuyển đổi từ Số thành Tiền tệ
+        private string VNDfromNumber(int number)
+        {
+            return number.ToString("C0", new System.Globalization.CultureInfo("vi-VN"));
+        }
+        //Hàm chuyển đổi từ Tiền tệ thành Số
+        private int NumberFromVND(string currency)
+        {
+            return int.Parse(currency, System.Globalization.NumberStyles.Currency, new System.Globalization.CultureInfo("vi-VN"));
+        }
         public List<Product> loadFoodList(string name)
         {           
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = DBConnection.connectDB();
             cmd.CommandText = "sp_FoodSearch";
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@TenSP", SqlDbType.NVarChar, 50).Value = name;
-        
+            cmd.Parameters.Add("@TenSP", SqlDbType.NVarChar, 50).Value = name;       
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
 
-            Product food;
-            var food_list = new List<Product>();
+            List<Product> foodList = new List<Product>();
             foreach(DataRow row in dt.Rows)
             {
-                food = new Product();
-                food.ID = row.Field<int>("MaSP");
-                food.Name = row.Field<string>("TenSP");
-                food.Price = row.Field<int>("Gia");
-                food.MaLoai = row.Field<int>("MaLoaiSP");
-                food.Type = row.Field<string>("TenLoai");
-                food_list.Add(food);
+                Product food = new Product();
+                food.ID = row.Field<int>(0).ToString();
+                food.Name = row.Field<string>(1);
+                food.Price = row.Field<int>(2);
+                food.Type = row.Field<string>(3);
+                foodList.Add(food);
             }
-            return food_list;
+            return foodList;
         }
         public List<Product> loadBeverageList(string name)
         {
@@ -51,19 +58,17 @@ namespace DAO
             DataTable dt = new DataTable();
             da.Fill(dt);
 
-            Product beverage;
-            var beverage_list = new List<Product>();
+            List<Product> beverageList = new List<Product>();
             foreach (DataRow row in dt.Rows)
             {
-                beverage = new Product();
-                beverage.ID = row.Field<int>("MaSP");
-                beverage.Name = row.Field<string>("TenSP");
-                beverage.Price = row.Field<int>("Gia");
-                beverage.MaLoai = row.Field<int>("MaLoaiSP");
-                beverage.Type = row.Field<string>("TenLoai");
-                beverage_list.Add(beverage);
+                Product beverage = new Product();
+                beverage.ID = row.Field<int>(0).ToString();
+                beverage.Name = row.Field<string>(1);
+                beverage.Price = row.Field<int>(2);
+                beverage.Type = row.Field<string>(3);
+                beverageList.Add(beverage);
             }
-            return beverage_list;
+            return beverageList;
         }
 
         public Customer getCustomerDetail(string customerID)
@@ -87,15 +92,55 @@ namespace DAO
             {
                 foreach(DataRow row in dt.Rows)
                 {
-                    customer.CustomerID = row.Field<int>("MaKH").ToString();
+                    customer.ID = row.Field<int>("MaKH").ToString();
                     customer.FullName = row.Field<string>("HoTenKH");
-                    customer.ID_Number = row.Field<string>("CMND");
+                    customer.CivilID = row.Field<string>("CMND");
                     customer.PhoneNumber = row.Field<string>("SoDT");
                     customer.Type = row.Field<string>("TenLoai");
                     customer.DiscountRate = row.Field<double>("TyLeChietKhau");
                 }
                 return customer;
             }
+        }
+
+        public Bill createNewBill(Bill new_bill)
+        {
+            //Tạo dòng mới trên bảng HoaDon
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = DBConnection.connectDB();
+            cmd.CommandText = "sp_createNewBillInfo";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@NgayGio", SqlDbType.DateTime).Value = new_bill.CreatingTime;
+            cmd.Parameters.Add("@MaNV", SqlDbType.Int).Value = new_bill.Staff.ID;
+            cmd.Parameters.Add("@MaKH", SqlDbType.Int).Value = new_bill.Customer.ID;
+            cmd.Parameters.Add("@TiLeChietKhau", SqlDbType.Float).Value = new_bill.Customer.DiscountRate;
+            cmd.Parameters.Add("@MaHD", SqlDbType.Int).Direction = ParameterDirection.Output;
+            cmd.ExecuteNonQuery();
+            new_bill.ID = cmd.Parameters["@MaHD"].Value.ToString(); //Lấy ra mã HD vừa tạo
+
+            //Tạo các dòng trong bảng CT_HoaDon
+            return insertItemsToBill(new_bill);
+        }
+        private Bill insertItemsToBill(Bill new_bill)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = DBConnection.connectDB();
+            cmd.CommandText = "sp_insertItemsToBill";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@MaHD", SqlDbType.Int).Value = new_bill.ID;
+            cmd.Parameters.Add("@MaSP", SqlDbType.Int);
+            cmd.Parameters.Add("@SoLuong", SqlDbType.Int);
+            cmd.Parameters.Add("@GiaBan", SqlDbType.Int);
+            cmd.Prepare();
+            foreach (DataRow row in new_bill.DetailTable.Rows)
+            {
+                cmd.Parameters["@MaSP"].Value = Convert.ToInt32(row.Field<string>("Mã SP"));
+                cmd.Parameters["@SoLuong"].Value = row.Field<int>("Số lượng");
+                cmd.Parameters["@GiaBan"].Value = NumberFromVND(row.Field<string>("Đơn giá"));
+                cmd.ExecuteNonQuery();
+            }
+            return new_bill;
         }
     }
 }

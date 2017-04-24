@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DTO;
+using System.Drawing.Printing;
+using System.Drawing;
 
 namespace QLNHDN
 {
@@ -16,10 +13,27 @@ namespace QLNHDN
     {
         #region Variable
         DataTable dtThongTinChiTiet_KTTHHT = new DataTable();
+        Staff current_staff;
+        Bill[] bill;
+        int currentBillIndex;
         #endregion
         public frmQLNHDN()
         {
             InitializeComponent();
+            current_staff = new Staff("1");
+            InitializeBillList();
+        }
+        private void InitializeBillList()
+        {
+            const int bill_count = 12;
+            bill = new Bill[bill_count];
+            for(int i = 0; i < bill_count; i++)
+            {
+                bill[i] = new Bill();
+                bill[i].Staff = current_staff;
+            }
+            currentBillIndex = 0;
+            showBill(0);
         }
 
         #region Refresh
@@ -56,10 +70,23 @@ namespace QLNHDN
         }
         #endregion
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void frmQLNHDN_Load(object sender, EventArgs e)
         {
-            
+            tabMenu.TabPages.Clear();
+            lblTitle.Text = "Trang chủ";
+            cbStatisticCriteria.SelectedIndex = 0;
         }
+        //Hàm chuyển đổi từ Số thành Tiền tệ
+        private string VNDfromNumber(int number)
+        {
+            return number.ToString("C0", new System.Globalization.CultureInfo("vi-VN"));
+        }
+        //Hàm chuyển đổi từ Tiền tệ thành Số
+        private int NumberFromVND(string currency)
+        {
+            return int.Parse(currency, System.Globalization.NumberStyles.Currency, new System.Globalization.CultureInfo("vi-VN"));
+        }
+
         private void hienMotTab(TabControl tab_menu ,TabPage tab)
         {
             //Nguyên tắc DRY (Don't repeat yourself)
@@ -67,15 +94,45 @@ namespace QLNHDN
             tab_menu.TabPages.Add(tab);
             lblTitle.Text = tab.Text;
         }
-        private void frmQLNHDN_Load(object sender, EventArgs e)
+        private void showBill(int index)
         {
-            tabMenu.TabPages.Clear();
-            hienMotTab(tablistBill, tabBill1);
-            lblTitle.Text = "Trang chủ";
+            currentBillIndex = index;
+            gridBillDetail.DataSource = bill[index].DetailTable;
+            gridBillDetail.Refresh();
+
+            gridBillDetail.Columns["Tên SP"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            //Không cho chỉnh sửa nội dung tất cả các cột, trừ cột "Số lượng"
+            foreach(DataGridViewColumn col in gridBillDetail.Columns)
+            {
+                if(col.HeaderText != "Số lượng")
+                {
+                    col.ReadOnly = true;
+                }
+            }
+            txtCustomerID.Text = bill[index].Customer.ID;
+            btnChangeCustomerID_Click(new object(), new EventArgs());
+            lblBillTitle.Text = String.Format("Hoá đơn {0}", index + 1);
+
+            //Đổi màu nút khi hoá đơn được chọn
+            foreach(Button button in grpbxBillButtonList.Controls)
+            {
+                if(button.Name.Equals(String.Format("btnBill{0}", currentBillIndex + 1)))
+                    button.BackColor = System.Drawing.Color.White;
+                else
+                    button.BackColor = System.Drawing.Color.Transparent;
+            }
+            //Nếu hoá đơn chưa được thanh toán thì vô hiệu hoá nút in, ngược lại thì kích hoạt nút in
+            btnBillPrinting.Enabled = !(bill[currentBillIndex].ID == "");
         }
+        private void changeTableIcon(int ImageIndex)
+        {
+            Button button = (Button)this.Controls.Find(String.Format("btnBill{0}", currentBillIndex + 1), true)[0];
+            button.ImageIndex = ImageIndex;
+        }
+
         private void hoáĐơnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTinhTien);
+            hienMotTab(tabMenu, tabBillManagement);
         }
 
         private void phiếuNhậpKhoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -91,7 +148,7 @@ namespace QLNHDN
 
         private void doanhThuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            hienMotTab(tabMenu, tabTKDoanhThu);
+            hienMotTab(tabMenu, tabRevenueStatistics);
         }
 
         private void tìnhHìnhNhậpKhoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -123,247 +180,78 @@ namespace QLNHDN
         {
             hienMotTab(tabMenu, tabTTNguyenLieu);
         }
-
-        private void btnBan2_Click(object sender, EventArgs e)
+        private void txtFoodQuantity_Enter(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill2);
+            txtFoodQuantity.SelectAll();
         }
 
-        private void btnBan1_Click(object sender, EventArgs e)
+        private void txtBeverageQuantity_Enter(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill1 );
+            txtBeverageQuantity.SelectAll();
         }
 
-        private void btnBan3_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tablistBill, tabBill3 );
-        }
 
-        private void btnBan4_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tablistBill, tabBill4 );
-        }
-
-        private void btnBan5_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tablistBill, tabBill5 );
-        }
-
-        private void btnBan6_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tablistBill, tabBill6 );
-        }
-
-        private void btnBan7_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tablistBill, tabBill7 );
-        }
-
-        private void btnBan8_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tablistBill, tabBill8 );
-        }
-
-        private void btnBan9_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tablistBill, tabBill9 );
-        }
-
-        private void btnBan10_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tablistBill, tabBill10 );
-        }
-
-        private void btnBan11_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tablistBill, tabBill11 );
-        }
-
-        private void btnBan12_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tablistBill, tabBill12 );
-        }
-        private void btnThanhToan_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btnHuyHD_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_MouseClick(object sender, MouseEventArgs e)
-        {
-            //if(e.Button == MouseButtons.Right)
-            //{
-            //    menuStripTuyChonBan.Show(btnHD1, 0, 0);
-            //}
-        }
-
-        private void btn_Ban1_ThemMon_Click(object sender, EventArgs e)
-        {
-            frmThemMon them_mon = new frmThemMon();
-            them_mon.ShowDialog();
-        }
-
-        private void btn_Ban1_ThemThucUong_Click(object sender, EventArgs e)
-        {
-            frmThemThucUong them_thuc_uong = new frmThemThucUong();
-            them_thuc_uong.ShowDialog();
-        }
-        private void txt_Ban1_SoLuong_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        #region Bill Button Click Events
         private void btnBill1_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill1);
+            showBill(0);
         }
-        private void btnHD2_Click(object sender, EventArgs e)
+
+        private void btnBill2_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill2);
+            showBill(1);
         }
 
-        private void btnHD3_Click(object sender, EventArgs e)
+        private void btnBill3_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill3);
+            showBill(2);
         }
 
-        private void btnHD4_Click(object sender, EventArgs e)
+        private void btnBill4_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill4);
+            showBill(3);
         }
 
-        private void btnHD5_Click(object sender, EventArgs e)
+        private void btnBill5_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill5);
+            showBill(4);
         }
 
-        private void btnHD6_Click(object sender, EventArgs e)
+        private void btnBill6_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill6);
+            showBill(5);
         }
 
-        private void btnHD7_Click(object sender, EventArgs e)
+        private void btnBill7_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill7);
+            showBill(6);
         }
 
-        private void btnHD8_Click(object sender, EventArgs e)
+        private void btnBill8_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill8);
+            showBill(7);
         }
 
-        private void btnHD9_Click(object sender, EventArgs e)
+        private void btnBill9_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill9);
+            showBill(8);
         }
 
-        private void btnHD10_Click(object sender, EventArgs e)
+        private void btnBill10_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill10);
+            showBill(9);
         }
 
-        private void btnHD11_Click(object sender, EventArgs e)
+        private void btnBill11_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill11);
+            showBill(10);
         }
 
-        private void btnHD12_Click(object sender, EventArgs e)
+        private void btnBill12_Click(object sender, EventArgs e)
         {
-            hienMotTab(tablistBill, tabBill12);
+            showBill(11); 
+            #endregion
         }
-
-        private void label50_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void contextBillStatus_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if(e.ClickedItem == itemStartBilling)
-            {
-                grpBill1.Visible = true;
-                ContextMenuStrip menu = (ContextMenuStrip)sender;
-                Console.WriteLine(menu.TopLevelControl.ToString());
-            }
-        }
-
-        void showBill(GroupBox grpBill)
-        {
-            grpBill.Enabled = true;
-        }
-        private void btnStart_Bill1_Click(object sender, EventArgs e)
-        {
-            showBill(grpBill1);
-        }
-
-        private void btnStart_Bill2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Bill3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Bill4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Bill5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Bill6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Bill7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Bill8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Bill9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Bill10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Bill11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Bill12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        //Hàm chuyển đổi từ Số thành Tiền tệ
-        private string VNDfromNumber(int number)
-        {
-            return number.ToString("C0", new System.Globalization.CultureInfo("vi-VN"));
-        }
-        //Hàm chuyển đổi từ Tiền tệ thành Số
-        private int NumberFromVND(string currency)
-        {
-            return int.Parse(currency, System.Globalization.NumberStyles.Currency, new System.Globalization.CultureInfo("vi-VN"));
-        }
-
         private void btnFoodSearching_Click(object sender, EventArgs e)
         {
             string keyword = txtFoodSearching.Text;
@@ -379,50 +267,47 @@ namespace QLNHDN
             gridBeverage.DataSource = bill.loadBeverageList(keyword);
             gridBeverage.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
         }
-        private DataGridView billDetailOf(TabPage tabBill)
-        {
-            string current_tab_name = tabBill.Name;
-            switch(current_tab_name)
-            {
-                case "tabBill1": return gridBillDetail_Bill1;
-            }
-            return null;
-        }
-
         private void addProductToBill(DataGridView p_gridProduct, DataGridView p_gridBill, TextBox p_Quantity)
         {
             errorProvider.Clear();
             try
             {
+                DataTable dt = (DataTable)p_gridBill.DataSource;
                 string product_ID = p_gridProduct.SelectedRows[0].Cells[0].Value.ToString();
                 string product_Name = p_gridProduct.SelectedRows[0].Cells[1].Value.ToString();
                 string product_Price = p_gridProduct.SelectedRows[0].Cells[2].Value.ToString();
-                string product_Quantity = p_Quantity.Text;
+                int product_Quantity = Convert.ToInt16(p_Quantity.Text);
                 string product_TypeName = p_gridProduct.SelectedRows[0].Cells[3].Value.ToString();
 
-                //Kiểm tra xem mã SP này đã có trong HĐ chưa.
+                //Nếu SP đã có trong hoá đơn thì cộng thêm số lượng
                 bool already_added = false;
-                foreach (DataGridViewRow row in p_gridBill.Rows)
+                foreach (DataRow row in dt.Rows)
                 {
-                    if (row.Cells[0].Value.ToString() == product_ID)
+                    if (row.ItemArray[0].ToString() == product_ID)
                     {
-                        int quantity = Convert.ToInt32(row.Cells[3].Value);
+                        int quantity = Convert.ToInt32(row.ItemArray[3].ToString());
                         quantity += Convert.ToInt16(product_Quantity);
-                        row.Cells["colProductQuantity_Bill1"].Value = quantity.ToString();
-                        row.Cells["colSumPrice_Bill1"].Value = VNDfromNumber(quantity * (NumberFromVND(product_Price)));
+                        row.SetField<int>(3, quantity);
+                        row.SetField<string>(4, VNDfromNumber(quantity * (NumberFromVND(product_Price))));
                         already_added = true;
                         break;
                     }
                 }
-                //Nếu chưa thì thêm một dòng mới vào bảng
+                //Nếu chưa thì thêm một dòng mới vào bảng               
                 if (already_added == false)
                 {
                     string product_SumPrice = VNDfromNumber(NumberFromVND(product_Price) * Convert.ToInt32(product_Quantity));
-                    DataGridViewRow product_row = new DataGridViewRow();
-                    product_row.CreateCells(p_gridBill, product_ID, product_Name, product_Price, product_Quantity, 
+                    dt.Rows.Add(product_ID, product_Name, product_Price, product_Quantity,
                         product_SumPrice, product_TypeName);
-                    p_gridBill.Rows.Add(product_row);
                 }
+                p_gridBill.DataSource = dt;
+                p_gridBill.Refresh();
+
+                //Đổi màu nút Hoá đơn sang đỏ
+                changeTableIcon(2);
+
+                //Tính lại tổng Hoá đơn
+                btnCalculateSum_Click(new object(), new EventArgs());
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -436,23 +321,13 @@ namespace QLNHDN
 
         private void btnAddFood_Click(object sender, EventArgs e)
         {
-            DataGridView current_bill_detail = billDetailOf(tablistBill.SelectedTab);
-            addProductToBill(gridFood, current_bill_detail, txtFoodQuantity);
-            switch(current_bill_detail.Name)
-            {
-                case "gridBillDetail_Bill1": btnCalculateSum_Bill1_Click(sender, e); break;
-            }
+            addProductToBill(gridFood, gridBillDetail, txtFoodQuantity);
         }
 
 
         private void btnAddBeverage_Click(object sender, EventArgs e)
         {
-            DataGridView current_bill_detail = billDetailOf(tablistBill.SelectedTab);
-            addProductToBill(gridBeverage, current_bill_detail, txtBeverageQuantity);
-            switch (current_bill_detail.Name)
-            {
-                case "gridBillDetail_Bill1": btnCalculateSum_Bill1_Click(sender, e); break;
-            }
+            addProductToBill(gridBeverage, gridBillDetail, txtBeverageQuantity);
         }
 
         private void gridBillDetail_Bill1_MouseClick(object sender, MouseEventArgs e)
@@ -468,32 +343,52 @@ namespace QLNHDN
             }
         }
 
-        private void btnChangeCustomerID_Bill1_Click(object sender, EventArgs e)
+        private void btnChangeCustomerID_Click(object sender, EventArgs e)
         {
-            BUS.BillManagement bus = new BUS.BillManagement();
-            Customer customer = bus.getCustomerDetail(txtCustomerID_Bill1.Text);
-            if (customer.CustomerID == null)
+            int number;
+            if (txtCustomerID.Text == null || int.TryParse(txtCustomerID.Text, out number)==false)
             {
-                MessageBox.Show("Không tìm thấy khách hàng!", "Lỗi", MessageBoxButtons.OK);
-                txtCustomerID_Bill1.Text = "1";
-                btnChangeCustomerID_Bill1_Click(sender, e);
+                MessageBox.Show("Mã khách hàng không hợp lệ!", "Lỗi", MessageBoxButtons.OK);
+                txtCustomerID.Text = "1";
+                btnChangeCustomerID_Click(sender, e);
             }
             else
             {
-                txtCustomerID_Bill1.Text = customer.CustomerID;
-                txtDiscountRate_Bill1.Text = customer.DiscountRate.ToString();
-            }
-            btnCalculateSum_Bill1_Click(sender, e);
+                BUS.BillManagement bus = new BUS.BillManagement();
+                Customer customer = bus.getCustomerDetail(txtCustomerID.Text);
+                if(customer.ID == null)
+                {
+                    MessageBox.Show("Không tìm thấy mã khách hàng!", "Lỗi", MessageBoxButtons.OK);
+                    txtCustomerID.Text = "1";
+                    btnChangeCustomerID_Click(sender, e);
+                }
+                else
+                {
+                    txtCustomerID.Text = customer.ID;
+                    txtDiscountRate.Text = customer.DiscountRate.ToString();
+                    bill[currentBillIndex].Customer = customer;
+                }
+            }            
+            btnCalculateSum_Click(sender, e);
         }
 
-        private void btnCustomerDetail_Bill1_Click(object sender, EventArgs e)
+        private void txtCustomerID_Enter(object sender, EventArgs e)
+        {
+            btnChangeCustomerID_Click(sender, e);
+        }
+
+        private void txtCustomerID_Leave(object sender, EventArgs e)
+        {
+            btnChangeCustomerID_Click(sender, e);
+        }
+        private void btnCustomerDetail_Click(object sender, EventArgs e)
         {
             BUS.BillManagement bus = new BUS.BillManagement();
-            Customer customer = bus.getCustomerDetail(txtCustomerID_Bill1.Text);
+            Customer customer = bus.getCustomerDetail(txtCustomerID.Text);
             StringBuilder sb_customer_info = new StringBuilder();
-            sb_customer_info.AppendLine("Mã KH: " + customer.CustomerID);
+            sb_customer_info.AppendLine("Mã KH: " + customer.ID);
             sb_customer_info.AppendLine("Họ tên KH: " + customer.FullName);
-            sb_customer_info.AppendLine("CMND: " + customer.ID_Number);
+            sb_customer_info.AppendLine("CMND: " + customer.CivilID);
             sb_customer_info.AppendLine("Số điện thoại: " + customer.PhoneNumber);
             sb_customer_info.AppendLine("Cấp độ khách hàng: " + customer.Type);
             sb_customer_info.AppendLine("Tỉ lệ chiết khấu: " + customer.DiscountRate);
@@ -503,28 +398,24 @@ namespace QLNHDN
 
         private void txtCustomerID_Bill1_Leave(object sender, EventArgs e)
         {
-            if (txtCustomerID_Bill1.Text == "")
-            {
-                txtCustomerID_Bill1.Text = "1";
-                btnChangeCustomerID_Bill1_Click(sender, e);
-            }
+             btnChangeCustomerID_Click(sender, e);
         }
 
-        private void btnCalculateSum_Bill1_Click(object sender, EventArgs e)
+        private void btnCalculateSum_Click(object sender, EventArgs e)
         {
             int total = 0;
-            foreach (DataGridViewRow row in gridBillDetail_Bill1.Rows)
+            foreach (DataRow row in bill[currentBillIndex].DetailTable.Rows)
             {
-                int productSumPrice = NumberFromVND(row.Cells["colSumPrice_Bill1"].Value.ToString());
+                int productSumPrice = NumberFromVND(row.Field<string>(4));
                 total += productSumPrice;
             }
-            double discountRate = Convert.ToDouble(txtDiscountRate_Bill1.Text);
+            double discountRate = Convert.ToDouble(txtDiscountRate.Text);
             int discountAmount = (int)(total * discountRate);
             int actualTotal = total - discountAmount;
 
-            txtTotal_Bill1.Text = VNDfromNumber(total);
-            txtDiscountAmount_Bill1.Text = VNDfromNumber(discountAmount);
-            txtActualTotal_Bill1.Text = VNDfromNumber(actualTotal);
+            txtTotal.Text = VNDfromNumber(total);
+            txtDiscountAmount.Text = VNDfromNumber(discountAmount);
+            txtActualTotal.Text = VNDfromNumber(actualTotal);
         }
 
         private void itemEdit_Click(object sender, EventArgs e)
@@ -537,7 +428,7 @@ namespace QLNHDN
 
         private void gridBillDetail_Bill1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            gridBillDetail_Bill1.Rows[e.RowIndex].ErrorText = String.Empty;
+            errorProvider.Clear();
         }
 
         private void tồnHàngToolStripMenuItem_Click(object sender, EventArgs e)
@@ -545,26 +436,131 @@ namespace QLNHDN
             hienMotTab(tabMenu, tabKTTHHangTon);
             refreshCheckInventoryState();
         }
-        private void gridBillDetail_Bill1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            DataGridView dgv = (DataGridView)sender;
-            int quantity;
-            bool check = int.TryParse(e.FormattedValue.ToString(), out quantity);
-            if (check == false || quantity < 0)
-            {
-                dgv.Rows[e.RowIndex].ErrorText = "Số lượng không hợp lệ!";
-                e.Cancel = true;
-            }
-        }
-
         private void itemDelete_Click(object sender, EventArgs e)
         {
             DialogResult button = MessageBox.Show("Bạn muốn xoá dòng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (button == DialogResult.Yes)
             {
-                gridBillDetail_Bill1.Rows.Remove(gridBillDetail_Bill1.SelectedRows[0]);
-                btnCalculateSum_Bill1_Click(sender, e);
+                gridBillDetail.Rows.Remove(gridBillDetail.SelectedRows[0]);
+                btnCalculateSum_Click(sender, e);
             }
+        }
+        private void btnBillCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Đồng ý tạo lại hoá đơn?", "Xác nhận", MessageBoxButtons.OKCancel);
+            if (dr == DialogResult.OK)
+            {
+                bill[currentBillIndex] = new Bill();
+                showBill(currentBillIndex);
+                changeTableIcon(1);
+            }
+        }
+        private void txtFoodSearching_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnFoodSearching_Click(sender, e);
+            }
+        }
+
+        private void btnSettlePay_Click(object sender, EventArgs e)
+        {           
+            if(bill[currentBillIndex].DetailTable.Rows.Count == 0 )
+                MessageBox.Show("Hoá đơn rỗng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else if(bill[currentBillIndex].ID == "")
+            {
+                BUS.BillManagement bus = new BUS.BillManagement();
+                bill[currentBillIndex] = bus.createNewBill(bill[currentBillIndex]);
+                DialogResult result = MessageBox.Show("Lưu hoá đơn thành công! Bạn có muốn in hoá đơn?", "Xác nhận", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    btnBillPrinting_Click(btnBillPrinting, e);
+                    btnBillCancel_Click(btnBillCancel, e);
+                }
+                changeTableIcon(1);
+            }
+            else
+                MessageBox.Show("Hoá đơn đã được thanh toán!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            showBill(currentBillIndex);
+        }
+        #region Printing Function
+        private void printBill()
+        {
+            PrintDocument print_doc = new PrintDocument();
+            print_doc.DefaultPageSettings.Landscape = true; //set portrait orientation to print page
+            print_doc.DefaultPageSettings.Margins = new Margins(50, 50, 10, 10);    //100 = 1 inch = 2.54 cm
+            print_doc.DocumentName = String.Format(@"{0}_{1}", DateTime.Now.ToString("yyyyMMdd"), bill[currentBillIndex].ID);
+
+
+        }
+        private void btnBillPrinting_Click(object sender, EventArgs e)
+        {
+            if (bill[currentBillIndex].DetailTable.Rows.Count == 0)
+            {
+                MessageBox.Show("Hoá đơn rỗng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                printPreviewDialog.Document = printDoc;
+                printPreviewDialog.ShowDialog();
+            }            
+        }
+
+        private string generateBillPrintingContent()
+        {
+            StringBuilder sb = new StringBuilder();
+            Bill currentBill = bill[currentBillIndex];
+            sb.AppendFormat("Mã hoá đơn: {0}\n", currentBill.ID);
+            sb.AppendLine(String.Format("Mã khách hàng: {0,-5} {1,20}: {2,-15}", currentBill.Customer.ID, "Cấp độ khách hàng", currentBill.Customer.Type));
+            sb.AppendLine(String.Format("Mã nhân viên: {0}", currentBill.Staff.ID));
+            sb.AppendLine(String.Format("Thời gian: {0:d} {0:t}", currentBill.CreatingTime));
+            sb.AppendLine("---------------------------------------------------------");
+            foreach (DataRow row in currentBill.DetailTable.Rows)
+            {
+                sb.AppendLine(row.Field<string>("Tên SP"));
+                string productDetail = String.Format("{0,20}{1,3}{2,5}{3,2}{4,20}", row.Field<string>("Đơn giá"), "x", row.Field<int>("Số lượng"), "=", row.Field<string>("Thành tiền"));
+                sb.AppendLine(productDetail);
+            }
+            sb.AppendLine("---------------------------------------------------------");
+            sb.AppendFormat("{0,30}{1,20}\n", "Tổng tiền", txtTotal.Text);
+            string discountRate = (Convert.ToDouble(txtDiscountRate.Text) * 100).ToString();
+            sb.AppendFormat("{0,30}({1,2}%){2,15}\n", "Tiền chiết khấu", discountRate, txtDiscountAmount.Text);
+            sb.AppendFormat("{0,30}{1,20}\n", "THANH TOÁN", txtActualTotal.Text);
+            return sb.ToString();
+        }
+        private void printDoc_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            e.Graphics.DrawString(generateBillPrintingContent(), new Font("Courier New", 12), Brushes.Black, e.MarginBounds);
+        }
+        #endregion
+        private void gridBillDetail_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            DataGridView dgv = ((DataGridView)sender);
+            dgv.Rows[e.RowIndex].ErrorText = "Dữ liệu không hợp lệ!";
+            e.Cancel = true;
+        }
+
+        private void gridBillDetail_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            //Xoá thông báo lỗi
+            DataGridView dgv = ((DataGridView)sender);
+            dgv.Rows[e.RowIndex].ErrorText = "";
+
+            //Tính lại thành tiền dựa trên số lương mới
+            DataRow row = ((DataTable)dgv.DataSource).Rows[e.RowIndex];
+            int quantity = Convert.ToInt32(row.ItemArray[3].ToString());
+            int productPrice = NumberFromVND(row.ItemArray[2].ToString());
+            row.SetField<int>(3, quantity);
+            row.SetField<string>(4, VNDfromNumber(quantity * productPrice));
+
+        }
+        private void dtpBeginDate_ValueChanged(object sender, EventArgs e)
+        {
+            dtpEndDate.MinDate = dtpBeginDate.Value;
+        }
+        private void btnGenerateStatistic_Click(object sender, EventArgs e)
+        {
+            BUS.RevenueStatistic bus = new BUS.RevenueStatistic();
         }
         //Phần của Phúc
         private void btnLamLai_TPKH_Click(object sender, EventArgs e)
@@ -701,20 +697,6 @@ namespace QLNHDN
                 }
             }
         }
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            ////Point locationOnForm = tabControl1.FindForm().PointToClient(tabControl1.Parent.PointToScreen(tabControl1.Location));
-            ////Point location = txtSLTon_TPKH.PointToScreen(Point.Empty);
-            //Point location1 = tabTaoPhieuKiemHangTon.PointToClient(txtSLTon_TPKH.Location);
-            //txtSLTon_TPKH.BorderStyle = BorderStyle.None;
-            //    Pen p = new Pen(Color.Red);
-            //    Graphics g = e.Graphics;
-            //    int variance = 3;
-            //    g.DrawRectangle(p, new Rectangle(location1.X - variance, location1.Y - variance, txtSLTon_TPKH.Width + variance, txtSLTon_TPKH.Height + variance));
-                
-        }
-
         private void txtSLTon_TPKH_Leave(object sender, EventArgs e)
         {
             if(txtSLTon_TPKH.Text == "")
@@ -830,5 +812,7 @@ namespace QLNHDN
                 txtSoTienHaoHut_KTTHHT.Text = String.Format("{0:0,0}", Convert.ToDouble(dgvThongTinChiTiet_KTTHHT.SelectedRows[0].Cells[3].Value.ToString()) * Convert.ToDouble(txtSLHaoHut_KTTHHT.Text));
             }
         }
+
+
     }
 }

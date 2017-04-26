@@ -37,8 +37,8 @@ namespace DAO
             cmd.Parameters.Add("@tungay", SqlDbType.Date);
             cmd.Parameters.Add("@denngay", SqlDbType.Date);
 
-            cmd.Parameters["@tungay"].Value = tungay;
-            cmd.Parameters["@denngay"].Value = denngay;
+            cmd.Parameters["@tungay"].Value = tungay.Date;
+            cmd.Parameters["@denngay"].Value = denngay.Date;
 
             cmd.ExecuteNonQuery();
 
@@ -76,8 +76,6 @@ namespace DAO
             SqlConnection cn = DBConnection.connectDB();
             SqlCommand cmd = new SqlCommand("sp_LoadInventoryList", cn);
             cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.ExecuteNonQuery();
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

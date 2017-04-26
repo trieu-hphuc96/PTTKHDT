@@ -17,7 +17,6 @@ namespace DAO
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@tendangnhap", SqlDbType.Char);
             cmd.Parameters.Add("@check", SqlDbType.Int).Direction = ParameterDirection.Output;
-
             cmd.Parameters["@tendangnhap"].Value = tendangnhap;
             cmd.Parameters["@check"].Value = -1;
 

@@ -51,7 +51,7 @@ namespace DAO
 
             cmd.Parameters["@maphieu"].Value = maphieu;
 
-            cmd.ExecuteNonQuery();
+            //cmd.ExecuteNonQuery();
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

@@ -34,6 +34,7 @@ namespace QLNHDN
             current_staff = new Staff("1");
             InitializeBillList();
         }
+
         private void InitializeBillList()
         {
             const int bill_count = 12;
@@ -227,6 +228,17 @@ namespace QLNHDN
         {
             hienMotTab(tabMenu, tabTTNguyenLieu);
         }
+        private void tạoPhiếuĐặtHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hienMotTab(tabMenu, tabTaoPhieuDat);
+        }
+
+        private void kiểmTraTìnhHìnhĐặtHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hienMotTab(tabMenu, tabKTTHDat);
+        }
+
+
         private void txtFoodQuantity_Enter(object sender, EventArgs e)
         {
             txtFoodQuantity.SelectAll();
@@ -686,7 +698,7 @@ namespace QLNHDN
             if (dgvNguyenLieu_TPKH.SelectedRows.Count > 0 & dgvNguyenLieu_TPKH.Rows.Count > 0)
             {
                 txtTenNL_TPKH.Text = dgvNguyenLieu_TPKH.SelectedRows[0].Cells[1].Value.ToString();
-                txtDVT_TPKH.Text = dgvNguyenLieu_TPKH.SelectedRows[0].Cells[4].Value.ToString();
+                txtDVT_TPKH.Text = dgvNguyenLieu_TPKH.SelectedRows[0].Cells[2].Value.ToString();
                 txtSLHu_TPKH.Text = "0";
                 txtSLTon_TPKH.Text = "0";
             }

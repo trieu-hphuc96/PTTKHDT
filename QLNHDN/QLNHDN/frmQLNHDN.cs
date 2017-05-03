@@ -37,7 +37,7 @@ namespace QLNHDN
 
         private void InitializeBillList()
         {
-            const int bill_count = 12;
+            const int bill_count = 24;
             bill = new Bill[bill_count];
             for(int i = 0; i < bill_count; i++)
             {
@@ -120,17 +120,6 @@ namespace QLNHDN
         {
             tabMenu.TabPages.Clear();
             lblTitle.Text = "Trang chủ";
-            cbStatisticCriteria.SelectedIndex = 0;
-        }
-        //Hàm chuyển đổi từ Số thành Tiền tệ
-        private string VNDfromNumber(int number)
-        {
-            return number.ToString("C0", new System.Globalization.CultureInfo("vi-VN"));
-        }
-        //Hàm chuyển đổi từ Tiền tệ thành Số
-        private int NumberFromVND(string currency)
-        {
-            return int.Parse(currency, System.Globalization.NumberStyles.Currency, new System.Globalization.CultureInfo("vi-VN"));
         }
 
         private void hienMotTab(TabControl tab_menu ,TabPage tab)
@@ -140,45 +129,13 @@ namespace QLNHDN
             tab_menu.TabPages.Add(tab);
             lblTitle.Text = tab.Text;
         }
-        private void showBill(int index)
-        {
-            currentBillIndex = index;
-            gridBillDetail.DataSource = bill[index].DetailTable;
-            gridBillDetail.Refresh();
-
-            gridBillDetail.Columns["Tên SP"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            //Không cho chỉnh sửa nội dung tất cả các cột, trừ cột "Số lượng"
-            foreach(DataGridViewColumn col in gridBillDetail.Columns)
-            {
-                if(col.HeaderText != "Số lượng")
-                {
-                    col.ReadOnly = true;
-                }
-            }
-            txtCustomerID.Text = bill[index].Customer.ID;
-            btnChangeCustomerID_Click(new object(), new EventArgs());
-            lblBillTitle.Text = String.Format("Hoá đơn {0}", index + 1);
-
-            //Đổi màu nút khi hoá đơn được chọn
-            foreach(Button button in grpbxBillButtonList.Controls)
-            {
-                if(button.Name.Equals(String.Format("btnBill{0}", currentBillIndex + 1)))
-                    button.BackColor = System.Drawing.Color.White;
-                else
-                    button.BackColor = System.Drawing.Color.Transparent;
-            }
-            //Nếu hoá đơn chưa được thanh toán thì vô hiệu hoá nút in, ngược lại thì kích hoạt nút in
-            btnBillPrinting.Enabled = !(bill[currentBillIndex].ID == "");
-        }
-        private void changeTableIcon(int ImageIndex)
-        {
-            Button button = (Button)this.Controls.Find(String.Format("btnBill{0}", currentBillIndex + 1), true)[0];
-            button.ImageIndex = ImageIndex;
-        }
 
         private void hoáĐơnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hienMotTab(tabMenu, tabBillManagement);
+            //Nếu hoá đơn hiện tại đã thanh toán, làm mới hoá đơn.
+            if(bill[currentBillIndex].ID != "")
+                BillRefresh();
         }
 
         private void menuItemPhieuNhap_Click(object sender, EventArgs e)
@@ -192,6 +149,12 @@ namespace QLNHDN
             hienMotTab(tabMenu, tabTaoPhieuKiemHangTon);
             refreshInventoryList();
         }
+        private void tồnHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hienMotTab(tabMenu, tabKTTHHangTon);
+            refreshCheckInventoryState();
+        }
+
 
         private void doanhThuToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -238,78 +201,54 @@ namespace QLNHDN
             hienMotTab(tabMenu, tabKTTHDat);
         }
 
-
-        private void txtFoodQuantity_Enter(object sender, EventArgs e)
+        //Hàm chuyển đổi từ Số thành Tiền tệ
+        private string VNDfromNumber(int number)
         {
-            txtFoodQuantity.SelectAll();
+            return number.ToString("C0", new System.Globalization.CultureInfo("vi-VN"));
         }
-
-        private void txtBeverageQuantity_Enter(object sender, EventArgs e)
+        //Hàm chuyển đổi từ Tiền tệ thành Số
+        private int NumberFromVND(string currency)
         {
-            txtBeverageQuantity.SelectAll();
+            return int.Parse(currency, System.Globalization.NumberStyles.Currency, new System.Globalization.CultureInfo("vi-VN"));
         }
-
-
-        #region Bill Button Click Events
-        private void btnBill1_Click(object sender, EventArgs e)
+        private void showBill(int index)
         {
-            showBill(0);
+            currentBillIndex = index;
+            gridBillDetail.DataSource = bill[index].DetailTable;
+            gridBillDetail.Refresh();
+
+            gridBillDetail.Columns["Tên SP"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            //Không cho chỉnh sửa nội dung tất cả các cột, trừ cột "Số lượng"
+            foreach (DataGridViewColumn col in gridBillDetail.Columns)
+            {
+                if (col.HeaderText != "Số lượng")
+                {
+                    col.ReadOnly = true;
+                }
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            txtCustomerID.Text = bill[index].Customer.ID;
+            btnChangeCustomerID_Click(new object(), new EventArgs());
+            lblBillTitle.Text = String.Format("Hoá đơn {0}", index + 1);
+
+            //Đổi màu nút khi hoá đơn được chọn
+            foreach (Button button in grpbxBillButtonList.Controls)
+            {
+                if (button.Name.Equals(String.Format("btnBill{0}", currentBillIndex + 1)))
+                    button.BackColor = System.Drawing.Color.White;
+                else
+                    button.BackColor = System.Drawing.Color.Transparent;
+            }
         }
-
-        private void btnBill2_Click(object sender, EventArgs e)
+        private void btnBill_Click(object sender, EventArgs e)
         {
-            showBill(1);
+            int bill_index = Convert.ToInt16(((Button)sender).Name.Substring(7));
+            showBill(bill_index - 1);
         }
-
-        private void btnBill3_Click(object sender, EventArgs e)
+        private void changeBillIcon(int ImageIndex)
         {
-            showBill(2);
-        }
-
-        private void btnBill4_Click(object sender, EventArgs e)
-        {
-            showBill(3);
-        }
-
-        private void btnBill5_Click(object sender, EventArgs e)
-        {
-            showBill(4);
-        }
-
-        private void btnBill6_Click(object sender, EventArgs e)
-        {
-            showBill(5);
-        }
-
-        private void btnBill7_Click(object sender, EventArgs e)
-        {
-            showBill(6);
-        }
-
-        private void btnBill8_Click(object sender, EventArgs e)
-        {
-            showBill(7);
-        }
-
-        private void btnBill9_Click(object sender, EventArgs e)
-        {
-            showBill(8);
-        }
-
-        private void btnBill10_Click(object sender, EventArgs e)
-        {
-            showBill(9);
-        }
-
-        private void btnBill11_Click(object sender, EventArgs e)
-        {
-            showBill(10);
-        }
-
-        private void btnBill12_Click(object sender, EventArgs e)
-        {
-            showBill(11); 
-            #endregion
+            Button button = (Button)this.Controls.Find(String.Format("btnBill{0}", currentBillIndex + 1), true)[0];
+            button.ImageIndex = ImageIndex;
         }
         private void btnFoodSearching_Click(object sender, EventArgs e)
         {
@@ -318,7 +257,6 @@ namespace QLNHDN
             gridFood.DataSource = bill.loadFoodList(keyword);
             gridFood.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
         }
-
         private void btnBeverageSearch_Click(object sender, EventArgs e)
         {
             string keyword = txtBeverageSearch.Text;
@@ -363,7 +301,7 @@ namespace QLNHDN
                 p_gridBill.Refresh();
 
                 //Đổi màu nút Hoá đơn sang đỏ
-                changeTableIcon(2);
+                changeBillIcon(2);
 
                 //Tính lại tổng Hoá đơn
                 btnCalculateSum_Click(new object(), new EventArgs());
@@ -377,19 +315,21 @@ namespace QLNHDN
                 errorProvider.SetError(p_Quantity, "Chưa nhập số lượng!");
             }
         }
-
         private void btnAddFood_Click(object sender, EventArgs e)
         {
             addProductToBill(gridFood, gridBillDetail, txtFoodQuantity);
+            txtFoodQuantity.Text = "1";
+            txtFoodSearching.Text = "";
+            btnFoodSearching_Click(sender, e);
         }
-
-
         private void btnAddBeverage_Click(object sender, EventArgs e)
         {
             addProductToBill(gridBeverage, gridBillDetail, txtBeverageQuantity);
+            txtBeverageQuantity.Text = "1";
+            txtBeverageSearch.Text = "";
+            btnBeverageSearch_Click(sender, e);
         }
-
-        private void gridBillDetail_Bill1_MouseClick(object sender, MouseEventArgs e)
+        private void gridBillDetail_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -401,7 +341,6 @@ namespace QLNHDN
                 contextBillItemSelection.Show(dgv, e.X, e.Y);
             }
         }
-
         private void btnChangeCustomerID_Click(object sender, EventArgs e)
         {
             int number;
@@ -430,12 +369,10 @@ namespace QLNHDN
             }            
             btnCalculateSum_Click(sender, e);
         }
-
         private void txtCustomerID_Enter(object sender, EventArgs e)
         {
             btnChangeCustomerID_Click(sender, e);
         }
-
         private void txtCustomerID_Leave(object sender, EventArgs e)
         {
             btnChangeCustomerID_Click(sender, e);
@@ -454,12 +391,6 @@ namespace QLNHDN
 
             MessageBox.Show(sb_customer_info.ToString());
         }
-
-        private void txtCustomerID_Bill1_Leave(object sender, EventArgs e)
-        {
-             btnChangeCustomerID_Click(sender, e);
-        }
-
         private void btnCalculateSum_Click(object sender, EventArgs e)
         {
             int total = 0;
@@ -476,25 +407,6 @@ namespace QLNHDN
             txtDiscountAmount.Text = VNDfromNumber(discountAmount);
             txtActualTotal.Text = VNDfromNumber(actualTotal);
         }
-
-        private void itemEdit_Click(object sender, EventArgs e)
-        {
-            DataGridView dgv = (DataGridView)contextBillItemSelection.SourceControl;
-            int col_index = dgv.CurrentCell.ColumnIndex;
-            dgv.CurrentCell = dgv.SelectedRows[0].Cells[col_index];
-            dgv.BeginEdit(true);
-        }
-
-        private void gridBillDetail_Bill1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            errorProvider.Clear();
-        }
-
-        private void tồnHàngToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tabMenu, tabKTTHHangTon);
-            refreshCheckInventoryState();
-        }
         private void itemDelete_Click(object sender, EventArgs e)
         {
             DialogResult button = MessageBox.Show("Bạn muốn xoá dòng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
@@ -504,15 +416,17 @@ namespace QLNHDN
                 btnCalculateSum_Click(sender, e);
             }
         }
-        private void btnBillCancel_Click(object sender, EventArgs e)
+        private void BillRefresh()
         {
-            DialogResult dr = MessageBox.Show("Đồng ý tạo lại hoá đơn?", "Xác nhận", MessageBoxButtons.OKCancel);
+            bill[currentBillIndex] = new Bill();
+            showBill(currentBillIndex);
+            changeBillIcon(1);
+        }
+        private void btnBillRefresh_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Bạn có muốn làm mới hoá đơn này?", "Xác nhận", MessageBoxButtons.OK, MessageBoxIcon.Question);
             if (dr == DialogResult.OK)
-            {
-                bill[currentBillIndex] = new Bill();
-                showBill(currentBillIndex);
-                changeTableIcon(1);
-            }
+                BillRefresh();
         }
         private void txtFoodSearching_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -521,22 +435,32 @@ namespace QLNHDN
                 btnFoodSearching_Click(sender, e);
             }
         }
-
         private void btnSettlePay_Click(object sender, EventArgs e)
         {           
             if(bill[currentBillIndex].DetailTable.Rows.Count == 0 )
                 MessageBox.Show("Hoá đơn rỗng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if(bill[currentBillIndex].ID == "")
             {
+                             
                 BUS.BillManagement bus = new BUS.BillManagement();
                 bill[currentBillIndex] = bus.createNewBill(bill[currentBillIndex]);
-                DialogResult result = MessageBox.Show("Lưu hoá đơn thành công! Bạn có muốn in hoá đơn?", "Xác nhận", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
+                DialogResult result = MessageBox.Show("Lưu hoá đơn thành công! Bạn có muốn in hoá đơn?", "Xác nhận", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
                 {
+                    //In hoá đơn
                     btnBillPrinting_Click(btnBillPrinting, e);
-                    btnBillCancel_Click(btnBillCancel, e);
+
+                    //Thêm mới khách hàng thân thiết
+                    int actualTotal = NumberFromVND(txtActualTotal.Text);
+                    if (txtCustomerID.Text == "1" && actualTotal >= 500000)
+                    {
+                        MessageBox.Show("Hoá đơn có giá trị trên 500.000đ, vui lòng đăng ký Khách hàng thân thiết mới?", "Đăng ký khách hàng thân thiết", MessageBoxButtons.OK);
+                        hienMotTab(tabMenu, tabTTKhachHang);
+                    }
+                    else
+                        //Làm mới hoá đơn
+                        BillRefresh();
                 }
-                changeTableIcon(1);
             }
             else
                 MessageBox.Show("Hoá đơn đã được thanh toán!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -564,7 +488,6 @@ namespace QLNHDN
                 printPreviewDialog.ShowDialog();
             }            
         }
-
         private string generateBillPrintingContent()
         {
             StringBuilder sb = new StringBuilder();
@@ -573,6 +496,8 @@ namespace QLNHDN
             sb.AppendLine(String.Format("Mã khách hàng: {0,-5} {1,20}: {2,-15}", currentBill.Customer.ID, "Cấp độ khách hàng", currentBill.Customer.Type));
             sb.AppendLine(String.Format("Mã nhân viên: {0}", currentBill.Staff.ID));
             sb.AppendLine(String.Format("Thời gian: {0:d} {0:t}", currentBill.CreatingTime));
+            sb.AppendLine();
+            sb.AppendFormat("{0,20}{1,3}{2,5}{3,2}{4,20}\n", "Đơn giá", "", "SL", "", "Thành tiền");
             sb.AppendLine("---------------------------------------------------------");
             foreach (DataRow row in currentBill.DetailTable.Rows)
             {
@@ -598,7 +523,6 @@ namespace QLNHDN
             dgv.Rows[e.RowIndex].ErrorText = "Dữ liệu không hợp lệ!";
             e.Cancel = true;
         }
-
         private void gridBillDetail_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             //Xoá thông báo lỗi
@@ -620,6 +544,46 @@ namespace QLNHDN
         private void btnGenerateStatistic_Click(object sender, EventArgs e)
         {
             BUS.RevenueStatistic bus = new BUS.RevenueStatistic();
+
+            RevenueStatistic statistic = new RevenueStatistic();
+            statistic.StartDate = dtpBeginDate.Value;
+            statistic.EndDate = dtpEndDate.Value;
+
+            //Hiển thị dữ liệu
+            DataTable[] dt = bus.getStatistic(statistic);
+
+            //Bảng thống kê theo hoá đơn
+            dgvBillList.DataSource = dt[0];
+
+            //Bảng thống kê theo sản phẩm
+            dgvStatisticProductList.DataSource = dt[1];
+
+            //Bảng thống kê tổng
+            foreach (DataRow row in dt[2].Rows)
+            {
+                dgvStatisticSummary.Rows.Clear();
+                dgvStatisticSummary.Rows.Add(row.ItemArray);
+            }
+        }
+        private void btnViewDetail_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Bill bill = new Bill();
+                bill.ID = dgvBillList.SelectedRows[0].Cells["Mã HĐ"].Value.ToString();
+                BUS.RevenueStatistic bus = new BUS.RevenueStatistic();
+                bill = bus.getBillDetail(bill);
+                dgvBillDetail.DataSource = bill.DetailTable;
+                lblBillDetail.Text = "Hoá đơn " + bill.ID;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                //Do nothing when there is no selected row.
+            }
+        }
+        private void dgvBillList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnViewDetail_Click(sender, e);
         }
         //Phần của Phúc
         private void btnLamMoi_TPKH_Click(object sender, EventArgs e)
@@ -1084,6 +1048,7 @@ namespace QLNHDN
                 }
             }
         }
+
 
         private void btnXoaHet_PN_Click(object sender, EventArgs e)
         {

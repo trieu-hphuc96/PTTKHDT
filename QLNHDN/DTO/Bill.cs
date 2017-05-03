@@ -26,9 +26,13 @@ namespace DTO
             DetailTable.Columns.Add("Loại");
         }
         public string ID { get; set; }
+        public int Total;
+        public int DiscountAmount;
+        public int ActualTotal;
         public DateTime CreatingTime {get; set;}
         public Staff Staff { get; set; }
         public Customer Customer { get; set; }
         public DataTable DetailTable { get; set; }
+        
     }
 }

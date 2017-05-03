@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class GoodsReceipt
+    public class OrderDetails
     {
         private int maphieu;
-        private int maphieudat;
-        private DateTime ngaygio;
-        private int manv;
+        private int manl;
+        private decimal soluongdat;
+        private decimal soluongdanhap;
 
         public int Maphieu
         {
@@ -26,42 +26,42 @@ namespace DTO
             }
         }
 
-        public DateTime Ngaygio
+        public int Manl
         {
             get
             {
-                return ngaygio;
+                return manl;
             }
 
             set
             {
-                ngaygio = value;
+                manl = value;
             }
         }
 
-        public int Manv
+        public decimal Soluongdat
         {
             get
             {
-                return manv;
+                return soluongdat;
             }
 
             set
             {
-                manv = value;
+                soluongdat = value;
             }
         }
 
-        public int Maphieudat
+        public decimal Soluongdanhap
         {
             get
             {
-                return maphieudat;
+                return soluongdanhap;
             }
 
             set
             {
-                maphieudat = value;
+                soluongdanhap = value;
             }
         }
     }

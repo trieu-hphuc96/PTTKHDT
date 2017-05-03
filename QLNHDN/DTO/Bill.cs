@@ -13,7 +13,6 @@ namespace DTO
         {
             ID = "";
             CreatingTime = DateTime.Now;
-            Staff = new Staff("1");
             Customer = new Customer();
             Customer.ID = "1";
             DetailTable = new DataTable();

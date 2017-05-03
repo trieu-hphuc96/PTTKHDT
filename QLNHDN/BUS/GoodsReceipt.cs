@@ -21,7 +21,7 @@ namespace BUS
                 {
                     bus.addGoodsReceiptDetails(dto_CT[i], maphieu);
                 }
-                MessageBox.Show("Tạo phiếu kiểm hàng thành công!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Tạo phiếu nhập hàng thành công!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return 1;
             }
             return 0;

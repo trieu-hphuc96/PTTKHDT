@@ -241,7 +241,7 @@
             this.tpRevenueByProduct = new System.Windows.Forms.TabPage();
             this.dgvStatisticProductList = new System.Windows.Forms.DataGridView();
             this.lblStatisticProductList = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpbxStatisticCriteria = new System.Windows.Forms.GroupBox();
             this.dgvStatisticSummary = new System.Windows.Forms.DataGridView();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -249,8 +249,8 @@
             this.btnGenerateStatistic = new System.Windows.Forms.Button();
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.dtpBeginDate = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblEndDate = new System.Windows.Forms.Label();
+            this.lblStartDate = new System.Windows.Forms.Label();
             this.tabKTTHNhap = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -458,7 +458,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvBillList)).BeginInit();
             this.tpRevenueByProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatisticProductList)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.grpbxStatisticCriteria.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatisticSummary)).BeginInit();
             this.tabKTTHNhap.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -2484,7 +2484,7 @@
             this.tabRevenueStatistics.Controls.Add(this.lblBillDetail);
             this.tabRevenueStatistics.Controls.Add(this.dgvBillDetail);
             this.tabRevenueStatistics.Controls.Add(this.tabRevenueView);
-            this.tabRevenueStatistics.Controls.Add(this.groupBox2);
+            this.tabRevenueStatistics.Controls.Add(this.grpbxStatisticCriteria);
             this.tabRevenueStatistics.Location = new System.Drawing.Point(4, 22);
             this.tabRevenueStatistics.Name = "tabRevenueStatistics";
             this.tabRevenueStatistics.Padding = new System.Windows.Forms.Padding(3);
@@ -2676,21 +2676,21 @@
             this.lblStatisticProductList.TabIndex = 13;
             this.lblStatisticProductList.Text = "Danh sách sản phẩm";
             // 
-            // groupBox2
+            // grpbxStatisticCriteria
             // 
-            this.groupBox2.Controls.Add(this.dgvStatisticSummary);
-            this.groupBox2.Controls.Add(this.btnGenerateStatistic);
-            this.groupBox2.Controls.Add(this.dtpEndDate);
-            this.groupBox2.Controls.Add(this.dtpBeginDate);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(6, 44);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(526, 223);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Chọn thời gian";
+            this.grpbxStatisticCriteria.Controls.Add(this.dgvStatisticSummary);
+            this.grpbxStatisticCriteria.Controls.Add(this.btnGenerateStatistic);
+            this.grpbxStatisticCriteria.Controls.Add(this.dtpEndDate);
+            this.grpbxStatisticCriteria.Controls.Add(this.dtpBeginDate);
+            this.grpbxStatisticCriteria.Controls.Add(this.lblEndDate);
+            this.grpbxStatisticCriteria.Controls.Add(this.lblStartDate);
+            this.grpbxStatisticCriteria.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpbxStatisticCriteria.Location = new System.Drawing.Point(6, 44);
+            this.grpbxStatisticCriteria.Name = "grpbxStatisticCriteria";
+            this.grpbxStatisticCriteria.Size = new System.Drawing.Size(526, 223);
+            this.grpbxStatisticCriteria.TabIndex = 0;
+            this.grpbxStatisticCriteria.TabStop = false;
+            this.grpbxStatisticCriteria.Text = "Chọn thời gian";
             // 
             // dgvStatisticSummary
             // 
@@ -2756,23 +2756,23 @@
             this.dtpBeginDate.TabIndex = 2;
             this.dtpBeginDate.ValueChanged += new System.EventHandler(this.dtpBeginDate_ValueChanged);
             // 
-            // label7
+            // lblEndDate
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(229, 27);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(71, 17);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "đến ngày:";
+            this.lblEndDate.AutoSize = true;
+            this.lblEndDate.Location = new System.Drawing.Point(229, 27);
+            this.lblEndDate.Name = "lblEndDate";
+            this.lblEndDate.Size = new System.Drawing.Size(71, 17);
+            this.lblEndDate.TabIndex = 1;
+            this.lblEndDate.Text = "đến ngày:";
             // 
-            // label3
+            // lblStartDate
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(50, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 17);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Từ ngày:";
+            this.lblStartDate.AutoSize = true;
+            this.lblStartDate.Location = new System.Drawing.Point(50, 27);
+            this.lblStartDate.Name = "lblStartDate";
+            this.lblStartDate.Size = new System.Drawing.Size(64, 17);
+            this.lblStartDate.TabIndex = 0;
+            this.lblStartDate.Text = "Từ ngày:";
             // 
             // tabKTTHNhap
             // 
@@ -4610,8 +4610,8 @@
             this.tpRevenueByProduct.ResumeLayout(false);
             this.tpRevenueByProduct.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatisticProductList)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpbxStatisticCriteria.ResumeLayout(false);
+            this.grpbxStatisticCriteria.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStatisticSummary)).EndInit();
             this.tabKTTHNhap.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -4716,11 +4716,11 @@
         private System.Windows.Forms.Button btnBillRefresh;
         private System.Windows.Forms.ImageList Icon30;
         private System.Windows.Forms.GroupBox grpBill;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpbxStatisticCriteria;
         private System.Windows.Forms.DateTimePicker dtpEndDate;
         private System.Windows.Forms.DateTimePicker dtpBeginDate;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblEndDate;
+        private System.Windows.Forms.Label lblStartDate;
         private System.Windows.Forms.Button btnGenerateStatistic;
         private System.Windows.Forms.DataGridView dgvBillList;
         private System.Windows.Forms.Label lblStatisticBillList;

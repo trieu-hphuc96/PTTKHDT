@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="QLNHDN.frmDangNhap" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABHAAAAACAAABAAAACAgEACAAAIAAAAEAAAIAABAAg=</HashCode>
+      <FileName>frmDangNhap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QLNHDN.frmQLNHDN">
+    <Position X="2.25" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>//9/a+//+v2/h96/l/+3/+/v9q2/9/f3Xv399yf/2/4=</HashCode>
+      <FileName>frmQLNHDN.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QLNHDN.Program" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QLNHDN.Properties.Resources" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QLNHDN.Properties.Settings" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

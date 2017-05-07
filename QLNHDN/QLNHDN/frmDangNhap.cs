@@ -58,7 +58,7 @@ namespace QLNHDN
         private void txtTenDangNhap_DN_Leave(object sender, EventArgs e)
         {
             BUS.Login bus = new BUS.Login();
-            if (bus.checkUsername(txtTenDangNhap_DN.Text) == 0)
+            if (bus.checkUsername(txtTenDangNhap_DN.Text) == 0 && txtTenDangNhap_DN.Text != "")
             {
                 lbBaoLoi_DN.Text = "* Tên đăng nhập không tồn tại!";
             }
@@ -71,6 +71,13 @@ namespace QLNHDN
             {
                 btnDangNhap_DN.PerformClick();
             }
+        }
+
+        public void reload()
+        {
+            txtTenDangNhap_DN.Text = "";
+            txtMatKhau_DN.Text = "";
+            txtTenDangNhap_DN.Focus();
         }
     }
 }

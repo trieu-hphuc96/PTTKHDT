@@ -9,45 +9,37 @@ using System.Windows.Forms;
 
 namespace DAO
 {
-    public class GoodsReceiptDetails
+    public class OrderDetails
     {
-        public void addGoodsReceiptDetails(DTO.GoodsReceiptDetails dto, int maphieu)
+        public void addOrderDetails(DTO.OrderDetails dto, int maphieu)
         {
             try
             {
                 SqlConnection cn = DBConnection.connectDB();
-                SqlCommand cmd = new SqlCommand("sp_AddGoodsReceiptDetails", cn);
+                SqlCommand cmd = new SqlCommand("sp_AddOrderDetails", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@maphieu", SqlDbType.Int);
                 cmd.Parameters.Add("@manl", SqlDbType.Int);
-                cmd.Parameters.Add("@nhacc", SqlDbType.NVarChar);
-                cmd.Parameters.Add("@gianhap", SqlDbType.Int);
-                cmd.Parameters.Add("@soluongnhap", SqlDbType.Decimal);
-                cmd.Parameters.Add("@soluongtra", SqlDbType.Decimal);
-                cmd.Parameters.Add("@lydo", SqlDbType.NVarChar);
+                cmd.Parameters.Add("@soluongdat", SqlDbType.Decimal);
 
                 cmd.Parameters["@maphieu"].Value = maphieu;
                 cmd.Parameters["@manl"].Value = dto.Manl;
-                cmd.Parameters["@nhacc"].Value = dto.Nhacc;
-                cmd.Parameters["@gianhap"].Value = dto.Gianhap;
-                cmd.Parameters["@soluongnhap"].Value = dto.Soluongnhap;
-                cmd.Parameters["@soluongtra"].Value = dto.Soluongtra;
-                cmd.Parameters["@lydo"].Value = dto.Lydo;
+                cmd.Parameters["@soluongdat"].Value = dto.Soluongdat;
 
                 cmd.ExecuteNonQuery();
 
                 cn.Close();
             }
-            catch
+            catch(Exception e)
             {
-                MessageBox.Show("Thêm chi tiết phiếu nhập thất bại!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                throw e;
             }
         }
 
-        public DataTable loadGoodsReceiptDetails(int maphieu)
+        public DataTable loadOrderDetails(int maphieu)
         {
             SqlConnection cn = DBConnection.connectDB();
-            SqlCommand cmd = new SqlCommand("sp_LoadGoodsReceiptDetails", cn);
+            SqlCommand cmd = new SqlCommand("sp_LoadOrderDetails", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@maphieu", SqlDbType.Int);
 

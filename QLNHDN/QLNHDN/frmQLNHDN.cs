@@ -13,25 +13,32 @@ namespace QLNHDN
     {
         #region Variable
         DataTable dtThongTinChiTiet_KTTHHT = new DataTable();
-        int tongtienHH_PN, tongtienTT_PN;
+        int tongtienHH_PN, tongtienTT_PN, tongtienHH_PD;
+        int maphieudat_PN;
+        frmDangNhap fDN;
+        DataTable dtNhanVien;
+        decimal SLNhap_PN, SLTra_PN, SoLuong_TPDH, SLTon_TPKH, SLHu_TPKH;
         Staff current_staff;
         Bill[] bill;
         int currentBillIndex;
         #endregion
-        public frmQLNHDN(frmDangNhap fDN, DataTable dtNhanVien)
+        public frmQLNHDN(frmDangNhap _fDN, DataTable _dtNhanVien)
         {
             InitializeComponent();
 
-            lbNhanVien.Text = dtNhanVien.Rows[0].Field<string>(1)+"!";
+            fDN = _fDN;
+            dtNhanVien = _dtNhanVien;
 
-            if(dtNhanVien.Rows[0].Field<int>(8) != 1)
+            lbNhanVien.Text = dtNhanVien.Rows[0].Field<string>(1)+"!";
+            current_staff = new Staff(dtNhanVien.Rows[0].Field<int>(0).ToString()); // bỏ mã nhân viên vào current staff
+
+            if (dtNhanVien.Rows[0].Field<int>(8) != 1)
             {
                 thốngKêToolStripMenuItem.Visible = false;
                 menuItemQLNhanVien.Visible = false;
                 menuItemSanPham.Visible = false;
                 menuItemNguyenLieu.Visible = false;
             }
-            current_staff = new Staff("1");
             InitializeBillList();
         }
 
@@ -74,17 +81,67 @@ namespace QLNHDN
             DataTable dt = new DataTable();
             dt = bus.searchInventoryList_byDate(dtpTuNgay_KTTHHT.Value.Date, dtpDenNgay_KTTHHT.Value.Date);
 
-            dt.Columns["MaNV"].SetOrdinal(1);
+            dt.Columns["TenNV"].SetOrdinal(2);
 
             foreach (DataRow dr in dt.Rows)
             {
                 dgvThongTinPhieuKiem_KTTHHT.Rows.Add(dr.ItemArray);
             }
+
+            dtpDenNgay_KTTHHT.MinDate = dtpTuNgay_KTTHHT.Value;
         }
 
         void refreshGoodsReceipt()
         {
-            dgvNguyenLieu_PN.Rows.Clear();
+            dgvPhieuDat_PN.Rows.Clear();
+
+            BUS.Order bus = new BUS.Order();
+            DataTable dt = new DataTable();
+            dt = bus.loadOrder();
+
+            dt.Columns["TenNV"].SetOrdinal(2);
+            dt.Columns.Add("TenTinhTrang", typeof(string));
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                if (dr.Field<int>(5) == 0 || dr.Field<int>(5) == 1)
+                {
+                    if (dr.Field<int>(5) == 0) dr[6] = "Đã đặt hàng";
+                    if (dr.Field<int>(5) == 1) dr[6] = "Đang nhập hàng";
+                    dgvPhieuDat_PN.Rows.Add(dr.ItemArray);
+                }
+            }
+
+            BUS.Supplier bus_supplier = new BUS.Supplier();
+            DataTable dt_supplier = new DataTable();
+            dt_supplier = bus_supplier.loadSupplier();
+            
+            cboNhaCC_PN.DisplayMember = "TenNCC";
+            cboNhaCC_PN.ValueMember = "MaNCC";
+            cboNhaCC_PN.DataSource = dt_supplier;
+        }
+
+        void refreshCheckGoodsReceiptState()
+        {
+            dgvPhieuNhap_KTNH.Rows.Clear();
+
+            BUS.GoodsReceipt bus = new BUS.GoodsReceipt();
+            DataTable dt = new DataTable();
+            dt = bus.searchGoodsReceipt_byDate(dtpTuNgay_KTNH.Value.Date, dtpDenNgay_KTNH.Value.Date);
+
+            dt.Columns["TenNV"].SetOrdinal(3);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                dgvPhieuNhap_KTNH.Rows.Add(dr.ItemArray);
+            }
+
+            dtpDenNgay_KTNH.MinDate = dtpTuNgay_KTNH.Value;
+        }
+
+        void refreshOrder()
+        {
+            dgvNguyenLieu_TPDH.Rows.Clear();
 
             BUS.Ingredients bus = new BUS.Ingredients();
             DataTable dt = new DataTable();
@@ -94,24 +151,37 @@ namespace QLNHDN
 
             foreach (DataRow dr in dt.Rows)
             {
-                dgvNguyenLieu_PN.Rows.Add(dr.ItemArray);
+                dgvNguyenLieu_TPDH.Rows.Add(dr.ItemArray);
             }
+
+            BUS.Supplier bus_NCC = new BUS.Supplier();
+            DataTable dt_NCC = new DataTable();
+            dt_NCC = bus_NCC.loadSupplier();           
+
+            dtpNgayGiao_TPDH.MinDate = DateTime.Now;
         }
 
-        void refreshCheckGoodsReceiptState()
+        void refreshCheckOrderState()
         {
-            dgvNguyenLieu_TPKH.Rows.Clear();
+            dgvPhieuDat_KTTHDH.Rows.Clear();
 
-            BUS.GoodsReceipt bus = new BUS.GoodsReceipt();
+            BUS.Order bus = new BUS.Order();
             DataTable dt = new DataTable();
-            dt = bus.searchGoodsReceipt_byDate(dtpTuNgay_KTNH.Value.Date, dtpDenNgay_KTNH.Value.Date);
+            dt = bus.loadOrder();
 
-            dt.Columns["MaNV"].SetOrdinal(1);
+            dt.Columns["TenNV"].SetOrdinal(2);
+            dt.Columns.Add("TenTinhTrang", typeof(string));
 
             foreach (DataRow dr in dt.Rows)
             {
-                dgvPhieuNhap_KTNH.Rows.Add(dr.ItemArray);
+                if (dr.Field<int>(5) == 0) dr[6] = "Đã đặt hàng";
+                if (dr.Field<int>(5) == 1) dr[6] = "Đang nhập hàng";
+                if (dr.Field<int>(5) == 2) dr[6] = "Đã kết thúc";
+                dgvPhieuDat_KTTHDH.Rows.Add(dr.ItemArray);
             }
+
+            dtpDenNgay_KTTHDH.MinDate = dtpTuNgay_KTTHDH.Value;
+            cboTinhTrang_KTTHDH.SelectedItem = "Đã đặt hàng";
         }
 
         #endregion
@@ -194,11 +264,13 @@ namespace QLNHDN
         private void tạoPhiếuĐặtHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hienMotTab(tabMenu, tabTaoPhieuDat);
+            refreshOrder();
         }
 
         private void kiểmTraTìnhHìnhĐặtHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hienMotTab(tabMenu, tabKTTHDat);
+            refreshCheckOrderState();
         }
 
         //Hàm chuyển đổi từ Số thành Tiền tệ
@@ -711,22 +783,15 @@ namespace QLNHDN
 
         private void txtSLTon_TPKH_Enter(object sender, EventArgs e)
         {
-            if(txtSLTon_TPKH.Text == "0")
-            {
-                txtSLTon_TPKH.Text = "";
-            }
+            SLTon_TPKH = Convert.ToDecimal(txtSLTon_TPKH.Text);
+            txtSLTon_TPKH.Text = "";
         }
 
         private void txtSLTon_TPKH_Leave(object sender, EventArgs e)
         {
             if(txtSLTon_TPKH.Text == "")
             {
-                txtSLTon_TPKH.Text = "0";
-            }
-
-            if (txtSLTon_TPKH.Text == "")
-            {
-                txtSLTon_TPKH.Text = "1";
+                txtSLTon_TPKH.Text = SLTon_TPKH.ToString();
             }
             Decimal d;
             if (!decimal.TryParse(txtSLTon_TPKH.Text, out d))
@@ -739,22 +804,15 @@ namespace QLNHDN
 
         private void txtSLHu_TPKH_Enter(object sender, EventArgs e)
         {
-            if (txtSLHu_TPKH.Text == "0")
-            {
-                txtSLHu_TPKH.Text = "";
-            }
+            SLHu_TPKH = Convert.ToDecimal(txtSLHu_TPKH.Text);
+            txtSLHu_TPKH.Text = "";
         }
 
         private void txtSLHu_TPKH_Leave(object sender, EventArgs e)
         {
             if (txtSLHu_TPKH.Text == "")
             {
-                txtSLHu_TPKH.Text = "0";
-            }
-
-            if (txtSLHu_TPKH.Text == "")
-            {
-                txtSLHu_TPKH.Text = "1";
+                txtSLHu_TPKH.Text = SLHu_TPKH.ToString();
             }
             Decimal d;
             if (!decimal.TryParse(txtSLHu_TPKH.Text, out d))
@@ -779,7 +837,9 @@ namespace QLNHDN
                 BUS.InventoryList bus = new BUS.InventoryList();
                 DataTable dt = new DataTable();
                 dt = bus.searchInventoryList_byDate(dtpTuNgay_KTTHHT.Value.Date, dtpDenNgay_KTTHHT.Value.Date);
-                dt.Columns["MaNV"].SetOrdinal(1);
+
+                dt.Columns["TenNV"].SetOrdinal(2);
+
                 foreach (DataRow dr in dt.Rows)
                 {
                     dgvThongTinPhieuKiem_KTTHHT.Rows.Add(dr.ItemArray);
@@ -795,7 +855,9 @@ namespace QLNHDN
             BUS.InventoryList bus = new BUS.InventoryList();
             DataTable dt = new DataTable();
             dt = bus.searchInventoryList_byNumber(txtTimKiem_KTTHHT.Text);
-            dt.Columns["MaNV"].SetOrdinal(1);
+
+            dt.Columns["TenNV"].SetOrdinal(2);
+
             foreach (DataRow dr in dt.Rows)
             {
                 dgvThongTinPhieuKiem_KTTHHT.Rows.Add(dr.ItemArray);
@@ -846,157 +908,123 @@ namespace QLNHDN
             }
         }
 
-        private void txtTimKiemNL_PN_TextChanged(object sender, EventArgs e)
+        private void txtTimKiem_PN_TextChanged(object sender, EventArgs e)
         {
-            dgvNguyenLieu_PN.Rows.Clear();
+            dgvPhieuDat_PN.Rows.Clear();
 
-            BUS.Ingredients bus = new BUS.Ingredients();
+            BUS.Order bus = new BUS.Order();
             DataTable dt = new DataTable();
-            dt = bus.searchIngredients(txtTimKiemNL_PN.Text);
+            dt = bus.searchOrder_byNumber(txtTimKiem_PN.Text);
 
-            dt.Columns["Gia"].SetOrdinal(3);
+            dt.Columns["TenNV"].SetOrdinal(2);
+            dt.Columns["TenNV"].SetOrdinal(2);
+            dt.Columns.Add("TenTinhTrang", typeof(string));
 
             foreach (DataRow dr in dt.Rows)
             {
-                dgvNguyenLieu_PN.Rows.Add(dr.ItemArray);
-            }
-        }
-
-        private void txtSoLuong_PN_Enter(object sender, EventArgs e)
-        {
-            txtSoLuong_PN.Text = "";
-        }
-
-        private void txtSoLuong_PN_Leave(object sender, EventArgs e)
-        {
-            if (txtSoLuong_PN.Text == "")
-            {
-                txtSoLuong_PN.Text = "1";
-            }
-            Decimal d;
-            if (!decimal.TryParse(txtSoLuong_PN.Text,out d))
-            {
-                MessageBox.Show("Vui lòng nhập số!", "Nhắc nhở", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtSoLuong_PN.Text = "";
-                txtSoLuong_PN.Focus();
-            }
-        }
-
-        private void btnThem_PN_Click(object sender, EventArgs e)
-        {
-            int check = 0;
-            foreach (DataGridViewRow row in dgvPhieuNhap_PN.Rows)
-            {
-                if (dgvNguyenLieu_PN.SelectedRows[0].Cells[1].Value == row.Cells[1].Value && cboNhaCC_PN.Text == row.Cells[2].Value.ToString())
+                if (dr.Field<int>(5) == 0 || dr.Field<int>(5) == 1)
                 {
-                    dgvPhieuNhap_PN.Rows[row.Index].Cells[5].Value = (Convert.ToDecimal(dgvPhieuNhap_PN.Rows[row.Index].Cells[5].Value.ToString()) + Convert.ToDecimal(txtSoLuong_PN.Text)).ToString();
-                    dgvPhieuNhap_PN.Rows[row.Index].Cells[6].Value = (Convert.ToDecimal(dgvPhieuNhap_PN.Rows[row.Index].Cells[5].Value.ToString()) * Convert.ToDecimal(dgvPhieuNhap_PN.Rows[row.Index].Cells[4].Value.ToString())).ToString();
-                    check = 1;
-                    break;
+                    if (dr.Field<int>(5) == 0) dr[6] = "Đã đặt hàng";
+                    if (dr.Field<int>(5) == 1) dr[6] = "Đang nhập hàng";
+                    dgvPhieuDat_PN.Rows.Add(dr.ItemArray);
                 }
             }
-            if (check == 0)
-            {
-                dgvPhieuNhap_PN.Rows.Add(dgvNguyenLieu_PN.SelectedRows[0].Cells[0].Value.ToString(), dgvNguyenLieu_PN.SelectedRows[0].Cells[1].Value.ToString(), cboNhaCC_PN.Text, dgvNguyenLieu_PN.SelectedRows[0].Cells[2].Value.ToString(), dgvNguyenLieu_PN.SelectedRows[0].Cells[3].Value.ToString(), txtSoLuong_PN.Text, (Convert.ToDecimal(dgvNguyenLieu_PN.SelectedRows[0].Cells[3].Value.ToString()) * Convert.ToDecimal(txtSoLuong_PN.Text)).ToString());
-            }
-
-            //tính tiền
-            tongtienHH_PN = 0;
-            for(int i = 0; i < dgvPhieuNhap_PN.RowCount; i++)
-            {
-                tongtienHH_PN = tongtienHH_PN + Convert.ToInt32(dgvPhieuNhap_PN.Rows[i].Cells[6].Value.ToString());
-            }
-            int thue = tongtienHH_PN * 10 / 100;
-            tongtienTT_PN = tongtienHH_PN + thue;
-
-            txtTongTien_PN.Text = String.Format("{0:0,0}", tongtienHH_PN);
-            txtThue_PN.Text = String.Format("{0:0,0}", thue);
-            txtTongTien_TT_PN.Text = String.Format("{0:0,0}", tongtienTT_PN);
         }
-
-        private void dgvNguyenLieu_PN_SelectionChanged(object sender, EventArgs e)
-        {
-            txtSoLuong_PN.Text = "1";
-            cboNhaCC_PN.SelectedItem = "BigC";
-        }
-
-        private void btnXoa_PN_Click(object sender, EventArgs e)
-        {
-            if (dgvPhieuNhap_PN.Rows.Count <= 0)
-            {
-                MessageBox.Show("Không có nguyên liệu để xoá! Vui lòng nhập nguyên liệu!", "Nhắc nhở!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                if (dgvPhieuNhap_PN.SelectedRows.Count == 0)
-                    dgvPhieuNhap_PN.Rows.RemoveAt(dgvPhieuNhap_PN.Rows.Count - 1);
-                else dgvPhieuNhap_PN.Rows.RemoveAt(dgvPhieuNhap_PN.SelectedRows[0].Index);
-            }
-        }
+        
 
         private void btnLamMoi_PN_Click(object sender, EventArgs e)
         {
-            txtTimKiemNL_PN.Text = "";
+            txtTimKiem_PN.Text = "";
+
+            txtMaNL_PN.Text = "";
+            txtTenNL_PN.Text = "";
+            txtDonVi_PN.Text = "";
+            txtGia_PN.Text = "";
+            txtSLNhap_PN.Text = "";
+            txtSLTraLai_PN.Text = "";
+            cboLyDoTra_PN.Text = "[--Chọn hoặc ghi 1 lý do trả hàng--]";
+            cboNhaCC_PN.SelectedValue = 1;
+
+            txtTongTien_PN.Text = "";
+            txtThue_PN.Text = "";
+            txtTongTien_TT_PN.Text = "";
 
             refreshGoodsReceipt();
 
-            dgvPhieuNhap_PN.Rows.Clear();
+            dgvNguyenLieu_PN.Rows.Clear();
         }
 
         private void btnTaoPhieu_PN_Click(object sender, EventArgs e)
         {
-            if (dgvPhieuNhap_PN.Rows.Count == 0)
+            //kiểm tra bảng nguyên liệu trống
+            if (dgvNguyenLieu_PN.Rows.Count == 0)
             {
-                MessageBox.Show("Vui lòng nhập nguyên liệu trước khi tạo phiếu!", "Cảnh báo!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng chọn phiếu đặt và cập nhật nguyên liệu!", "Cảnh báo!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-                DTO.GoodsReceiptDetails[] dto_CT = new DTO.GoodsReceiptDetails[30];
-                if (dgvPhieuNhap_PN.Rows.Count > 0)
-                    for (int i = 0; i < dgvPhieuNhap_PN.Rows.Count; i++)
-                    {
-                        dto_CT[i] = new DTO.GoodsReceiptDetails();
-                        dto_CT[i].Manl = Convert.ToInt32(dgvPhieuNhap_PN.Rows[i].Cells[0].Value.ToString());
-                        dto_CT[i].Nhacc = dgvPhieuNhap_PN.Rows[i].Cells[2].Value.ToString();
-                        dto_CT[i].Gianhap = Convert.ToInt32(dgvPhieuNhap_PN.Rows[i].Cells[4].Value.ToString());
-                        dto_CT[i].Soluong = Convert.ToDecimal(dgvPhieuNhap_PN.Rows[i].Cells[5].Value.ToString());
-                    }
-                else dto_CT[0] = new DTO.GoodsReceiptDetails();
-
-                DTO.GoodsReceipt dto_PNH = new DTO.GoodsReceipt();
-                dto_PNH.Manv = 1;
-                dto_PNH.Ngaygio = DateTime.Now;
-
-                BUS.GoodsReceipt bus = new BUS.GoodsReceipt();
-                int check = bus.createGoodsReceipt(dto_PNH, dto_CT, dgvPhieuNhap_PN.Rows.Count);
-                if (check == 1)
+                // kiểm tra nguyên liệu chưa cập nhật
+                int check = 0;
+                for (int i = 0; i < dgvNguyenLieu_PN.Rows.Count; i++)
                 {
-                    btnLamMoi_PN.PerformClick();
+                    if (dgvNguyenLieu_PN.Rows[i].Cells[7].Value.ToString() == "")
+                    {
+                        check = 1;
+                        break;
+                    }
+                }
+
+                // bắt đầu lưu phiếu
+                if (check == 0)
+                {
+                    DTO.GoodsReceiptDetails[] dto_CT = new DTO.GoodsReceiptDetails[30];
+                    if (dgvNguyenLieu_PN.Rows.Count > 0)
+                        for (int i = 0; i < dgvNguyenLieu_PN.Rows.Count; i++)
+                        {
+                            dto_CT[i] = new DTO.GoodsReceiptDetails();
+                            dto_CT[i].Manl = Convert.ToInt32(dgvNguyenLieu_PN.Rows[i].Cells[0].Value.ToString());
+                            dto_CT[i].Nhacc = dgvNguyenLieu_PN.Rows[i].Cells[2].Value.ToString();
+                            dto_CT[i].Gianhap = Convert.ToInt32(dgvNguyenLieu_PN.Rows[i].Cells[5].Value.ToString());
+                            dto_CT[i].Soluongnhap = Convert.ToDecimal(dgvNguyenLieu_PN.Rows[i].Cells[6].Value.ToString());
+                            dto_CT[i].Soluongtra = Convert.ToDecimal(dgvNguyenLieu_PN.Rows[i].Cells[7].Value.ToString());
+                            dto_CT[i].Lydo = dgvNguyenLieu_PN.Rows[i].Cells[8].Value.ToString();
+                        }
+                    else dto_CT[0] = new DTO.GoodsReceiptDetails();
+
+                    DTO.GoodsReceipt dto_PNH = new DTO.GoodsReceipt();
+                    dto_PNH.Maphieudat = maphieudat_PN;
+                    dto_PNH.Manv = dtNhanVien.Rows[0].Field<int>(0);
+                    dto_PNH.Ngaygio = DateTime.Now;
+
+                    BUS.GoodsReceipt bus = new BUS.GoodsReceipt();
+                    int check1 = bus.createGoodsReceipt(dto_PNH, dto_CT, dgvNguyenLieu_PN.Rows.Count);
+                    if (check1 == 1)
+                    {
+                        btnLamMoi_PN.PerformClick();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng cập nhật đầy đủ thông tin nguyên liệu!", "Nhắc nhở!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-        }
+        }             
+        
 
         private void btnTimKiem_KTNH_Click(object sender, EventArgs e)
         {
-            if (dtpTuNgay_KTNH.Value.Date > dtpDenNgay_KTNH.Value.Date)
+            dgvPhieuNhap_KTNH.Rows.Clear();
+            dgvPhieuNhap_ChiTiet_KTNH.Rows.Clear();
+
+            BUS.GoodsReceipt bus = new BUS.GoodsReceipt();
+            DataTable dt = new DataTable();
+            dt = bus.searchGoodsReceipt_byDate(dtpTuNgay_KTNH.Value.Date, dtpDenNgay_KTNH.Value.Date);
+
+            dt.Columns["TenNV"].SetOrdinal(3);
+
+            foreach (DataRow dr in dt.Rows)
             {
-                MessageBox.Show("Từ ngày không được lớn hơn đến ngày. Vui lòng nhập lại!", "Nhắc nhở!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                dgvPhieuNhap_KTNH.Rows.Clear();
-                dgvPhieuNhap_ChiTiet_KTNH.Rows.Clear();
-
-                BUS.GoodsReceipt bus = new BUS.GoodsReceipt();
-                DataTable dt = new DataTable();
-                dt = bus.searchGoodsReceipt_byDate(dtpTuNgay_KTNH.Value.Date, dtpDenNgay_KTNH.Value.Date);
-
-                dt.Columns["MaNV"].SetOrdinal(1);
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    dgvPhieuNhap_KTNH.Rows.Add(dr.ItemArray);
-                }
+                dgvPhieuNhap_KTNH.Rows.Add(dr.ItemArray);
             }
         }
 
@@ -1008,7 +1036,9 @@ namespace QLNHDN
             BUS.GoodsReceipt bus = new BUS.GoodsReceipt();
             DataTable dt = new DataTable();
             dt = bus.searchGoodsReceipt_byNumber(txtTimKiem_KTNH.Text);
-            dt.Columns["MaNV"].SetOrdinal(1);
+
+            dt.Columns["TenNV"].SetOrdinal(3);
+
             foreach (DataRow dr in dt.Rows)
             {
                 dgvPhieuNhap_KTNH.Rows.Add(dr.ItemArray);
@@ -1027,7 +1057,8 @@ namespace QLNHDN
 
                 dt.Columns.RemoveAt(0);
                 dt.Columns["TenNL"].SetOrdinal(1);
-                dt.Columns["DonVi"].SetOrdinal(3);
+                dt.Columns["TenNCC"].SetOrdinal(3);
+                dt.Columns["DonVi"].SetOrdinal(4);
 
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -1038,7 +1069,7 @@ namespace QLNHDN
                 {
                     for(int i = 0; i < dgvPhieuNhap_ChiTiet_KTNH.RowCount; i++)
                     {
-                        tongtienHH += Convert.ToInt32(Convert.ToDecimal(dgvPhieuNhap_ChiTiet_KTNH.Rows[i].Cells[4].Value.ToString()) * Convert.ToDecimal(dgvPhieuNhap_ChiTiet_KTNH.Rows[i].Cells[5].Value.ToString()));
+                        tongtienHH += Convert.ToInt32(Convert.ToDecimal(dgvPhieuNhap_ChiTiet_KTNH.Rows[i].Cells[5].Value.ToString()) * Convert.ToDecimal(dgvPhieuNhap_ChiTiet_KTNH.Rows[i].Cells[6].Value.ToString()));
                     }
                     thue = tongtienHH * 10 / 100;
                     tongtienTT = tongtienHH + thue;
@@ -1049,20 +1080,614 @@ namespace QLNHDN
             }
         }
 
-
-        private void btnXoaHet_PN_Click(object sender, EventArgs e)
+        private void frmQLNHDN_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (dgvPhieuNhap_PN.Rows.Count <= 0)
+            if (MessageBox.Show("Bạn có chắc chắn muốn thoát?", "Xác nhận!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                fDN.Show();
+                fDN.reload();
+            }
+            else e.Cancel = true;
+        }
+
+        private void txtSoLuong_TPDH_Enter(object sender, EventArgs e)
+        {
+            SoLuong_TPDH = Convert.ToDecimal(txtSoLuong_TPDH.Text);
+            txtSoLuong_TPDH.Text = "";
+        }
+
+        private void txtSoLuong_TPDH_Leave(object sender, EventArgs e)
+        {
+            if (txtSoLuong_TPDH.Text == "")
+            {
+                txtSoLuong_TPDH.Text = SoLuong_TPDH.ToString();
+            }
+            Decimal d;
+            if (!decimal.TryParse(txtSoLuong_TPDH.Text, out d))
+            {
+                MessageBox.Show("Vui lòng nhập số!", "Nhắc nhở", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSoLuong_TPDH.Text = "";
+                txtSoLuong_TPDH.Focus();
+            }
+        }
+
+        private void btnXoaNL_TPDH_Click(object sender, EventArgs e)
+        {
+            if (dgvPhieuDat_TPDH.Rows.Count <= 0)
+            {
+                MessageBox.Show("Không có nguyên liệu để xoá! Vui lòng nhập nguyên liệu!", "Nhắc nhở!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                if (dgvPhieuDat_TPDH.SelectedRows.Count == 0)
+                    dgvPhieuDat_TPDH.Rows.RemoveAt(dgvPhieuDat_TPDH.Rows.Count - 1);
+                else dgvPhieuDat_TPDH.Rows.RemoveAt(dgvPhieuDat_TPDH.SelectedRows[0].Index);
+            }
+        }
+
+        private void btnXoaHetNL_TPDH_Click(object sender, EventArgs e)
+        {
+            if (dgvPhieuDat_TPDH.Rows.Count <= 0)
             {
                 MessageBox.Show("Không có nguyên liệu để xoá! Vui lòng nhập nguyên liệu!", "Nhắc nhở!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 MessageBox.Show("Bạn có chắc chắn muốn xoá hết nguyên liệu trong phiếu kiểm?", "Xác nhận!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                dgvPhieuNhap_PN.Rows.Clear();
+                dgvPhieuDat_TPDH.Rows.Clear();
             }
         }
 
-        
+        private void btnLuuPhieu_TPDH_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvPhieuDat_TPDH.Rows.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng nhập nguyên liệu trước khi tạo phiếu!", "Cảnh báo!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    DTO.OrderDetails[] dto_CT = new DTO.OrderDetails[30];
+                    if (dgvPhieuDat_TPDH.Rows.Count > 0)
+                        for (int i = 0; i < dgvPhieuDat_TPDH.Rows.Count; i++)
+                        {
+                            dto_CT[i] = new DTO.OrderDetails();
+                            dto_CT[i].Manl = Convert.ToInt32(dgvPhieuDat_TPDH.Rows[i].Cells[0].Value.ToString());
+                            dto_CT[i].Soluongdat = Convert.ToDecimal(dgvPhieuDat_TPDH.Rows[i].Cells[4].Value.ToString());
+                        }
+                    else dto_CT[0] = new DTO.OrderDetails();
+
+                    DTO.Order dto_PDH = new DTO.Order();
+                    dto_PDH.Manv = dtNhanVien.Rows[0].Field<int>(0); ;
+                    dto_PDH.Ngaydat = DateTime.Now;
+                    dto_PDH.Ngaygiao = dtpNgayGiao_TPDH.Value;
+                    dto_PDH.Tinhtrang = 0;
+
+                    BUS.Order bus = new BUS.Order();
+                    int check = bus.createAOrder(dto_PDH, dto_CT, dgvPhieuDat_TPDH.Rows.Count);
+                    if (check == 1)
+                    {
+                        btnLamMoi_TPDH.PerformClick();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }   
+        }
+
+        private void btnLamMoi_TPDH_Click(object sender, EventArgs e)
+        {
+            txtTimKiem_TPDH.Text = "";
+
+            refreshOrder();
+
+            dgvPhieuDat_TPDH.Rows.Clear();
+        }
+
+        private void dgvNguyenLieu_TPDH_SelectionChanged(object sender, EventArgs e)
+        {
+            txtSoLuong_TPDH.Text = "1";
+        }
+
+        private void btnThemNL_TPDH_Click(object sender, EventArgs e)
+        {
+            int check = 0;
+            foreach (DataGridViewRow row in dgvPhieuDat_TPDH.Rows)
+            {
+                if (dgvNguyenLieu_TPDH.SelectedRows[0].Cells[1].Value == row.Cells[1].Value)
+                {
+                    dgvPhieuDat_TPDH.Rows[row.Index].Cells[4].Value = (Convert.ToDecimal(dgvPhieuDat_TPDH.Rows[row.Index].Cells[4].Value.ToString()) + Convert.ToDecimal(txtSoLuong_TPDH.Text)).ToString();                    
+                    check = 1;
+                    break;
+                }
+            }
+            if (check == 0)
+            {
+                dgvPhieuDat_TPDH.Rows.Add(dgvNguyenLieu_TPDH.SelectedRows[0].Cells[0].Value.ToString(),
+                                          dgvNguyenLieu_TPDH.SelectedRows[0].Cells[1].Value.ToString(),
+                                          dgvNguyenLieu_TPDH.SelectedRows[0].Cells[2].Value.ToString(),
+                                          dgvNguyenLieu_TPDH.SelectedRows[0].Cells[3].Value.ToString(),
+                                          txtSoLuong_TPDH.Text);
+            }
+
+            //tính tiền
+            tongtienHH_PD = 0;
+            for (int i = 0; i < dgvPhieuDat_TPDH.RowCount; i++)
+            {
+                tongtienHH_PD = tongtienHH_PD + Convert.ToInt32(Convert.ToDecimal(dgvPhieuDat_TPDH.Rows[i].Cells[3].Value.ToString()) * Convert.ToDecimal(dgvPhieuDat_TPDH.Rows[i].Cells[4].Value.ToString()));
+            }
+
+            txtTongTien_TPDH.Text = String.Format("{0:0,0}", tongtienHH_PD);
+        }
+
+        private void txtTimKiem_TPDH_TextChanged(object sender, EventArgs e)
+        {
+            dgvNguyenLieu_TPDH.Rows.Clear();
+
+            BUS.Ingredients bus = new BUS.Ingredients();
+            DataTable dt = new DataTable();
+            dt = bus.searchIngredients(txtTimKiem_TPDH.Text);
+
+            dt.Columns["Gia"].SetOrdinal(3);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                dgvNguyenLieu_TPDH.Rows.Add(dr.ItemArray);
+            }
+        }
+
+        private void btnTimKiem_KTTHDH_Click(object sender, EventArgs e)
+        {
+            dgvPhieuDat_KTTHDH.Rows.Clear();
+            dgvCT_PhieuDat_KTTHDH.Rows.Clear();
+
+            BUS.Order bus = new BUS.Order();
+            DataTable dt = new DataTable();
+            dt = bus.searchOrder_byDate(dtpTuNgay_KTTHDH.Value.Date, dtpDenNgay_KTTHDH.Value.Date);
+
+            dt.Columns["TenNV"].SetOrdinal(2);
+            dt.Columns.Add("TenTinhTrang", typeof(string));
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                if (dr.Field<int>(5) == 0) dr[6] = "Đã đặt hàng";
+                if (dr.Field<int>(5) == 1) dr[6] = "Đang nhập hàng";
+                if (dr.Field<int>(5) == 2) dr[6] = "Đã kết thúc";
+                dgvPhieuDat_KTTHDH.Rows.Add(dr.ItemArray);
+            }
+        }
+
+        private void dgvPhieuDat_KTTHDH_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvPhieuDat_KTTHDH.SelectedRows.Count > 0 & dgvPhieuDat_KTTHDH.Rows.Count > 0)
+            {
+                dgvCT_PhieuDat_KTTHDH.Rows.Clear();
+
+                BUS.OrderDetails bus = new BUS.OrderDetails();
+                DataTable dt = new DataTable();
+                dt = bus.loadOrderDetails(Convert.ToInt32(dgvPhieuDat_KTTHDH.SelectedRows[0].Cells[0].Value.ToString()));
+
+                dt.Columns.RemoveAt(0);
+                dt.Columns["TenNL"].SetOrdinal(1);
+                dt.Columns["DonVi"].SetOrdinal(2);
+                dt.Columns["Gia"].SetOrdinal(3);
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    dgvCT_PhieuDat_KTTHDH.Rows.Add(dr.ItemArray);
+                }
+                int tongtienHH = 0, thue, tongtienTT;
+                if (dgvCT_PhieuDat_KTTHDH.SelectedRows.Count > 0 & dgvCT_PhieuDat_KTTHDH.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dgvCT_PhieuDat_KTTHDH.RowCount; i++)
+                    {
+                        tongtienHH += Convert.ToInt32(Convert.ToDecimal(dgvCT_PhieuDat_KTTHDH.Rows[i].Cells[3].Value.ToString()) * Convert.ToDecimal(dgvCT_PhieuDat_KTTHDH.Rows[i].Cells[5].Value.ToString()));
+                    }
+                    thue = tongtienHH * 10 / 100;
+                    tongtienTT = tongtienHH + thue;
+                    txtTongTienHH_KTTHDH.Text = String.Format("{0:0,0}", tongtienHH);
+                    txtThue_KTTHDH.Text = String.Format("{0:0,0}", thue);
+                    txtTongTienTT_KTTHDH.Text = String.Format("{0:0,0}", tongtienTT);
+                }
+            }
+        }
+
+        private void cboTinhTrang_KTTHDH_TextChanged(object sender, EventArgs e)
+        {
+            if (dgvPhieuDat_KTTHDH.SelectedRows.Count > 0)
+                dgvPhieuDat_KTTHDH.Rows[dgvPhieuDat_KTTHDH.SelectedRows[0].Index].Selected = false;
+            dgvCT_PhieuDat_KTTHDH.Rows.Clear();
+
+
+            if (cboTinhTrang_KTTHDH.Text == "Đã đặt hàng")
+            {
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "1" || dr.Cells[5].Value.ToString() == "2")
+                    {
+                        dr.Visible = false;
+                    }
+                    else dr.Visible = true;
+                }
+
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "0")
+                    {
+                        dr.Selected = true;
+                        break;
+                    }
+                }
+            }
+            else if(cboTinhTrang_KTTHDH.Text == "Đang nhận hàng")
+            {
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "0" || dr.Cells[5].Value.ToString() == "2")
+                    {
+                        dr.Visible = false;
+                    }
+                    else dr.Visible = true;
+                }
+
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "1")
+                    {
+                        dr.Selected = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "0" || dr.Cells[5].Value.ToString() == "1")
+                    {
+                        dr.Visible = false;
+                    }
+                    else dr.Visible = true;
+                }
+
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "2")
+                    {
+                        dr.Selected = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void dgvPhieuDat_KTTHDH_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if(dgvPhieuDat_KTTHDH.SelectedRows.Count > 0)
+                dgvPhieuDat_KTTHDH.Rows[dgvPhieuDat_KTTHDH.SelectedRows[0].Index].Selected = false;
+            dgvCT_PhieuDat_KTTHDH.Rows.Clear();
+
+
+            if (cboTinhTrang_KTTHDH.Text == "Đã đặt hàng")
+            {
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "1" || dr.Cells[5].Value.ToString() == "2")
+                    {
+                        dr.Visible = false;
+                    }
+                    else dr.Visible = true;
+                }
+
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "0")
+                    {
+                        dr.Selected = true;
+                        break;
+                    }
+                }
+            }
+            else if (cboTinhTrang_KTTHDH.Text == "Đang nhận hàng")
+            {
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "0" || dr.Cells[5].Value.ToString() == "2")
+                    {
+                        dr.Visible = false;
+                    }
+                    else dr.Visible = true;
+                }
+
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "1")
+                    {
+                        dr.Selected = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "0" || dr.Cells[5].Value.ToString() == "1")
+                    {
+                        dr.Visible = false;
+                    }
+                    else dr.Visible = true;
+                }
+
+                foreach (DataGridViewRow dr in dgvPhieuDat_KTTHDH.Rows)
+                {
+                    if (dr.Cells[5].Value.ToString() == "2")
+                    {
+                        dr.Selected = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void btnChonPhieu_PN_Click(object sender, EventArgs e)
+        {
+            if(dgvNguyenLieu_PN.SelectedRows.Count > 0 & dgvNguyenLieu_PN.Rows.Count > 0)
+            {
+                if(MessageBox.Show("Bạn có chắc là muốn đổi phiếu đặt?","Xác nhận!",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    dgvNguyenLieu_PN.Rows.Clear();
+
+                    maphieudat_PN = Convert.ToInt32(dgvPhieuDat_PN.SelectedRows[0].Cells[0].Value);
+
+                    BUS.OrderDetails bus = new BUS.OrderDetails();
+                    DataTable dt = new DataTable();
+                    dt = bus.loadOrderDetails(Convert.ToInt32(dgvPhieuDat_PN.SelectedRows[0].Cells[0].Value.ToString()));
+
+                    dt.Columns.RemoveAt(0);
+                    dt.Columns.RemoveAt(2);
+                    dt.Columns["TenNL"].SetOrdinal(1);
+                    dt.Columns["DonVi"].SetOrdinal(2);
+                    dt.Columns["Gia"].SetOrdinal(3);
+                    dt.Columns.Add("MaNCC", typeof(int));
+                    dt.Columns.Add("TenNCC", typeof(string));
+                    dt.Columns["MaNCC"].SetOrdinal(2);
+                    dt.Columns["TenNCC"].SetOrdinal(3);
+                    dt.Columns.Add("SLTra", typeof(int));
+                    dt.Columns.Add("LyDoTra", typeof(string));
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        dgvNguyenLieu_PN.Rows.Add(dr.ItemArray);
+                    }
+                    int tongtienHH = 0, thue, tongtienTT;
+                    if (dgvNguyenLieu_PN.SelectedRows.Count > 0 & dgvNguyenLieu_PN.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dgvNguyenLieu_PN.RowCount; i++)
+                        {
+                            tongtienHH += Convert.ToInt32(Convert.ToDecimal(dgvNguyenLieu_PN.Rows[i].Cells[5].Value.ToString()) * Convert.ToDecimal(dgvNguyenLieu_PN.Rows[i].Cells[6].Value.ToString()));
+                        }
+                        thue = tongtienHH * 10 / 100;
+                        tongtienTT = tongtienHH + thue;
+                        txtTongTien_PN.Text = String.Format("{0:0,0}", tongtienHH);
+                        txtThue_PN.Text = String.Format("{0:0,0}", thue);
+                        txtTongTien_TT_PN.Text = String.Format("{0:0,0}", tongtienTT);
+                    }
+                }
+            }
+
+            else
+            {
+                dgvNguyenLieu_PN.Rows.Clear();
+
+                maphieudat_PN = Convert.ToInt32(dgvPhieuDat_PN.SelectedRows[0].Cells[0].Value);
+
+                BUS.OrderDetails bus = new BUS.OrderDetails();
+                DataTable dt = new DataTable();
+                dt = bus.loadOrderDetails(Convert.ToInt32(dgvPhieuDat_PN.SelectedRows[0].Cells[0].Value.ToString()));
+
+                dt.Columns.RemoveAt(0);
+                dt.Columns.RemoveAt(2);
+                dt.Columns["TenNL"].SetOrdinal(1);
+                dt.Columns["DonVi"].SetOrdinal(2);
+                dt.Columns["Gia"].SetOrdinal(3);
+                dt.Columns.Add("MaNCC", typeof(int));
+                dt.Columns.Add("TenNCC", typeof(string));
+                dt.Columns["MaNCC"].SetOrdinal(2);
+                dt.Columns["TenNCC"].SetOrdinal(3);
+                dt.Columns.Add("SLTra", typeof(int));
+                dt.Columns.Add("LyDoTra", typeof(string));
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    dgvNguyenLieu_PN.Rows.Add(dr.ItemArray);
+                }
+                int tongtienHH = 0, thue, tongtienTT;
+                if (dgvNguyenLieu_PN.SelectedRows.Count > 0 & dgvNguyenLieu_PN.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dgvNguyenLieu_PN.RowCount; i++)
+                    {
+                        tongtienHH += Convert.ToInt32(Convert.ToDecimal(dgvNguyenLieu_PN.Rows[i].Cells[5].Value.ToString()) * Convert.ToDecimal(dgvNguyenLieu_PN.Rows[i].Cells[6].Value.ToString()));
+                    }
+                    thue = tongtienHH * 10 / 100;
+                    tongtienTT = tongtienHH + thue;
+                    txtTongTien_PN.Text = String.Format("{0:0,0}", tongtienHH);
+                    txtThue_PN.Text = String.Format("{0:0,0}", thue);
+                    txtTongTien_TT_PN.Text = String.Format("{0:0,0}", tongtienTT);
+                }
+            }
+        }
+
+        private void dgvNguyenLieu_PN_SelectionChanged_1(object sender, EventArgs e)
+        {
+            if(dgvNguyenLieu_PN.SelectedRows.Count > 0 && dgvNguyenLieu_PN.Rows.Count >0)
+            {
+                txtSLNhap_PN.Enabled = true;
+                txtSLTraLai_PN.Enabled = true;
+                cboLyDoTra_PN.Enabled = true;
+                cboNhaCC_PN.Enabled = true;
+
+                txtMaNL_PN.Text = dgvNguyenLieu_PN.SelectedRows[0].Cells[0].Value.ToString();
+                txtTenNL_PN.Text = dgvNguyenLieu_PN.SelectedRows[0].Cells[1].Value.ToString();
+                txtDonVi_PN.Text = dgvNguyenLieu_PN.SelectedRows[0].Cells[4].Value.ToString();
+                txtGia_PN.Text = String.Format("{0:0,0}", Convert.ToInt32(dgvNguyenLieu_PN.SelectedRows[0].Cells[5].Value));
+                txtSLNhap_PN.Text = dgvNguyenLieu_PN.SelectedRows[0].Cells[6].Value.ToString();
+                txtSLTraLai_PN.Text = "0";
+                cboLyDoTra_PN.Text = "[--Chọn hoặc ghi 1 lý do trả hàng--]";
+            }
+            else
+            {
+                txtSLNhap_PN.Enabled = false;
+                txtSLTraLai_PN.Enabled = false;
+                cboLyDoTra_PN.Enabled = false;
+                cboNhaCC_PN.Enabled = false;
+
+                txtMaNL_PN.Text = "";
+                txtTenNL_PN.Text = "";
+                txtDonVi_PN.Text = "";
+                txtGia_PN.Text = "";
+                txtSLNhap_PN.Text = "";
+                txtSLTraLai_PN.Text = "";
+                cboLyDoTra_PN.Text = "[--Chọn hoặc ghi 1 lý do trả hàng--]";
+
+                txtTongTien_PN.Text = "";
+                txtThue_PN.Text = "";
+                txtTongTien_TT_PN.Text = "";
+            }
+        }
+
+        private void btnCapNhat_PN_Click(object sender, EventArgs e)
+        {
+            if(dgvNguyenLieu_PN.SelectedRows.Count > 0 && dgvNguyenLieu_PN.Rows.Count > 0)
+            {
+                //cập nhật lại giá trị trong bảng nguyên liệu
+                dgvNguyenLieu_PN.SelectedRows[0].Cells[2].Value = cboNhaCC_PN.SelectedValue;
+                dgvNguyenLieu_PN.SelectedRows[0].Cells[3].Value = cboNhaCC_PN.Text;
+                dgvNguyenLieu_PN.SelectedRows[0].Cells[6].Value = txtSLNhap_PN.Text;
+                dgvNguyenLieu_PN.SelectedRows[0].Cells[7].Value = txtSLTraLai_PN.Text;
+                if (cboLyDoTra_PN.Text != "[--Chọn hoặc ghi 1 lý do trả hàng--]")
+                {
+                    dgvNguyenLieu_PN.SelectedRows[0].Cells[8].Value = cboLyDoTra_PN.Text;
+                }
+                else dgvNguyenLieu_PN.SelectedRows[0].Cells[8].Value = "";
+
+                //tính tiền
+                int tongtienHH = 0, thue, tongtienTT;
+                if (dgvNguyenLieu_PN.SelectedRows.Count > 0 & dgvNguyenLieu_PN.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dgvNguyenLieu_PN.RowCount; i++)
+                    {
+                        tongtienHH += Convert.ToInt32(Convert.ToDecimal(dgvNguyenLieu_PN.Rows[i].Cells[5].Value.ToString()) * Convert.ToDecimal(dgvNguyenLieu_PN.Rows[i].Cells[6].Value.ToString()));
+                    }
+                    thue = tongtienHH * 10 / 100;
+                    tongtienTT = tongtienHH + thue;
+                    txtTongTien_PN.Text = String.Format("{0:0,0}", tongtienHH);
+                    txtThue_PN.Text = String.Format("{0:0,0}", thue);
+                    txtTongTien_TT_PN.Text = String.Format("{0:0,0}", tongtienTT);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn phiếu đặt!", "Nhắc nhở!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnHuyPhieu_KTTHDH_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvPhieuDat_KTTHDH.SelectedRows.Count > 0)
+                {
+                    if (MessageBox.Show("Bạn có chắc là muốn huỷ phiếu đặt hàng này?", "Xác nhận!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        BUS.Order bus = new BUS.Order();
+                        bus.cancelOrder(Convert.ToInt32(dgvPhieuDat_KTTHDH.SelectedRows[0].Cells[0].Value));
+                        MessageBox.Show("Huỷ phiếu đặt hàng thành công!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        refreshCheckOrderState();
+                        dtpTuNgay_KTTHDH.Value = DateTime.Now;
+                        dtpDenNgay_KTTHDH.Value = DateTime.Now;
+                        txtTimKiem_KTTHDH.Text = "";
+                        dgvCT_PhieuDat_KTTHDH.Rows.Clear();
+                    }
+                }
+                else MessageBox.Show("Vui lòng chọn phiếu đặt hàng muốn huỷ!", "Nhắc nhở!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch
+            {
+                MessageBox.Show("Huỷ phiếu đặt hàng thất bại!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void txtSLNhap_PN_Enter(object sender, EventArgs e)
+        {
+            SLNhap_PN = Convert.ToDecimal(txtSLNhap_PN.Text);
+            txtSLNhap_PN.Text = "";
+        }
+
+        private void txtSLTraLai_PN_Enter(object sender, EventArgs e)
+        {
+            SLTra_PN = Convert.ToDecimal(txtSLTraLai_PN.Text);
+            txtSLTraLai_PN.Text = "";
+        }
+
+        private void txtSLNhap_PN_Leave(object sender, EventArgs e)
+        {
+            if (txtSLNhap_PN.Text == "")
+            {
+                txtSLNhap_PN.Text = SLNhap_PN.ToString();
+            }
+            Decimal d;
+            if (!decimal.TryParse(txtSLNhap_PN.Text, out d))
+            {
+                MessageBox.Show("Vui lòng nhập số!", "Nhắc nhở", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSLNhap_PN.Text = "";
+                txtSLNhap_PN.Focus();
+            }
+        }
+
+        private void txtSLTraLai_PN_Leave(object sender, EventArgs e)
+        {
+            if (txtSLTraLai_PN.Text == "")
+            {
+                txtSLTraLai_PN.Text = SLTra_PN.ToString();
+            }
+            Decimal d;
+            if (!decimal.TryParse(txtSLTraLai_PN.Text, out d))
+            {
+                MessageBox.Show("Vui lòng nhập số!", "Nhắc nhở", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSLTraLai_PN.Text = "";
+                txtSLTraLai_PN.Focus();
+            }
+        }
+
+        private void dtpTuNgay_KTTHDH_ValueChanged(object sender, EventArgs e)
+        {
+            dtpDenNgay_KTTHDH.MinDate = dtpTuNgay_KTTHDH.Value;
+        }
+
+        private void txtTimKiem_KTTHDH_TextChanged(object sender, EventArgs e)
+        {
+            dgvCT_PhieuDat_KTTHDH.Rows.Clear();
+            dgvPhieuDat_KTTHDH.Rows.Clear();
+
+            BUS.Order bus = new BUS.Order();
+            DataTable dt = new DataTable();
+            dt = bus.searchOrder_byNumber(txtTimKiem_KTTHDH.Text);
+
+            dt.Columns["TenNV"].SetOrdinal(2);
+            dt.Columns.Add("TenTinhTrang", typeof(string));
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                if (dr.Field<int>(5) == 0) dr[6] = "Đã đặt hàng";
+                if (dr.Field<int>(5) == 1) dr[6] = "Đang nhập hàng";
+                if (dr.Field<int>(5) == 2) dr[6] = "Đã kết thúc";
+                dgvPhieuDat_KTTHDH.Rows.Add(dr.ItemArray);
+            }
+        }
     }
 }

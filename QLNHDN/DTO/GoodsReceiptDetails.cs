@@ -12,7 +12,9 @@ namespace DTO
         private int manl;
         private string nhacc;
         private int gianhap;
-        private decimal soluong;
+        private decimal soluongnhap;
+        private decimal soluongtra;
+        private string lydo;
 
         public int Maphieu
         {
@@ -66,16 +68,42 @@ namespace DTO
             }
         }
 
-        public decimal Soluong
+        public decimal Soluongtra
         {
             get
             {
-                return soluong;
+                return soluongtra;
             }
 
             set
             {
-                soluong = value;
+                soluongtra = value;
+            }
+        }
+
+        public string Lydo
+        {
+            get
+            {
+                return lydo;
+            }
+
+            set
+            {
+                lydo = value;
+            }
+        }
+
+        public decimal Soluongnhap
+        {
+            get
+            {
+                return soluongnhap;
+            }
+
+            set
+            {
+                soluongnhap = value;
             }
         }
     }

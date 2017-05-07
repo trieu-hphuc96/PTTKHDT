@@ -13,9 +13,9 @@ namespace DTO
         {
             ID = "";
             CreatingTime = DateTime.Now;
-            Staff = new Staff("1");
             Customer = new Customer();
             Customer.ID = "1";
+            Staff = new Staff("");
             DetailTable = new DataTable();
             DetailTable.Columns.Add("Mã SP");
             DetailTable.Columns.Add("Tên SP");

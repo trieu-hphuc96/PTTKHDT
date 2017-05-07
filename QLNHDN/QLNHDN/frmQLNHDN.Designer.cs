@@ -346,13 +346,6 @@
             this.dtpTuNgay_KTTHDH = new System.Windows.Forms.DateTimePicker();
             this.label63 = new System.Windows.Forms.Label();
             this.dgvPhieuDat_KTTHDH = new System.Windows.Forms.DataGridView();
-            this.clMaPhieu_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clMaNV_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clTenNV_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clNgayDat_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clNgayGiao_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clMaTinhTrang_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clTinhTrang_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
             this.dgvCT_PhieuDat_KTTHDH = new System.Windows.Forms.DataGridView();
             this.clMaNL_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -427,15 +420,6 @@
             this.label46 = new System.Windows.Forms.Label();
             this.label47 = new System.Windows.Forms.Label();
             this.dgvThongTinChiTiet_KTTHHT = new System.Windows.Forms.DataGridView();
-            this.clMaPhieu_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clMaNL_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clTenNL_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clGia_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clDonVi_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clSLTonLT_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clSLTon_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clSLHu_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clSLHaoHut_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtDonVi_KTTHHT = new System.Windows.Forms.TextBox();
             this.label48 = new System.Windows.Forms.Label();
             this.txtTenNL_KTTHHT = new System.Windows.Forms.TextBox();
@@ -536,6 +520,22 @@
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.printDoc = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog = new System.Windows.Forms.PrintPreviewDialog();
+            this.clMaPhieu_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clMaNL_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clTenNL_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clDonVi_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clGia_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clSLTonLT_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clSLTon_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clSLHu_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clSLHaoHut_CT_KTTHHT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clMaPhieu_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clMaNV_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clTenNV_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clNgayDat_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clNgayGiao_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clMaTinhTrang_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clTinhTrang_KTTHDH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MenuBar.SuspendLayout();
             this.tabMenu.SuspendLayout();
             this.tabBillManagement.SuspendLayout();
@@ -3304,9 +3304,9 @@
             this.label13.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label13.Location = new System.Drawing.Point(367, 30);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(32, 13);
+            this.label13.Size = new System.Drawing.Size(41, 13);
             this.label13.TabIndex = 19;
-            this.label13.Text = "ĐVT:";
+            this.label13.Text = "Đơn vị:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtTenNL_TPKH
@@ -3851,53 +3851,6 @@
             this.dgvPhieuDat_KTTHDH.TabIndex = 5;
             this.dgvPhieuDat_KTTHDH.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvPhieuDat_KTTHDH_RowsAdded);
             this.dgvPhieuDat_KTTHDH.SelectionChanged += new System.EventHandler(this.dgvPhieuDat_KTTHDH_SelectionChanged);
-            // 
-            // clMaPhieu_KTTHDH
-            // 
-            this.clMaPhieu_KTTHDH.FillWeight = 64.88184F;
-            this.clMaPhieu_KTTHDH.HeaderText = "Mã Phiếu";
-            this.clMaPhieu_KTTHDH.Name = "clMaPhieu_KTTHDH";
-            this.clMaPhieu_KTTHDH.ReadOnly = true;
-            // 
-            // clMaNV_KTTHDH
-            // 
-            this.clMaNV_KTTHDH.FillWeight = 67.29298F;
-            this.clMaNV_KTTHDH.HeaderText = "Mã NV";
-            this.clMaNV_KTTHDH.Name = "clMaNV_KTTHDH";
-            this.clMaNV_KTTHDH.ReadOnly = true;
-            // 
-            // clTenNV_KTTHDH
-            // 
-            this.clTenNV_KTTHDH.FillWeight = 131.7322F;
-            this.clTenNV_KTTHDH.HeaderText = "Tên NV";
-            this.clTenNV_KTTHDH.Name = "clTenNV_KTTHDH";
-            this.clTenNV_KTTHDH.ReadOnly = true;
-            // 
-            // clNgayDat_KTTHDH
-            // 
-            this.clNgayDat_KTTHDH.FillWeight = 130.9137F;
-            this.clNgayDat_KTTHDH.HeaderText = "Ngày đặt";
-            this.clNgayDat_KTTHDH.Name = "clNgayDat_KTTHDH";
-            this.clNgayDat_KTTHDH.ReadOnly = true;
-            // 
-            // clNgayGiao_KTTHDH
-            // 
-            this.clNgayGiao_KTTHDH.Name = "clNgayGiao_KTTHDH";
-            this.clNgayGiao_KTTHDH.ReadOnly = true;
-            // 
-            // clMaTinhTrang_KTTHDH
-            // 
-            this.clMaTinhTrang_KTTHDH.HeaderText = "Mã Tình Trạng";
-            this.clMaTinhTrang_KTTHDH.Name = "clMaTinhTrang_KTTHDH";
-            this.clMaTinhTrang_KTTHDH.ReadOnly = true;
-            this.clMaTinhTrang_KTTHDH.Visible = false;
-            // 
-            // clTinhTrang_KTTHDH
-            // 
-            this.clTinhTrang_KTTHDH.FillWeight = 121.7898F;
-            this.clTinhTrang_KTTHDH.HeaderText = "Tình Trạng";
-            this.clTinhTrang_KTTHDH.Name = "clTinhTrang_KTTHDH";
-            this.clTinhTrang_KTTHDH.ReadOnly = true;
             // 
             // groupBox30
             // 
@@ -4693,8 +4646,8 @@
             this.clMaPhieu_CT_KTTHHT,
             this.clMaNL_CT_KTTHHT,
             this.clTenNL_CT_KTTHHT,
-            this.clGia_CT_KTTHHT,
             this.clDonVi_CT_KTTHHT,
+            this.clGia_CT_KTTHHT,
             this.clSLTonLT_CT_KTTHHT,
             this.clSLTon_CT_KTTHHT,
             this.clSLHu_CT_KTTHHT,
@@ -4709,69 +4662,6 @@
             this.dgvThongTinChiTiet_KTTHHT.Size = new System.Drawing.Size(614, 349);
             this.dgvThongTinChiTiet_KTTHHT.TabIndex = 21;
             this.dgvThongTinChiTiet_KTTHHT.SelectionChanged += new System.EventHandler(this.dgvThongTinChiTiet_KTTHHT_SelectionChanged);
-            // 
-            // clMaPhieu_CT_KTTHHT
-            // 
-            this.clMaPhieu_CT_KTTHHT.FillWeight = 59.4912F;
-            this.clMaPhieu_CT_KTTHHT.HeaderText = "Mã Phiếu";
-            this.clMaPhieu_CT_KTTHHT.Name = "clMaPhieu_CT_KTTHHT";
-            this.clMaPhieu_CT_KTTHHT.ReadOnly = true;
-            // 
-            // clMaNL_CT_KTTHHT
-            // 
-            this.clMaNL_CT_KTTHHT.FillWeight = 60.91371F;
-            this.clMaNL_CT_KTTHHT.HeaderText = "Mã NL";
-            this.clMaNL_CT_KTTHHT.Name = "clMaNL_CT_KTTHHT";
-            this.clMaNL_CT_KTTHHT.ReadOnly = true;
-            // 
-            // clTenNL_CT_KTTHHT
-            // 
-            this.clTenNL_CT_KTTHHT.FillWeight = 179.2702F;
-            this.clTenNL_CT_KTTHHT.HeaderText = "Tên NL";
-            this.clTenNL_CT_KTTHHT.Name = "clTenNL_CT_KTTHHT";
-            this.clTenNL_CT_KTTHHT.ReadOnly = true;
-            // 
-            // clGia_CT_KTTHHT
-            // 
-            this.clGia_CT_KTTHHT.FillWeight = 128.3255F;
-            this.clGia_CT_KTTHHT.HeaderText = "Giá";
-            this.clGia_CT_KTTHHT.Name = "clGia_CT_KTTHHT";
-            this.clGia_CT_KTTHHT.ReadOnly = true;
-            // 
-            // clDonVi_CT_KTTHHT
-            // 
-            this.clDonVi_CT_KTTHHT.FillWeight = 128.3255F;
-            this.clDonVi_CT_KTTHHT.HeaderText = "Đơn vị";
-            this.clDonVi_CT_KTTHHT.Name = "clDonVi_CT_KTTHHT";
-            this.clDonVi_CT_KTTHHT.ReadOnly = true;
-            // 
-            // clSLTonLT_CT_KTTHHT
-            // 
-            this.clSLTonLT_CT_KTTHHT.HeaderText = "SL tồn LT";
-            this.clSLTonLT_CT_KTTHHT.Name = "clSLTonLT_CT_KTTHHT";
-            this.clSLTonLT_CT_KTTHHT.ReadOnly = true;
-            this.clSLTonLT_CT_KTTHHT.Visible = false;
-            // 
-            // clSLTon_CT_KTTHHT
-            // 
-            this.clSLTon_CT_KTTHHT.FillWeight = 85.26332F;
-            this.clSLTon_CT_KTTHHT.HeaderText = "SL tồn";
-            this.clSLTon_CT_KTTHHT.Name = "clSLTon_CT_KTTHHT";
-            this.clSLTon_CT_KTTHHT.ReadOnly = true;
-            // 
-            // clSLHu_CT_KTTHHT
-            // 
-            this.clSLHu_CT_KTTHHT.FillWeight = 80.39754F;
-            this.clSLHu_CT_KTTHHT.HeaderText = "SL hư";
-            this.clSLHu_CT_KTTHHT.Name = "clSLHu_CT_KTTHHT";
-            this.clSLHu_CT_KTTHHT.ReadOnly = true;
-            // 
-            // clSLHaoHut_CT_KTTHHT
-            // 
-            this.clSLHaoHut_CT_KTTHHT.FillWeight = 78.01304F;
-            this.clSLHaoHut_CT_KTTHHT.HeaderText = "SL hao hụt";
-            this.clSLHaoHut_CT_KTTHHT.Name = "clSLHaoHut_CT_KTTHHT";
-            this.clSLHaoHut_CT_KTTHHT.ReadOnly = true;
             // 
             // txtDonVi_KTTHHT
             // 
@@ -5809,6 +5699,117 @@
             this.printPreviewDialog.Name = "printPreviewDialog";
             this.printPreviewDialog.Visible = false;
             // 
+            // clMaPhieu_CT_KTTHHT
+            // 
+            this.clMaPhieu_CT_KTTHHT.FillWeight = 59.4912F;
+            this.clMaPhieu_CT_KTTHHT.HeaderText = "Mã Phiếu";
+            this.clMaPhieu_CT_KTTHHT.Name = "clMaPhieu_CT_KTTHHT";
+            this.clMaPhieu_CT_KTTHHT.ReadOnly = true;
+            // 
+            // clMaNL_CT_KTTHHT
+            // 
+            this.clMaNL_CT_KTTHHT.FillWeight = 60.91371F;
+            this.clMaNL_CT_KTTHHT.HeaderText = "Mã NL";
+            this.clMaNL_CT_KTTHHT.Name = "clMaNL_CT_KTTHHT";
+            this.clMaNL_CT_KTTHHT.ReadOnly = true;
+            // 
+            // clTenNL_CT_KTTHHT
+            // 
+            this.clTenNL_CT_KTTHHT.FillWeight = 179.2702F;
+            this.clTenNL_CT_KTTHHT.HeaderText = "Tên NL";
+            this.clTenNL_CT_KTTHHT.Name = "clTenNL_CT_KTTHHT";
+            this.clTenNL_CT_KTTHHT.ReadOnly = true;
+            // 
+            // clDonVi_CT_KTTHHT
+            // 
+            this.clDonVi_CT_KTTHHT.FillWeight = 128.3255F;
+            this.clDonVi_CT_KTTHHT.HeaderText = "Đơn vị";
+            this.clDonVi_CT_KTTHHT.Name = "clDonVi_CT_KTTHHT";
+            this.clDonVi_CT_KTTHHT.ReadOnly = true;
+            // 
+            // clGia_CT_KTTHHT
+            // 
+            this.clGia_CT_KTTHHT.FillWeight = 128.3255F;
+            this.clGia_CT_KTTHHT.HeaderText = "Giá";
+            this.clGia_CT_KTTHHT.Name = "clGia_CT_KTTHHT";
+            this.clGia_CT_KTTHHT.ReadOnly = true;
+            // 
+            // clSLTonLT_CT_KTTHHT
+            // 
+            this.clSLTonLT_CT_KTTHHT.HeaderText = "SL tồn LT";
+            this.clSLTonLT_CT_KTTHHT.Name = "clSLTonLT_CT_KTTHHT";
+            this.clSLTonLT_CT_KTTHHT.ReadOnly = true;
+            this.clSLTonLT_CT_KTTHHT.Visible = false;
+            // 
+            // clSLTon_CT_KTTHHT
+            // 
+            this.clSLTon_CT_KTTHHT.FillWeight = 85.26332F;
+            this.clSLTon_CT_KTTHHT.HeaderText = "SL tồn";
+            this.clSLTon_CT_KTTHHT.Name = "clSLTon_CT_KTTHHT";
+            this.clSLTon_CT_KTTHHT.ReadOnly = true;
+            // 
+            // clSLHu_CT_KTTHHT
+            // 
+            this.clSLHu_CT_KTTHHT.FillWeight = 80.39754F;
+            this.clSLHu_CT_KTTHHT.HeaderText = "SL hư";
+            this.clSLHu_CT_KTTHHT.Name = "clSLHu_CT_KTTHHT";
+            this.clSLHu_CT_KTTHHT.ReadOnly = true;
+            // 
+            // clSLHaoHut_CT_KTTHHT
+            // 
+            this.clSLHaoHut_CT_KTTHHT.FillWeight = 78.01304F;
+            this.clSLHaoHut_CT_KTTHHT.HeaderText = "SL hao hụt";
+            this.clSLHaoHut_CT_KTTHHT.Name = "clSLHaoHut_CT_KTTHHT";
+            this.clSLHaoHut_CT_KTTHHT.ReadOnly = true;
+            // 
+            // clMaPhieu_KTTHDH
+            // 
+            this.clMaPhieu_KTTHDH.FillWeight = 64.88184F;
+            this.clMaPhieu_KTTHDH.HeaderText = "Mã Phiếu";
+            this.clMaPhieu_KTTHDH.Name = "clMaPhieu_KTTHDH";
+            this.clMaPhieu_KTTHDH.ReadOnly = true;
+            // 
+            // clMaNV_KTTHDH
+            // 
+            this.clMaNV_KTTHDH.FillWeight = 67.29298F;
+            this.clMaNV_KTTHDH.HeaderText = "Mã NV";
+            this.clMaNV_KTTHDH.Name = "clMaNV_KTTHDH";
+            this.clMaNV_KTTHDH.ReadOnly = true;
+            // 
+            // clTenNV_KTTHDH
+            // 
+            this.clTenNV_KTTHDH.FillWeight = 131.7322F;
+            this.clTenNV_KTTHDH.HeaderText = "Tên NV";
+            this.clTenNV_KTTHDH.Name = "clTenNV_KTTHDH";
+            this.clTenNV_KTTHDH.ReadOnly = true;
+            // 
+            // clNgayDat_KTTHDH
+            // 
+            this.clNgayDat_KTTHDH.FillWeight = 130.9137F;
+            this.clNgayDat_KTTHDH.HeaderText = "Ngày đặt";
+            this.clNgayDat_KTTHDH.Name = "clNgayDat_KTTHDH";
+            this.clNgayDat_KTTHDH.ReadOnly = true;
+            // 
+            // clNgayGiao_KTTHDH
+            // 
+            this.clNgayGiao_KTTHDH.HeaderText = "Ngày giao";
+            this.clNgayGiao_KTTHDH.Name = "clNgayGiao_KTTHDH";
+            this.clNgayGiao_KTTHDH.ReadOnly = true;
+            // 
+            // clMaTinhTrang_KTTHDH
+            // 
+            this.clMaTinhTrang_KTTHDH.HeaderText = "Mã Tình Trạng";
+            this.clMaTinhTrang_KTTHDH.Name = "clMaTinhTrang_KTTHDH";
+            this.clMaTinhTrang_KTTHDH.ReadOnly = true;
+            this.clMaTinhTrang_KTTHDH.Visible = false;
+            // 
+            // clTinhTrang_KTTHDH
+            // 
+            this.clTinhTrang_KTTHDH.FillWeight = 121.7898F;
+            this.clTinhTrang_KTTHDH.HeaderText = "Tình Trạng";
+            this.clTinhTrang_KTTHDH.Name = "clTinhTrang_KTTHDH";
+            this.clTinhTrang_KTTHDH.ReadOnly = true;
+            // 
             // frmQLNHDN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6181,15 +6182,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.GroupBox groupBox23;
         private System.Windows.Forms.DataGridView dgvThongTinPhieuKiem_KTTHHT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clMaPhieu_CT_KTTHHT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clMaNL_CT_KTTHHT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clTenNL_CT_KTTHHT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clGia_CT_KTTHHT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clDonVi_CT_KTTHHT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clSLTonLT_CT_KTTHHT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clSLTon_CT_KTTHHT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clSLHu_CT_KTTHHT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clSLHaoHut_CT_KTTHHT;
         private System.Windows.Forms.GroupBox gbGiaTriHD;
         private System.Windows.Forms.ContextMenuStrip contextBillItemSelection;
         private System.Windows.Forms.ToolStripMenuItem itemDelete;
@@ -6360,13 +6352,6 @@
         private System.Windows.Forms.ComboBox cboNhaCC_PN;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button btnHuyPhieu_KTTHDH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clMaPhieu_KTTHDH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clMaNV_KTTHDH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clTenNV_KTTHDH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clNgayDat_KTTHDH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clNgayGiao_KTTHDH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clMaTinhTrang_KTTHDH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clTinhTrang_KTTHDH;
         private System.Windows.Forms.DataGridViewTextBoxColumn clMaNL_KTTHDH;
         private System.Windows.Forms.DataGridViewTextBoxColumn clTenNL_KTTHDH;
         private System.Windows.Forms.DataGridViewTextBoxColumn clDonVi_KTTHDH;
@@ -6409,6 +6394,22 @@
         private System.Windows.Forms.Label lblStatisticTitle;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblXemTKTheo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clMaPhieu_CT_KTTHHT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clMaNL_CT_KTTHHT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clTenNL_CT_KTTHHT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clDonVi_CT_KTTHHT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clGia_CT_KTTHHT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clSLTonLT_CT_KTTHHT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clSLTon_CT_KTTHHT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clSLHu_CT_KTTHHT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clSLHaoHut_CT_KTTHHT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clMaPhieu_KTTHDH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clMaNV_KTTHDH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clTenNV_KTTHDH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clNgayDat_KTTHDH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clNgayGiao_KTTHDH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clMaTinhTrang_KTTHDH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clTinhTrang_KTTHDH;
     }
 }
 

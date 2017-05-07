@@ -14,7 +14,7 @@ namespace BUS
         {
             try
             {
-                if (MessageBox.Show("Bạn có chắc chắn muốn tạo phiếu đặt hàng?", "Xác nhận!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Bạn có chắc chắn muốn lưu phiếu đặt hàng?", "Xác nhận!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     DAO.Order dao_PKH = new DAO.Order();
                     int maphieu = dao_PKH.createAOrder(dto_PDH);
@@ -23,7 +23,7 @@ namespace BUS
                     {
                         bus.addOrderDetails(dto_CT[i], maphieu);
                     }
-                    MessageBox.Show("Tạo phiếu đặt hàng thành công!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Lưu phiếu đặt hàng thành công!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return 1;
                 }
                 return 0;

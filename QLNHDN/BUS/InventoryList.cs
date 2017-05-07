@@ -12,7 +12,7 @@ namespace BUS
     {
         public int createInventoryList(DTO.InventoryList dto_PKH, DTO.InventoryListDetails[] dto_CT, int so_nl)
         {
-            if (MessageBox.Show("Bạn có chắc chắn muốn tạo phiếu kiểm hàng?", "Xác nhận!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Bạn có chắc chắn muốn lưu phiếu kiểm hàng?", "Xác nhận!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 DAO.InventoryList dao_PKH = new DAO.InventoryList();
                 int maphieu = dao_PKH.createInventoryList(dto_PKH);
@@ -21,7 +21,7 @@ namespace BUS
                 {
                     bus.addInventoryListDetails(dto_CT[i], maphieu);
                 }
-                MessageBox.Show("Tạo phiếu kiểm hàng thành công!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Lưu phiếu kiểm hàng thành công!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return 1;
             }
             return 0;

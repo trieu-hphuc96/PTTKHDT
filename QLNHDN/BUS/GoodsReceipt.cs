@@ -12,7 +12,7 @@ namespace BUS
     {
         public int createGoodsReceipt(DTO.GoodsReceipt dto_PNH, DTO.GoodsReceiptDetails[] dto_CT, int so_nl)
         {
-            if (MessageBox.Show("Bạn có chắc chắn muốn tạo phiếu nhập hàng?", "Xác nhận!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Bạn có chắc chắn muốn lưu phiếu nhập hàng?", "Xác nhận!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 DAO.GoodsReceipt dao_PKH = new DAO.GoodsReceipt();
                 int maphieu = dao_PKH.createGoodsReceipt(dto_PNH);
@@ -21,7 +21,7 @@ namespace BUS
                 {
                     bus.addGoodsReceiptDetails(dto_CT[i], maphieu);
                 }
-                MessageBox.Show("Tạo phiếu nhập hàng thành công!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Lưu phiếu nhập hàng thành công!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return 1;
             }
             return 0;

@@ -201,7 +201,7 @@ namespace QLNHDN
             lblTitle.Text = tab.Text;
         }
 
-        private void hoáĐơnToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tínhTiềnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hienMotTab(tabMenu, tabBillManagement);
             //Nếu hoá đơn hiện tại đã thanh toán, làm mới hoá đơn.
@@ -209,18 +209,18 @@ namespace QLNHDN
                 BillRefresh();
         }
 
-        private void menuItemPhieuNhap_Click(object sender, EventArgs e)
+        private void tạoPhiếuNhậpHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hienMotTab(tabMenu, tabTaoPhieuNhap);
             refreshGoodsReceipt();
         }
 
-        private void phiếuKiểmKhoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tạoPhiếuKiểmHàngTồnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hienMotTab(tabMenu, tabTaoPhieuKiemHangTon);
             refreshInventoryList();
         }
-        private void tồnHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        private void kiểmTraTìnhHìnhHàngTồnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hienMotTab(tabMenu, tabKTTHHangTon);
             refreshCheckInventoryState();
@@ -232,15 +232,10 @@ namespace QLNHDN
             hienMotTab(tabMenu, tabRevenueStatistics);
         }
 
-        private void tìnhHìnhNhậpHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        private void kiểmTraTìnhHìnhNhậpHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hienMotTab(tabMenu, tabKTTHNhap);
             refreshCheckGoodsReceiptState();
-        }
-
-        private void tìnhHìnhXuấtKhoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            hienMotTab(tabMenu, tabKTTHHangTon);
         }
 
         private void kháchHàngToolStripMenuItem_Click(object sender, EventArgs e)
@@ -330,12 +325,26 @@ namespace QLNHDN
             gridFood.DataSource = bill.loadFoodList(keyword);
             gridFood.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
         }
+        private void txtFoodSearching_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (int)Keys.Enter)
+            {
+                btnFoodSearching_Click(sender, e);
+            }
+        }
         private void btnBeverageSearch_Click(object sender, EventArgs e)
         {
             string keyword = txtBeverageSearch.Text;
             BUS.BillManagement bill = new BUS.BillManagement();
             gridBeverage.DataSource = bill.loadBeverageList(keyword);
             gridBeverage.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+        }
+        private void txtBeverageSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (int)Keys.Enter)
+            {
+                btnBeverageSearch_Click(sender, e);
+            }
         }
         private void addProductToBill(DataGridView p_gridProduct, DataGridView p_gridBill, TextBox p_Quantity)
         {
@@ -414,6 +423,36 @@ namespace QLNHDN
                 contextBillItemSelection.Show(dgv, e.X, e.Y);
             }
         }
+        private void gridBillDetail_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            DataGridView dgv = ((DataGridView)sender);
+            dgv.Rows[e.RowIndex].ErrorText = "Dữ liệu không hợp lệ!";
+            e.Cancel = true;
+        }
+        private void gridBillDetail_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            //Xoá thông báo lỗi
+            DataGridView dgv = ((DataGridView)sender);
+            dgv.Rows[e.RowIndex].ErrorText = "";
+
+            //Tính lại thành tiền dựa trên số lương mới
+            DataRow row = ((DataTable)dgv.DataSource).Rows[e.RowIndex];
+            int quantity = Convert.ToInt32(row.ItemArray[3].ToString());
+            int productPrice = NumberFromVND(row.ItemArray[2].ToString());
+            row.SetField<int>(3, quantity);
+            row.SetField<string>(4, VNDfromNumber(quantity * productPrice));
+            btnCalculateSum_Click(sender, e);
+
+        }
+        private void itemDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult button = MessageBox.Show("Bạn muốn xoá dòng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (button == DialogResult.Yes)
+            {
+                gridBillDetail.Rows.Remove(gridBillDetail.SelectedRows[0]);
+                btnCalculateSum_Click(sender, e);
+            }
+        }
         private void btnChangeCustomerID_Click(object sender, EventArgs e)
         {
             int number;
@@ -461,6 +500,8 @@ namespace QLNHDN
             sb_customer_info.AppendLine("Số điện thoại: " + customer.PhoneNumber);
             sb_customer_info.AppendLine("Cấp độ khách hàng: " + customer.Type);
             sb_customer_info.AppendLine("Tỉ lệ chiết khấu: " + customer.DiscountRate);
+            sb_customer_info.AppendLine("Điểm tích luỹ: " + customer.Point);
+
 
             MessageBox.Show(sb_customer_info.ToString());
         }
@@ -479,64 +520,67 @@ namespace QLNHDN
             txtTotal.Text = VNDfromNumber(total);
             txtDiscountAmount.Text = VNDfromNumber(discountAmount);
             txtActualTotal.Text = VNDfromNumber(actualTotal);
-        }
-        private void itemDelete_Click(object sender, EventArgs e)
-        {
-            DialogResult button = MessageBox.Show("Bạn muốn xoá dòng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (button == DialogResult.Yes)
-            {
-                gridBillDetail.Rows.Remove(gridBillDetail.SelectedRows[0]);
-                btnCalculateSum_Click(sender, e);
-            }
+
+            bill[currentBillIndex].Total = total;
+            bill[currentBillIndex].DiscountAmount = discountAmount;
+            bill[currentBillIndex].ActualTotal = actualTotal;
         }
         private void BillRefresh()
         {
             bill[currentBillIndex] = new Bill();
+            bill[currentBillIndex].Staff = current_staff;
             showBill(currentBillIndex);
             changeBillIcon(1);
         }
         private void btnBillRefresh_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Bạn có muốn làm mới hoá đơn này?", "Xác nhận", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            DialogResult dr = MessageBox.Show("Bạn có muốn làm mới hoá đơn này?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dr == DialogResult.OK)
                 BillRefresh();
-        }
-        private void txtFoodSearching_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                btnFoodSearching_Click(sender, e);
-            }
         }
         private void btnSettlePay_Click(object sender, EventArgs e)
         {           
             if(bill[currentBillIndex].DetailTable.Rows.Count == 0 )
                 MessageBox.Show("Hoá đơn rỗng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else if(bill[currentBillIndex].ID == "")
-            {
-                             
-                BUS.BillManagement bus = new BUS.BillManagement();
-                bill[currentBillIndex] = bus.createNewBill(bill[currentBillIndex]);
-                DialogResult result = MessageBox.Show("Lưu hoá đơn thành công! Bạn có muốn in hoá đơn?", "Xác nhận", MessageBoxButtons.OK);
-                if (result == DialogResult.OK)
-                {
-                    //In hoá đơn
-                    btnBillPrinting_Click(btnBillPrinting, e);
-
-                    //Thêm mới khách hàng thân thiết
-                    int actualTotal = NumberFromVND(txtActualTotal.Text);
-                    if (txtCustomerID.Text == "1" && actualTotal >= 500000)
-                    {
-                        MessageBox.Show("Hoá đơn có giá trị trên 500.000đ, vui lòng đăng ký Khách hàng thân thiết mới?", "Đăng ký khách hàng thân thiết", MessageBoxButtons.OK);
-                        hienMotTab(tabMenu, tabTTKhachHang);
-                    }
-                    else
-                        //Làm mới hoá đơn
-                        BillRefresh();
-                }
-            }
             else
-                MessageBox.Show("Hoá đơn đã được thanh toán!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {
+                if (bill[currentBillIndex].ID == "")
+                {
+                    DialogResult dr = MessageBox.Show("Bạn có muốn thanh toán hoá đơn này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if(dr == DialogResult.Yes)
+                    {
+                        BUS.BillManagement bus = new BUS.BillManagement();
+                        Bill settled_bill = new Bill();
+                        settled_bill = bus.createNewBill(bill[currentBillIndex]);
+
+                        DialogResult result = MessageBox.Show("Tiến hành in hoá đơn.", "Xác nhận", MessageBoxButtons.OK);
+                        if (result == DialogResult.OK)
+                        {
+                            //In hoá đơn
+                            btnBillPrinting_Click(btnBillPrinting, e);
+
+                            //Thêm mới khách hàng thân thiết
+                            int actualTotal = NumberFromVND(txtActualTotal.Text);
+                            if (txtCustomerID.Text == "1" && actualTotal >= 500000)
+                            {
+                                MessageBox.Show("Hoá đơn có giá trị trên 500.000đ, bạn nên đăng ký Khách hàng thân thiết mới.", "Đăng ký khách hàng thân thiết", MessageBoxButtons.OK);
+                                hienMotTab(tabMenu, tabTTKhachHang);
+                            }
+                            //Thông báo khách hàng lên mức "Khách hàng VIP"
+                            else if (settled_bill.Customer.Type == "VIP" && txtDiscountRate.Text == "0.1")
+                            {
+                                MessageBox.Show("Chúc mừng khách hàng đã được nâng cấp thành VIP", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                BillRefresh();
+                            }
+                            //Làm mới hoá đơn
+                            MessageBox.Show("Tạo hoá đơn thành công!");
+                        }
+                    }
+                }
+                else
+                    MessageBox.Show("Hoá đơn đã được thanh toán!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } 
+            
             showBill(currentBillIndex);
         }
         #region Printing Function
@@ -565,17 +609,34 @@ namespace QLNHDN
         {
             StringBuilder sb = new StringBuilder();
             Bill currentBill = bill[currentBillIndex];
-            sb.AppendFormat("Mã hoá đơn: {0}\n", currentBill.ID);
-            sb.AppendLine(String.Format("Mã khách hàng: {0,-5} {1,20}: {2,-15}", currentBill.Customer.ID, "Cấp độ khách hàng", currentBill.Customer.Type));
-            sb.AppendLine(String.Format("Mã nhân viên: {0}", currentBill.Staff.ID));
-            sb.AppendLine(String.Format("Thời gian: {0:d} {0:t}", currentBill.CreatingTime));
+            sb.AppendFormat("{0, 40}\n", "Nhà hàng món nướng".ToUpper());
+
+            //Nếu chưa lưu HĐ xuống CSDL thì xuất hoá đơn tạm.
+            if (currentBill.ID == "")
+                sb.AppendFormat("{0, 35}\n", @"[HOÁ ĐƠN TẠM]");
+            else
+            {
+                sb.AppendFormat("{0, 40}\n", @"HOÁ ĐƠN CHÍNH THỨC");
+                sb.AppendFormat("Mã hoá đơn: {0}\n", currentBill.ID);
+            }
+                
+            //Nếu khách hàng bình thường thì không cần in Mã KH và cấp độ khách hàng            
+            if (currentBill.Customer.Type != "Bình thường")
+            {
+                sb.AppendFormat("Mã khách hàng: {0,-5} ", currentBill.Customer.ID);
+                sb.AppendFormat("{0,20}: {1,-15}\n", "Cấp độ khách hàng", currentBill.Customer.Type);
+            }
+
+            sb.AppendFormat("Mã nhân viên: {0}\n", currentBill.Staff.ID);
+            sb.AppendFormat("Thời gian: {0:d} {0:t}\n", currentBill.CreatingTime);
             sb.AppendLine();
             sb.AppendFormat("{0,20}{1,3}{2,5}{3,2}{4,20}\n", "Đơn giá", "", "SL", "", "Thành tiền");
             sb.AppendLine("---------------------------------------------------------");
             foreach (DataRow row in currentBill.DetailTable.Rows)
             {
                 sb.AppendLine(row.Field<string>("Tên SP"));
-                string productDetail = String.Format("{0,20}{1,3}{2,5}{3,2}{4,20}", row.Field<string>("Đơn giá"), "x", row.Field<int>("Số lượng"), "=", row.Field<string>("Thành tiền"));
+                string productDetail = String.Format("{0,20}{1,3}{2,5}{3,2}{4,20}", 
+                    row.Field<string>("Đơn giá"), "x", row.Field<int>("Số lượng"), "=", row.Field<string>("Thành tiền"));
                 sb.AppendLine(productDetail);
             }
             sb.AppendLine("---------------------------------------------------------");
@@ -583,6 +644,20 @@ namespace QLNHDN
             string discountRate = (Convert.ToDouble(txtDiscountRate.Text) * 100).ToString();
             sb.AppendFormat("{0,30}({1,2}%){2,15}\n", "Tiền chiết khấu", discountRate, txtDiscountAmount.Text);
             sb.AppendFormat("{0,30}{1,20}\n", "THANH TOÁN", txtActualTotal.Text);
+            sb.AppendLine();
+            if(txtDiscountRate.Text == "0.1")
+            {
+                sb.AppendFormat("{0,30}{1,20}\n", "Điểm hiện tại", currentBill.Customer.Point);
+                sb.AppendFormat("{0,30}{1,20}\n", "Điểm được cộng", (int)(currentBill.ActualTotal / 1000));
+                sb.AppendFormat("{0,30}{1,20}\n", "Điểm sau khi được cộng", currentBill.Customer.Point += (int)(currentBill.ActualTotal / 1000));
+
+                if(currentBill.Customer.Point >= 5000)
+                {
+                    sb.AppendLine("Chúc mừng thực khách vừa được nâng cấp lên thành \"VIP\"!");
+                }
+            }
+            sb.AppendLine();
+            sb.AppendFormat("{0, 40}", "Hẹn gặp lại quý thực khách!".ToUpper());
             return sb.ToString();
         }
         private void printDoc_PrintPage(object sender, PrintPageEventArgs e)
@@ -590,26 +665,6 @@ namespace QLNHDN
             e.Graphics.DrawString(generateBillPrintingContent(), new Font("Courier New", 12), Brushes.Black, e.MarginBounds);
         }
         #endregion
-        private void gridBillDetail_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            DataGridView dgv = ((DataGridView)sender);
-            dgv.Rows[e.RowIndex].ErrorText = "Dữ liệu không hợp lệ!";
-            e.Cancel = true;
-        }
-        private void gridBillDetail_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            //Xoá thông báo lỗi
-            DataGridView dgv = ((DataGridView)sender);
-            dgv.Rows[e.RowIndex].ErrorText = "";
-
-            //Tính lại thành tiền dựa trên số lương mới
-            DataRow row = ((DataTable)dgv.DataSource).Rows[e.RowIndex];
-            int quantity = Convert.ToInt32(row.ItemArray[3].ToString());
-            int productPrice = NumberFromVND(row.ItemArray[2].ToString());
-            row.SetField<int>(3, quantity);
-            row.SetField<string>(4, VNDfromNumber(quantity * productPrice));
-
-        }
         private void dtpBeginDate_ValueChanged(object sender, EventArgs e)
         {
             dtpEndDate.MinDate = dtpBeginDate.Value;
@@ -1633,6 +1688,17 @@ namespace QLNHDN
                 MessageBox.Show("Huỷ phiếu đặt hàng thất bại!", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void dtpTuNgay_KTNH_ValueChanged(object sender, EventArgs e)
+        {
+            dtpDenNgay_KTNH.MinDate = dtpTuNgay_KTNH.Value;
+        }
+
+        private void dtpTuNgay_KTTHHT_ValueChanged(object sender, EventArgs e)
+        {
+            dtpDenNgay_KTTHHT.MinDate = dtpTuNgay_KTTHHT.Value;
+        }
+
 
         private void txtSLNhap_PN_Enter(object sender, EventArgs e)
         {

@@ -14,5 +14,6 @@ namespace DTO
         public string PhoneNumber { get; set; }
         public string Type { get; set; }
         public double DiscountRate { get; set; }
+        public int Point { get; set; }
     }
 }

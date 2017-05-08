@@ -61,7 +61,21 @@ namespace BUS
         public Bill createNewBill(Bill new_bill)
         {
             new_bill.CreatingTime = DateTime.Now;
-            return dao_bill_management.createNewBill(new_bill);
+            Bill bill = dao_bill_management.createNewBill(new_bill);
+            if (new_bill.Customer.Type == "Thân thiết")
+            {
+                //Cộng điểm
+                int new_point = bill.Customer.Point + (int)(bill.ActualTotal / 1000);
+                dao_bill_management.UpdatePoint(bill.Customer, new_point);
+
+                //Nếu điểm cao hơn 5000 thì nâng cấp khách hàng
+                if (new_point >= 5000)
+                {
+                    dao_bill_management.UpgradeCustomerToVIP(bill.Customer);
+                    bill.Customer.Type = "VIP";
+                }   
+            }
+            return bill;
         }
     }
 }

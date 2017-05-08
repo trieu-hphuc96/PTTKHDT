@@ -23,9 +23,7 @@ namespace DAO
         }
         public List<Product> loadFoodList(string name)
         {           
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = DBConnection.connectDB();
-            cmd.CommandText = "sp_FoodSearch";
+            SqlCommand cmd = new SqlCommand("sp_FoodSearch", DBConnection.connectDB());
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@TenSP", SqlDbType.NVarChar, 50).Value = name;       
 
@@ -47,9 +45,7 @@ namespace DAO
         }
         public List<Product> loadBeverageList(string name)
         {
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = DBConnection.connectDB();
-            cmd.CommandText = "sp_BeverageSearch";
+            SqlCommand cmd = new SqlCommand("sp_BeverageSearch", DBConnection.connectDB());
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@TenSP", SqlDbType.NVarChar, 50).Value = name;
 
@@ -70,12 +66,9 @@ namespace DAO
             }
             return beverageList;
         }
-
         public Customer getCustomerDetail(string customerID)
         {
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = DBConnection.connectDB();
-            cmd.CommandText = "sp_CustomerDetail";
+            SqlCommand cmd = new SqlCommand("sp_CustomerDetail", DBConnection.connectDB());
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@MakH", SqlDbType.NVarChar, 50).Value = customerID;
 
@@ -98,6 +91,7 @@ namespace DAO
                     customer.PhoneNumber = row.Field<string>("SoDT");
                     customer.Type = row.Field<string>("TenLoai");
                     customer.DiscountRate = row.Field<double>("TyLeChietKhau");
+                    customer.Point = row.Field<int>("DiemTichLuy");
                 }
                 return customer;
             }
@@ -106,9 +100,7 @@ namespace DAO
         public Bill createNewBill(Bill new_bill)
         {
             //Tạo dòng mới trên bảng HoaDon
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = DBConnection.connectDB();
-            cmd.CommandText = "sp_createNewBillInfo";
+            SqlCommand cmd = new SqlCommand("sp_createNewBillInfo", DBConnection.connectDB());
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@NgayGio", SqlDbType.DateTime).Value = new_bill.CreatingTime;
@@ -124,9 +116,7 @@ namespace DAO
         }
         private Bill insertItemsToBill(Bill new_bill)
         {
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = DBConnection.connectDB();
-            cmd.CommandText = "sp_insertItemsToBill";
+            SqlCommand cmd = new SqlCommand("sp_insertItemsToBill", DBConnection.connectDB());
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@MaHD", SqlDbType.Int).Value = new_bill.ID;
             cmd.Parameters.Add("@MaSP", SqlDbType.Int);
@@ -142,5 +132,24 @@ namespace DAO
             }
             return new_bill;
         }
+        public void UpdatePoint(Customer customer, int point)
+        {
+            SqlCommand cmd = new SqlCommand("sp_UpdatePoint", DBConnection.connectDB());
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@MaKH", customer.ID);
+            cmd.Parameters.AddWithValue("@DiemTichLuy", point);
+            cmd.ExecuteNonQuery();
+        }
+        public void UpgradeCustomerToVIP(Customer customer)
+        {
+            SqlCommand cmd = new SqlCommand("sp_UpgradeCustomerToVIP", DBConnection.connectDB());
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@MaKH", customer.ID);
+            cmd.ExecuteNonQuery();
+            //Điểm trở về mức 0
+            UpdatePoint(customer, 0);
+
+        }
+
     }
 }

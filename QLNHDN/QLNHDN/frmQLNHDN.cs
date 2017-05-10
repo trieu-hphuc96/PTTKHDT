@@ -41,6 +41,19 @@ namespace QLNHDN
                 tạoPhiếuĐặtHàngToolStripMenuItem.Visible = false;
             }
             InitializeBillList();
+
+            foreach (Control c in this.Controls)
+            {
+                Console.WriteLine(c.Name);
+                getChildControls(c.Controls);
+            }
+        }
+        private void getChildControls(Control.ControlCollection cl)
+        {
+            foreach (Control c in cl)
+            {
+                Console.WriteLine("{0}", c.Name);
+            }
         }
 
         private void InitializeBillList()
@@ -324,6 +337,7 @@ namespace QLNHDN
             BUS.BillManagement bill = new BUS.BillManagement();           
             gridFood.DataSource = bill.loadFoodList(keyword);
             gridFood.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+           
         }
         private void txtFoodSearching_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -553,28 +567,24 @@ namespace QLNHDN
                         Bill settled_bill = new Bill();
                         settled_bill = bus.createNewBill(bill[currentBillIndex]);
 
-                        DialogResult result = MessageBox.Show("Tiến hành in hoá đơn.", "Xác nhận", MessageBoxButtons.OK);
-                        if (result == DialogResult.OK)
-                        {
                             //In hoá đơn
-                            btnBillPrinting_Click(btnBillPrinting, e);
+                        btnBillPrinting_Click(btnBillPrinting, e);
 
-                            //Thêm mới khách hàng thân thiết
-                            int actualTotal = NumberFromVND(txtActualTotal.Text);
-                            if (txtCustomerID.Text == "1" && actualTotal >= 500000)
-                            {
-                                MessageBox.Show("Hoá đơn có giá trị trên 500.000đ, bạn nên đăng ký Khách hàng thân thiết mới.", "Đăng ký khách hàng thân thiết", MessageBoxButtons.OK);
-                                hienMotTab(tabMenu, tabTTKhachHang);
-                            }
-                            //Thông báo khách hàng lên mức "Khách hàng VIP"
-                            else if (settled_bill.Customer.Type == "VIP" && txtDiscountRate.Text == "0.1")
-                            {
-                                MessageBox.Show("Chúc mừng khách hàng đã được nâng cấp thành VIP", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                BillRefresh();
-                            }
-                            //Làm mới hoá đơn
+                        //Thêm mới khách hàng thân thiết
+                        int actualTotal = NumberFromVND(txtActualTotal.Text);
+                        if (txtCustomerID.Text == "1" && actualTotal >= 500000)
+                        {
                             MessageBox.Show("Tạo hoá đơn thành công!");
+                            MessageBox.Show("Hoá đơn có giá trị trên 500.000đ, bạn nên đăng ký Khách hàng thân thiết mới.", "Đăng ký khách hàng thân thiết", MessageBoxButtons.OK);
                         }
+                        //Thông báo khách hàng lên mức "Khách hàng VIP"
+                        else if (settled_bill.Customer.Type == "VIP" && txtDiscountRate.Text == "0.1")
+                        {
+                            MessageBox.Show("Tạo hoá đơn thành công!");
+                            MessageBox.Show("Chúc mừng khách hàng đã được nâng cấp thành VIP", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        //Làm mới hoá đơn
+                        BillRefresh();
                     }
                 }
                 else
@@ -624,7 +634,13 @@ namespace QLNHDN
             if (currentBill.Customer.Type != "Bình thường")
             {
                 sb.AppendFormat("Mã khách hàng: {0,-5} ", currentBill.Customer.ID);
-                sb.AppendFormat("{0,20}: {1,-15}\n", "Cấp độ khách hàng", currentBill.Customer.Type);
+                sb.AppendFormat("{0,20}:", "Cấp độ khách hàng");
+                if(currentBill.Customer.Type == "VIP" && txtDiscountRate.Text == "0.1")
+                {
+                    sb.AppendFormat(" {0,-15}\n", "Thân thiết");
+                }
+                else
+                    sb.AppendFormat(" {0,-15}\n", currentBill.Customer.Type);
             }
 
             sb.AppendFormat("Mã nhân viên: {0}\n", currentBill.Staff.ID);
@@ -649,9 +665,9 @@ namespace QLNHDN
             {
                 sb.AppendFormat("{0,30}{1,20}\n", "Điểm hiện tại", currentBill.Customer.Point);
                 sb.AppendFormat("{0,30}{1,20}\n", "Điểm được cộng", (int)(currentBill.ActualTotal / 1000));
-                sb.AppendFormat("{0,30}{1,20}\n", "Điểm sau khi được cộng", currentBill.Customer.Point += (int)(currentBill.ActualTotal / 1000));
+                sb.AppendFormat("{0,30}{1,20}\n", "Điểm sau khi được cộng", currentBill.Customer.Point + (int)(currentBill.ActualTotal / 1000));
 
-                if(currentBill.Customer.Point >= 5000)
+                if(currentBill.Customer.Point + (int)(currentBill.ActualTotal / 1000) >= 5000)
                 {
                     sb.AppendLine("Chúc mừng thực khách vừa được nâng cấp lên thành \"VIP\"!");
                 }
@@ -1699,6 +1715,10 @@ namespace QLNHDN
             dtpDenNgay_KTTHHT.MinDate = dtpTuNgay_KTTHHT.Value;
         }
 
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Close();
+        }
 
         private void txtSLNhap_PN_Enter(object sender, EventArgs e)
         {
